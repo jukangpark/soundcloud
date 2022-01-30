@@ -1,5 +1,5 @@
 function App() {
-  return <div className="App">게시판 보드</div>;
+  return <div className="App">게시판asdf asasdfdfa</div>;
 }
 
 export default App;
