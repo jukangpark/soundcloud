@@ -41,7 +41,7 @@ const Write = () => {
         <Input placeholder="제목" id="title" name="title"></Input>
 
         <Label>내용</Label>
-        <TextArea id="text" name="text" placeholder="내용"></TextArea>
+        <TextArea id="content" name="content" placeholder="내용"></TextArea>
         <button>Submit</button>
       </Form>
     </div>
