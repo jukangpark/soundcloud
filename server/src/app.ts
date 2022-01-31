@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "./db";
 import express from "express";
 import morgan from "morgan";
@@ -29,10 +30,11 @@ app.post("/write", async (req, res) => {
   const { title, content } = req.body;
   console.log(title, content);
   try {
-    await Post.create({
+    const newPost = await Post.create({
       title,
       content,
     });
+    await newPost.save();
   } catch (error) {
     return res.status(400).redirect("/");
   }
