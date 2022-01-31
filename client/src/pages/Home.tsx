@@ -21,6 +21,8 @@ interface fuck {
   fuck: string;
 }
 
+// 해로쿠에서는 어디에 fetch 날릴거임?
+
 const Home = () => {
   const [list, setList] = useState<fuck>();
   const [isLoading, setLoading] = useState(true);
@@ -31,7 +33,7 @@ const Home = () => {
       {isLoading ? "loading..." : <div>{list?.fuck}</div>}
       <button
         onClick={() => {
-          fetch("http://localhost:3000/api/data")
+          fetch("/api/data")
             .then((response) => response.json())
             .then((data) => console.log(data));
         }}
@@ -40,7 +42,7 @@ const Home = () => {
       </button>
       <button
         onClick={() => {
-          fetch("http://localhost:3000/api/view")
+          fetch("/api/view")
             .then((response) => response.json())
             .then((data) => setList(data));
           setLoading(false);

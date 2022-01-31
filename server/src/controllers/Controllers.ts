@@ -19,3 +19,8 @@ export const view = (req: any, res: any) => {
 };
 
 // res.json  과 res.send의 차이 때문에 잘 되지 않는건가?
+
+// 한가지 확실한 점 => Post.find({}) 는 array를 리턴하는 것이 아니다.
+// 그리고 그냥 json 형태로 보내주면
+// 클라이언트 쪽에서
+// 파싱해서 잘 보여주면 보내주기 삽가능.
