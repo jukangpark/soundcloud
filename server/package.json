@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "cd dist && node app.js",
     "client": "cd .. && cd client && npm run start",
-    "server": "nodemon dist/app.js",
+    "server": "nodemon src/app.ts",
     "dev": "concurrently --kill-others-on-fail \"npm run build\" \"npm run server\" \"npm run client\" "
   },
   "author": "",
@@ -18,7 +18,8 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "mongoose": "^6.1.8",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "ts-node": "^10.4.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",

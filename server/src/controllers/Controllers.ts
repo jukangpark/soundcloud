@@ -2,7 +2,7 @@ import Post from "../models/POST";
 
 export const registerView = (req: any, res: any) => {
   console.log("register view에 도착했습니다.");
-  res.json({ hello: "hello world" });
+  res.json({ hello: "노디몬은 잘 작동할것인가요?" });
 };
 
 export const view = async (req: any, res: any) => {
