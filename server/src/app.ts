@@ -27,9 +27,10 @@ import apiRouter from "./ routers/apiRouter"; // typescript에서 dotenv import 
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 
 app.use(express.static("build"));
+// 이렇게 작성해주면 정상적으로 build 폴더 안에 있는 파일들을 서버에서 가져올 수 있습니다.
 
 const logger = morgan("dev");
 
@@ -46,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", apiRouter);
 
-app.post("/write", async (req, res) => {
+app.post("/api/write", async (req, res) => {
   const { title, content } = req.body;
   console.log(title, content);
   try {
@@ -68,7 +69,17 @@ app.post("/write", async (req, res) => {
   res.redirect("/");
 });
 
-app.get("*", function (req, res) {
+// app.get("/", function (req, res) {
+//   res.sendFile(__dirname + "/build/index.html");
+// });
+// 리액트 라우팅으로 /list 페이지를 개발해놨는데
+// 실제 localhost:8080/list 로 접속하면 아무것도 뜨지 않아요.
+// 왜냐하면 브라우저 URL 창에서 때려박는건 서버에서 요청하는 거지.
+// 리액트 라우터에게 라우팅 요청하는게 아니기 때문입니다.
+// 따라서 이걸 리액트가 라우팅 전권을 넘기고 싶다면
+// server.js 에 다음과 같은 코드를 추가해야함.
+
+app.get("*", (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
 });
 

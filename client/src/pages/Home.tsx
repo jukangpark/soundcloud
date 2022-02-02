@@ -20,6 +20,10 @@ const MainTitle = styled.h1`
 interface IPost {
   title: string;
   content: string;
+  createdAt: number;
+  meta: {
+    views: number;
+  };
 }
 
 // 해로쿠에서는 어디에 fetch 날릴거임?
@@ -28,24 +32,15 @@ const Home = () => {
   const [list, setList] = useState<IPost[]>();
   const [isLoading, setLoading] = useState(true);
 
-  const getMovie = async () => {
-    const json = await (
-      await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
-      )
-    ).json();
-    console.log(json);
-  };
   useEffect(() => {
-    getMovie();
     fetch("/api/view")
       .then((response) => response.json())
       .then((data) => setList(data.list));
-    // json을 파싱하면 어떤 형태로 나오는지 봐보자.
-    // 나의 예상으로는 data는 배열을 담고 있는 객체 형태여야합니다.
+
+    // data는 배열을 담고 있는 객체 입니다.
     setLoading(false);
   }, []);
-
+  console.log(list);
   return (
     <div>
       <Header />
@@ -64,7 +59,7 @@ const Home = () => {
       {isLoading
         ? "laoding..."
         : list?.map((x) => (
-            <li>
+            <li key={x.createdAt}>
               <span>{x.title}</span>
               <span>{x.content}</span>
             </li>

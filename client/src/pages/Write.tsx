@@ -36,7 +36,7 @@ const Write = () => {
     <div>
       <Header />
       <MainTitle>글 작성하기</MainTitle>
-      <Form method="POST">
+      <Form method="POST" action="/api/write">
         <Label htmlFor="title">제목</Label>
         <Input placeholder="제목" id="title" name="title"></Input>
 

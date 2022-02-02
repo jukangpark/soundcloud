@@ -11,8 +11,6 @@ export const view = async (req: any, res: any) => {
 
   // 선회하는 구조를 JSON으로 바꾸려고 해서 나는 에러이다. 배열을 json 형태로 바꿔줬기 때문에 그런듯..
   // JSON 객체의 직렬화에 대상은 ownProperty 이면서, enumerable 한것만 직렬화 대상이된다.
-  console.log(list.length);
-  console.log(list);
   // 배열이 리턴되었음. 그리고 그 배열안에는 객체가 있다.
   res.json({ list });
   // list 를 키 값으로 하는 객체를 json 형태로 stringify 해서 보내주는 거였음....
