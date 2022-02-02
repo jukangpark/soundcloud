@@ -1,13 +1,13 @@
 console.log(process.env.DB_URL); //undefined
 import dotenv from "dotenv";
 import path from "path";
-(() => {
-  const result = dotenv.config({ path: path.join(__dirname, "..", ".env") });
-  // .env 파일의 경로를 dotenv.config 에 넘겨주고 성공여부를 저장함.
-  if (result.parsed == undefined)
-    // .env 파일 parsing 성공 여부 확인
-    throw new Error("Cannot loaded envrionment variables file."); // parsing 실패시 Throwing
-})();
+// (() => {
+//   const result = dotenv.config({ path: path.join(__dirname, "..", ".env") });
+//   // .env 파일의 경로를 dotenv.config 에 넘겨주고 성공여부를 저장함.
+//   if (result.parsed == undefined)
+//     // .env 파일 parsing 성공 여부 확인
+//     throw new Error("Cannot loaded envrionment variables file."); // parsing 실패시 Throwing
+// })();
 console.log(process.env.DB_URL); // mongodb://127.0.0.1:27017/boardApp
 import "./db";
 import express from "express";
