@@ -1,13 +1,23 @@
 console.log(process.env.DB_URL); //undefined
 import dotenv from "dotenv";
 import path from "path";
-// (() => {
-//   const result = dotenv.config({ path: path.join(__dirname, "..", ".env") });
-//   // .env 파일의 경로를 dotenv.config 에 넘겨주고 성공여부를 저장함.
-//   if (result.parsed == undefined)
-//     // .env 파일 parsing 성공 여부 확인
-//     throw new Error("Cannot loaded envrionment variables file."); // parsing 실패시 Throwing
-// })();
+
+const isHeroku = process.env.NODE_ENV === "production";
+// 이 NODE_ENV 는 heroku에 정의되어 있다.
+
+(() => {
+  if (isHeroku) return;
+  const result = dotenv.config({ path: path.join(__dirname, "..", ".env") });
+  // .env 파일의 경로를 dotenv.config 에 넘겨주고 성공여부를 저장함.
+  if (result.parsed == undefined)
+    // .env 파일 parsing 성공 여부 확인
+    throw new Error("Cannot loaded envrionment variables file."); // parsing 실패시 Throwing
+})();
+// 여기 있는 즉시 실행 함수를 실행하게 되면
+// process.env.PORT 를 heroku 앱으로 접속했을 때
+// 에러가 나기 때문에
+// 해로쿠 환경에서는 이 즉시 실행함수가 실행되지 않도록 막는다.
+
 console.log(process.env.DB_URL); // mongodb://127.0.0.1:27017/boardApp
 import "./db";
 import express from "express";
