@@ -5,22 +5,22 @@ export const registerView = (req: any, res: any) => {
   res.json({ hello: "hello world" });
 };
 
-export const view = (req: any, res: any) => {
-  //   console.log("view에 도착했습니다.");
-  //   const list = Post.find({}); // 여기서 json 객체가 좀 잘못 오는건가?
-  //   console.log(list);
-  res.json({ fuck: "fucking view" });
+export const view = async (req: any, res: any) => {
+  const list = await Post.find();
+  // 배열을 리턴해준다.
 
-  // res.send 로 보냈을 때
-  // You need to enable JavaScript to run this app 이런 response가 나왔기 때문에
-  // json 형태가 아니라서 거부가되었음.
-
-  // res.json 으로 배열로 감싸서 보냈더니 [{title: "asdf"}] 똑같은 에러가 나옴.
+  // 선회하는 구조를 JSON으로 바꾸려고 해서 나는 에러이다. 배열을 json 형태로 바꿔줬기 때문에 그런듯..
+  // JSON 객체의 직렬화에 대상은 ownProperty 이면서, enumerable 한것만 직렬화 대상이된다.
+  console.log(list.length);
+  console.log(list);
+  // 배열이 리턴되었음. 그리고 그 배열안에는 객체가 있다.
+  res.json({ list });
+  // list 를 키 값으로 하는 객체를 json 형태로 stringify 해서 보내주는 거였음....
+  // 왜 이런식으로 json 으로 넘겨줬는데 map 함수로 돌릴 수 없다고 하지?
+  // data 타입이 객체여서 그런건가? oo
+  // data 타입이 객체이고 그 객체안에 배열이 있기 때문에
+  // 그 배열을 map 함수로 돌려줘야함...
 };
 
 // res.json  과 res.send의 차이 때문에 잘 되지 않는건가?
-
-// 한가지 확실한 점 => Post.find({}) 는 array를 리턴하는 것이 아니다.
-// 그리고 그냥 json 형태로 보내주면
-// 클라이언트 쪽에서
-// 파싱해서 잘 보여주면 보내주기 삽가능.
+// 아님 둘다 거의 같은 거임.
