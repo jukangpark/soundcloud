@@ -30,7 +30,7 @@ const Search = () => {
         onSubmit={handleSubmit(onValid)}
       >
         <Input
-          {...register("keyword")}
+          {...register("keyword", { required: "키워드를 작성해주세요" })}
           placeholder="search title"
           name="keyword"
         />

@@ -1,11 +1,19 @@
 import Post from "../models/POST";
 import express from "express";
-import { registerView, view, searchTitle } from "../controllers/Controllers";
+import {
+  registerView,
+  view,
+  searchTitle,
+  viewPost,
+  deletePost,
+} from "../controllers/Controllers";
 
 const apiRouter = express.Router();
 
+apiRouter.get("/view/:id", viewPost);
 apiRouter.get("/data", registerView);
 apiRouter.get("/view", view);
+apiRouter.get("/delete/:id", deletePost);
 
 apiRouter.post("/write", async (req, res) => {
   const { title, content } = req.body;

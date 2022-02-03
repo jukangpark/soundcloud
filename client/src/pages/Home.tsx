@@ -24,6 +24,7 @@ export interface IPost {
   meta: {
     views: number;
   };
+  _id: number;
 }
 
 // 해로쿠에서는 어디에 fetch 날릴거임?
@@ -46,24 +47,17 @@ const Home = () => {
       <Header />
       <MainTitle>Board App</MainTitle>
 
-      <button
-        onClick={() => {
-          fetch("/api/data")
-            .then((response) => response.json())
-            .then((data) => console.log(data));
-        }}
-      >
-        get data
-      </button>
-
       {isLoading
         ? "laoding..."
         : list?.map((x, index) => (
             <li key={x.createdAt}>
-              <span>{`제목 : ${x.title}`}</span>
-              <span>{`작성한 날짜 : ${x.createdAt}`}</span>
-              <br></br>
-              <span>{`조회수 : ${x.meta.views}`}</span>
+              <Link to={`${x._id}`}>
+                <span>{`제목 : ${x.title}`}</span>
+                <span>{`작성한 날짜 : ${x.createdAt}`}</span>
+                <br></br>
+                <span>{`조회수 : ${x.meta.views}`}</span>
+              </Link>
+              <hr></hr>
             </li>
           ))}
     </div>

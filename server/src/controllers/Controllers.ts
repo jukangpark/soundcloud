@@ -37,3 +37,17 @@ export const searchTitle = async (req: any, res: any) => {
   console.log(posts);
   res.json({ list: posts });
 };
+
+export const viewPost = async (req: any, res: any) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+  res.json({ post });
+};
+
+export const deletePost = async (req: any, res: any) => {
+  const { id } = req.params;
+  console.log(id);
+  await Post.findByIdAndDelete(id);
+  return res.redirect("/"); // api 로 요청한 것들은 모두 proxy localhost:9000 으로 가기 때문에
+  // localhost:9000 으로 redirect "/" 하고 있어서 에러가 발생하는 거 같은데? 아닐 수도 있음.
+};
