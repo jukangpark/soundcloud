@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Input from "../components/Input";
 import MainTitle from "../components/MainTitle";
 import { IPost } from "../pages/Home";
 
-interface IFormData {
+export interface IFormData {
   keyword: string;
 }
 
@@ -38,7 +39,9 @@ const Search = () => {
       </form>
       <ul>
         {list?.map((x, index) => (
-          <li key={index}>{x.title}</li>
+          <li key={index}>
+            <Link to={`/${x._id}`}>{x.title}</Link>
+          </li>
         ))}
       </ul>
     </div>

@@ -1,16 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import MainTitle from "../components/MainTitle";
 import { IPost } from "./Home";
 
-interface IParams {
+export interface IParams {
   id: string;
 }
 
 const Post = () => {
   const { id } = useParams<IParams>();
   const [post, setPost] = useState<IPost>();
+
+  function DeleteButton() {
+    let history = useHistory();
+
+    const handleClick = () => {
+      fetch(`/api/delete/${id}`, {
+        method: "POST",
+      });
+      history.push("/");
+    };
+
+    return <button onClick={handleClick}>delete</button>;
+  }
 
   console.log(id);
   useEffect(() => {
@@ -31,9 +44,12 @@ const Post = () => {
       <button>
         <Link to={`/${id}/update`}>update</Link>
       </button>
-      <Link to={`/api/delete/${id}`}>delete</Link>
+
+      <DeleteButton />
     </div>
   );
 };
 
 export default Post;
+
+// redirect 되게 하는 법.

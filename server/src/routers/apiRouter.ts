@@ -6,14 +6,16 @@ import {
   searchTitle,
   viewPost,
   deletePost,
+  update,
 } from "../controllers/Controllers";
 
 const apiRouter = express.Router();
 
+apiRouter.post("/:id/update", update);
 apiRouter.get("/view/:id", viewPost);
 apiRouter.get("/data", registerView);
 apiRouter.get("/view", view);
-apiRouter.get("/delete/:id", deletePost);
+apiRouter.post("/delete/:id", deletePost);
 
 apiRouter.post("/write", async (req, res) => {
   const { title, content } = req.body;
