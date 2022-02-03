@@ -17,7 +17,7 @@ const MainTitle = styled.h1`
 //   comments: object;
 // }
 
-interface IPost {
+export interface IPost {
   title: string;
   content: string;
   createdAt: number;
@@ -58,10 +58,12 @@ const Home = () => {
 
       {isLoading
         ? "laoding..."
-        : list?.map((x) => (
+        : list?.map((x, index) => (
             <li key={x.createdAt}>
-              <span>{x.title}</span>
-              <span>{x.content}</span>
+              <span>{`제목 : ${x.title}`}</span>
+              <span>{`작성한 날짜 : ${x.createdAt}`}</span>
+              <br></br>
+              <span>{`조회수 : ${x.meta.views}`}</span>
             </li>
           ))}
     </div>

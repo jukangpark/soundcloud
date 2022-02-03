@@ -1,13 +1,13 @@
 import Post from "../models/POST";
 import express from "express";
-import { registerView, view } from "../controllers/Controllers";
+import { registerView, view, searchTitle } from "../controllers/Controllers";
 
 const apiRouter = express.Router();
 
 apiRouter.get("/data", registerView);
 apiRouter.get("/view", view);
 
-apiRouter.post("/api/write", async (req, res) => {
+apiRouter.post("/write", async (req, res) => {
   const { title, content } = req.body;
   console.log(title, content);
   try {
@@ -28,5 +28,7 @@ apiRouter.post("/api/write", async (req, res) => {
   }
   res.redirect("/");
 });
+
+apiRouter.get("/search", searchTitle);
 
 export default apiRouter;

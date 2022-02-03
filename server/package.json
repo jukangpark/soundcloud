@@ -8,8 +8,8 @@
     "build": "tsc",
     "start": "cd dist && node app.js",
     "client": "cd .. && cd client && npm run start",
-    "server": "nodemon src/app.ts",
-    "dev": "concurrently --kill-others-on-fail \"npm run build\" \"npm run server\" \"npm run client\" "
+    "server": "nodemon --exec ts-node src/app.ts",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
   },
   "author": "",
   "license": "ISC",

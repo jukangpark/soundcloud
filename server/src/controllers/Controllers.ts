@@ -2,7 +2,7 @@ import Post from "../models/POST";
 
 export const registerView = (req: any, res: any) => {
   console.log("register view에 도착했습니다.");
-  res.json({ hello: "노디몬은 잘 작동할것인가요?" });
+  res.json({ hello: "노디몬" });
 };
 
 export const view = async (req: any, res: any) => {
@@ -22,3 +22,18 @@ export const view = async (req: any, res: any) => {
 
 // res.json  과 res.send의 차이 때문에 잘 되지 않는건가?
 // 아님 둘다 거의 같은 거임.
+
+export const searchTitle = async (req: any, res: any) => {
+  const { keyword } = req.query;
+  console.log(keyword);
+  let posts = [];
+  if (keyword) {
+    posts = await Post.find({
+      title: {
+        $regex: new RegExp(`${keyword}`, "i"),
+      },
+    });
+  }
+  console.log(posts);
+  res.json({ list: posts });
+};

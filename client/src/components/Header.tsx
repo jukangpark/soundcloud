@@ -20,11 +20,18 @@ const Header = () => {
   return (
     <header>
       <MenuContainer>
-        <li>Search</li>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <Link to="/search">Search</Link>
+        </li>
         <li>
           <Link to="/write">Write</Link>
         </li>
-        <li>Join</li>
+        <li>
+          <Link to="/join">Join</Link>
+        </li>
         <li>Login</li>
       </MenuContainer>
     </header>

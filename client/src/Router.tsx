@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
+import Search from "./pages/Search";
 import Write from "./pages/Write";
 
 const Router = () => {
@@ -12,6 +13,9 @@ const Router = () => {
         </Route>
         <Route path="/join">
           <Join />
+        </Route>
+        <Route path="/search">
+          <Search />
         </Route>
         <Route path="/">
           <Home />
