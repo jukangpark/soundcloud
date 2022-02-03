@@ -38,11 +38,17 @@ const Search = () => {
         <button>Search</button>
       </form>
       <ul>
-        {list?.map((x, index) => (
-          <li key={index}>
-            <Link to={`/${x._id}`}>{x.title}</Link>
-          </li>
-        ))}
+        {list === undefined ? (
+          "nothing is found"
+        ) : (
+          <>
+            {list?.map((x, index) => (
+              <li key={index}>
+                <Link to={`/${x._id}`}>{x.title}</Link>
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </div>
   );

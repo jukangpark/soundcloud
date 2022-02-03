@@ -7,6 +7,8 @@ import {
   viewPost,
   deletePost,
   update,
+  join,
+  login,
 } from "../controllers/Controllers";
 
 const apiRouter = express.Router();
@@ -40,5 +42,9 @@ apiRouter.post("/write", async (req, res) => {
 });
 
 apiRouter.get("/search", searchTitle);
+
+//user
+apiRouter.post("/user/join", join);
+apiRouter.post("/user/login", login);
 
 export default apiRouter;

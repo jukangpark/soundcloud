@@ -5,6 +5,8 @@ import Search from "./pages/Search";
 import Write from "./pages/Write";
 import Post from "./pages/Post";
 import Update from "./pages/Update";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 const Router = () => {
   return (
@@ -16,8 +18,14 @@ const Router = () => {
         <Route path="/join">
           <Join />
         </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
         <Route path="/search">
           <Search />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         <Route path="/:id/update">
           <Update />

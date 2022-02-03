@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
   background-color: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.textColor}
   }
-  ol, ul {
+  ol, ul, li {
   list-style: none;
   }
   blockquote, q {

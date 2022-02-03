@@ -1,4 +1,5 @@
 import Post from "../models/POST";
+import User from "../models/User";
 
 export const registerView = (req: any, res: any) => {
   console.log("register view에 도착했습니다.");
@@ -41,7 +42,7 @@ export const searchTitle = async (req: any, res: any) => {
 export const viewPost = async (req: any, res: any) => {
   const { id } = req.params;
   const post = await Post.findById(id);
-  res.json({ post });
+  return res.json({ post });
 };
 
 export const deletePost = async (req: any, res: any) => {
@@ -62,4 +63,29 @@ export const update = async (req: any, res: any) => {
   });
 
   return res.redirect("/");
+};
+
+//user
+
+export const join = async (req: any, res: any) => {
+  const { password, username, email, location } = req.body;
+  const exists = await User.findOne({ email });
+
+  if (exists) {
+    return res.status(400).end();
+  }
+  try {
+    await User.create({ password, username, email, location });
+  } catch (error) {
+    return res.status(400).end();
+  }
+
+  return res.status(200).end();
+};
+
+export const login = async (req: any, res: any) => {
+  const { username, password } = req.body;
+  console.log(username, password);
+
+  return res.status(200).redirect("/");
 };

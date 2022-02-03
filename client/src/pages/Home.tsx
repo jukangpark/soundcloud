@@ -52,10 +52,9 @@ const Home = () => {
         : list?.map((x, index) => (
             <li key={x.createdAt}>
               <Link to={`${x._id}`}>
-                <span>{`제목 : ${x.title}`}</span>
+                <h1>{`제목 : ${x.title}`}</h1>
                 <span>{`작성한 날짜 : ${x.createdAt}`}</span>
-                <br></br>
-                <span>{`조회수 : ${x.meta.views}`}</span>
+                <p>{`조회수 : ${x.meta.views}`}</p>
               </Link>
               <hr></hr>
             </li>

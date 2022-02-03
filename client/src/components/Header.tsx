@@ -32,7 +32,12 @@ const Header = () => {
         <li>
           <Link to="/join">Join</Link>
         </li>
-        <li>Login</li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
       </MenuContainer>
     </header>
   );
