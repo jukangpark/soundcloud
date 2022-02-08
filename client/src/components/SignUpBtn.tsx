@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const Btn = styled.div`
+const Btn = styled.button`
+  display: block;
+  padding: 0;
+  border: none;
   width: 210px;
   height: 50px;
   line-height: 50px;
