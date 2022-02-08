@@ -1,17 +1,21 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {
+  Banner,
+  Description,
+  TitleBox,
+  TitleContainer,
+} from "../components/Banner";
 import Header from "../components/Header";
-import MainTitle from "../components/MainTitle";
+import Input from "../components/Input";
+import Title from "../components/MainTitle";
+import SignUpBtn from "../components/SignUpBtn";
+import Wrapper from "../components/Wrapper";
 
 export const Form = styled.form`
   display: block;
-  max-width: 250px;
   margin: 50px auto;
-`;
-
-export const Input = styled.input`
-  width: 200px;
-  padding: 0;
-  box-sizing: border-box;
+  max-width: 420px;
 `;
 
 export const TextArea = styled.textarea`
@@ -21,24 +25,35 @@ export const TextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
-export const Label = styled.label`
-  width: 50px;
-  display: block;
-`;
-
 const Write = () => {
   return (
-    <div>
-      <Header />
-      <MainTitle>글 작성하기</MainTitle>
+    <Wrapper>
+      <Banner
+        style={{
+          backgroundImage:
+            "url(https://a-v2.sndcdn.com/assets/images/img-upload-hero@2x-464ed045.jpg)",
+        }}
+      >
+        <Header />
+        <TitleContainer>
+          <TitleBox>
+            <Title>First upload to first album</Title>
+            <Description>
+              Share your tracks and access the tools you need to break through
+              and build your legacy.
+            </Description>
+            <SignUpBtn>
+              <Link to="/join">Upload your first track</Link>
+            </SignUpBtn>
+          </TitleBox>
+        </TitleContainer>
+      </Banner>
       <Form method="POST" action="/api/write">
-        <Label htmlFor="title">제목</Label>
-        <Input placeholder="제목" id="title" name="title"></Input>
-        <Label>내용</Label>
+        <Input placeholder="Title" id="title" name="title"></Input>
         <Input id="content" name="content" placeholder="내용"></Input>
         <button>Submit</button>
       </Form>
-    </div>
+    </Wrapper>
   );
 };
 

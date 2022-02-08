@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
 import Input from "../components/Input";
-import MainTitle from "../components/MainTitle";
 import { IPost } from "../pages/Home";
+import { Form } from "./Write";
 
 export interface IFormData {
   keyword: string;
@@ -24,19 +23,16 @@ const Search = () => {
 
   return (
     <div>
-      <Header />
-      <MainTitle>Search</MainTitle>
-      <form
-        style={{ maxWidth: "320px", margin: "0 auto" }}
-        onSubmit={handleSubmit(onValid)}
-      >
+      <Form onSubmit={handleSubmit(onValid)}>
         <Input
+          style={{
+            backgroundColor: "#f2f2f2",
+          }}
           {...register("keyword", { required: "키워드를 작성해주세요" })}
-          placeholder="search title"
+          placeholder="Search Title"
           name="keyword"
         />
-        <button>Search</button>
-      </form>
+      </Form>
       <ul>
         {list === undefined ? (
           "nothing is found"

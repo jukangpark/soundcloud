@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../atoms";
+import {
+  Banner,
+  Description,
+  TitleBox,
+  TitleContainer,
+} from "../components/Banner";
 import Header from "../components/Header";
+import Title from "../components/MainTitle";
 import MainTitle from "../components/MainTitle";
+import Wrapper from "../components/Wrapper";
 import { IPost } from "./Home";
 
 export interface IParams {
@@ -36,9 +44,16 @@ const Post = () => {
   }, []);
   console.log(post);
   return (
-    <div>
-      <Header />
-      <MainTitle>Post</MainTitle>
+    <Wrapper>
+      <Banner>
+        <Header />
+        <TitleContainer>
+          <TitleBox>
+            <Title>{post?.title}</Title>
+            <Description>{post?.content}</Description>
+          </TitleBox>
+        </TitleContainer>
+      </Banner>
       <div>
         <p>{post?.title}</p>
         <p>{post?.content}</p>
@@ -55,7 +70,7 @@ const Post = () => {
         <p>댓글2</p>
         <p>댓글3</p>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 

@@ -1,10 +1,21 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import MainTitle from "../components/MainTitle";
-import { Form, Input, Label } from "./Write";
+import { Form } from "./Write";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Wrapper from "../components/Wrapper";
+import BannerContainer, {
+  Description,
+  TitleBox,
+  TitleContainer,
+  Banner,
+} from "../components/Banner";
+import Title from "../components/MainTitle";
+import SignUpBtn from "../components/SignUpBtn";
+import Input from "../components/Input";
+import Btn from "../components/SignUpBtn";
 
 interface IUser {
   email: string;
@@ -14,6 +25,8 @@ interface IUser {
   username: string;
   location: string;
 }
+
+// https://a-v2.sndcdn.com/assets/images/img-upload-hero@2x-464ed045.jpg
 
 // email: { type: String, required: true, unique: true },
 // avatarUrl: String,
@@ -70,11 +83,26 @@ const Join = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <MainTitle>Join</MainTitle>
+    <Wrapper>
+      <Banner
+        style={{
+          backgroundImage:
+            "url(https://a-v2.sndcdn.com/assets/images/img-upload-hero@2x-464ed045.jpg)",
+        }}
+      >
+        <Header />
+        <TitleContainer>
+          <TitleBox>
+            <Title>Become a member</Title>
+            <Description>
+              Create your SoundCloud Member profile and get first access to the
+              very best of music , inspiration and community.
+            </Description>
+          </TitleBox>
+        </TitleContainer>
+      </Banner>
+
       <Form onSubmit={handleSubmit(onValid)}>
-        <Label>username</Label>
         <Input
           {...register("username", { required: "이름을 입력해주세요" })}
           placeholder="username"
@@ -82,33 +110,32 @@ const Join = () => {
         />
         {errors.username?.message}
 
-        <Label>password</Label>
         <Input
           {...register("password", {
+            required: "비밀번호를 입력해주세요",
             pattern: {
               value: /^[a-zA-Z0-9!@#$%^&*]{10,16}$/,
-              message: "올바르지 않은 비밀번호 형태입니다.",
+              message:
+                "영문 대 소문+숫자+특수문자 10~16자리(특수문자 포함 !@#$%^&*)",
             },
           })}
-          placeholder="영문 대 소문+숫자+특수문자 10~16자리(특수문자 포함 !@#$%^&*)"
+          placeholder="password"
           name="password"
           type="password"
         />
         {errors.password?.message}
 
-        <Label>password2</Label>
         <Input
           {...register("password2", {
             required: "비밀번호 확인을 입력해주세요",
           })}
-          placeholder="password2"
+          placeholder="password confirmation"
           name="password2"
           type="password"
         />
         <span>{error}</span>
         {errors.password2?.message}
 
-        <Label>email</Label>
         <Input
           {...register("email", {
             required: "이메일을 입력해주세요.",
@@ -124,7 +151,6 @@ const Join = () => {
         />
         {errors.email?.message}
 
-        <Label>location</Label>
         <Input
           {...register("location", {
             required: "location을 입력해주세요.",
@@ -135,12 +161,16 @@ const Join = () => {
         {errors.location?.message}
 
         <br />
-        <button onClick={handleSubmit(onValid)}>Join</button>
-        <p>If you already have account?</p>
-        <Link to="/login">Login</Link>
+        <Btn style={{ marginTop: "10px" }} onClick={handleSubmit(onValid)}>
+          Join
+        </Btn>
+        <p style={{ marginTop: "10px" }}>If you already have account?</p>
+        <Link to="/login" style={{ textDecoration: "underline" }}>
+          Login
+        </Link>
         <p>{message}</p>
       </Form>
-    </div>
+    </Wrapper>
   );
 };
 

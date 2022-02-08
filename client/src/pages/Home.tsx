@@ -1,38 +1,16 @@
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Write from "./Write";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Wrapper from "../components/Wrapper";
-import Title from "../components/MainTitle";
-import SignUpBtn from "../components/SignUpBtn";
 
-const Banner = styled.div`
-  background-image: url("https://a-v2.sndcdn.com/assets/images/sc_landing_header_web_featured_artists@2x-00444712.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 450px;
-`;
+import Search from "./Search";
+import BannerContainer from "../components/Banner";
+import styled from "styled-components";
 
-const TitleContainer = styled.div`
-  position: relative;
-  height: 100%;
-`;
-
-const TitleBox = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-`;
-
-const Description = styled.p`
+const Trending = styled.div`
+  font-size: 24px;
   text-align: center;
-  font-size: 18px;
-  max-width: 530px;
-  line-height: 25px;
+  padding-top: 20px;
+  margin-bottom: 30px;
 `;
 
 export interface IPost {
@@ -62,27 +40,28 @@ const Home = () => {
   console.log(list);
   return (
     <Wrapper>
-      <Banner>
-        <Header />
-        <TitleContainer>
-          <TitleBox>
-            <Title>Connect on SoundCloud</Title>
-            <Description>
-              Discover, stream, and share a constantly expanding mix of music
-              from emerging and major artists around the world.
-            </Description>
-            <SignUpBtn>
-              <Link to="/join">Create account</Link>
-            </SignUpBtn>
-          </TitleBox>
-        </TitleContainer>
-      </Banner>
+      <BannerContainer />
 
-      {isLoading
-        ? "laoding..."
-        : list?.map((x, index) => (
+      {isLoading ? (
+        "laoding..."
+      ) : (
+        <>
+          <Search />
+          <Trending>
+            Hear what’s trending for free in the SoundCloud community
+          </Trending>
+          {list?.map((x, index) => (
             <li key={x.createdAt}>
               <Link to={`${x._id}`}>
+                <div
+                  style={{
+                    backgroundColor: "gray",
+                    width: "200px",
+                    height: "200px",
+                  }}
+                >
+                  썸네일
+                </div>
                 <h1>{`제목 : ${x.title}`}</h1>
                 <span>{`작성한 날짜 : ${x.createdAt}`}</span>
                 <p>{`조회수 : ${x.meta.views}`}</p>
@@ -90,6 +69,8 @@ const Home = () => {
               <hr></hr>
             </li>
           ))}
+        </>
+      )}
     </Wrapper>
   );
 };

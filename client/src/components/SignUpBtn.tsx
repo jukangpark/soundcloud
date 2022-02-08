@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-const SignUpBtn = styled.div`
+const Btn = styled.div`
   width: 210px;
   height: 50px;
+  line-height: 50px;
   background-color: #f50;
   border-color: #f50;
   text-align: center;
@@ -11,6 +12,9 @@ const SignUpBtn = styled.div`
   border-radius: 3px;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
   a {
     font-size: 18px;
     line-height: 50px;
@@ -23,4 +27,4 @@ const SignUpBtn = styled.div`
   }
 `;
 
-export default SignUpBtn;
+export default Btn;

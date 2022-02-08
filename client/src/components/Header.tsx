@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userState } from "../atoms";
+import { isDarkState, userState } from "../atoms";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSoundcloud } from "@fortawesome/free-brands-svg-icons";
@@ -14,10 +14,15 @@ const MenuContainer = styled.ul`
     width: 25%;
     line-height: 50px;
     text-align: center;
-    a:hover {
+    a {
       display: block;
-      background-color: gray;
+      height: 50px;
+      line-height: 50px;
+    }
+    a:hover {
+      background-color: ${(props) => props.theme.accentColor};
       cursor: pointer;
+      transition-duration: 400ms;
     }
   }
 `;
@@ -26,6 +31,7 @@ const Header = () => {
   const history = useHistory();
   const [user, setUser] = useRecoilState(userState);
   const [loggedIn, setLoggedIn] = useState(false);
+  const isDark = useRecoilValue(isDarkState);
 
   useEffect(() => {
     fetch("/api/user/info")
@@ -55,29 +61,34 @@ const Header = () => {
     >
       <MenuContainer>
         <li>
-          <a href="/" style={{ fontWeight: "bold" }}>
+          <Link
+            to="/"
+            style={{
+              fontWeight: "bold",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "16px",
+              letterSpacing: "1px",
+            }}
+          >
             <FontAwesomeIcon
               icon={faSoundcloud}
               color="white"
-              fontSize="25px"
+              fontSize="40px"
               style={{ marginRight: "10px" }}
             />
             SOUNDCLOUD
-          </a>
-        </li>
-        <li>
-          <Link to="/search">Search</Link>
+          </Link>
         </li>
 
         {loggedIn ? (
           <>
             <li>
-              <Link to="/write">Write</Link>
+              <Link to="/write">Upload</Link>
             </li>
             <li>
-              <Link to="/profile">
-                {user?.username ? user?.username : "Profile"}
-              </Link>
+              <Link to="/profile">Profile</Link>
             </li>
             <li>
               <div style={{ cursor: "pointer" }} onClick={onClick}>
@@ -87,6 +98,7 @@ const Header = () => {
           </>
         ) : (
           <>
+            <li></li>
             <li>
               <Link to="/join">Create account</Link>
             </li>

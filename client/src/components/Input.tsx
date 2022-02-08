@@ -8,6 +8,9 @@ const Input = styled.input`
   padding-left: 10px;
   box-sizing: border-box;
   display: block;
+  border: none;
+  outline: none;
+  border: 0.5px solid #999999;
 `;
 
 export default Input;

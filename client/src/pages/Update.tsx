@@ -6,7 +6,7 @@ import { IParams } from "./Post";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import { IFormData } from "./Search";
-import { Form, Label, TextArea } from "./Write";
+import { Form, TextArea } from "./Write";
 import { IPost } from "./Home";
 
 const Update = () => {
@@ -39,7 +39,6 @@ const Update = () => {
       <Header />
       <MainTitle>Update</MainTitle>
       <Form method="POST" action={`/api/${id}/update`}>
-        <Label htmlFor="title">제목</Label>
         <Input
           placeholder="제목"
           id="title"
@@ -47,7 +46,6 @@ const Update = () => {
           value={title || ""} // value 에는 undefined 가 들어올 수 없기 때문에 이렇게.
           onChange={onChangeTitle}
         ></Input>
-        <Label>내용</Label>
         <Input
           onChange={onChangeContent}
           id="content"
