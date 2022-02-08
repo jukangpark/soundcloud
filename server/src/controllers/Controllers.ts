@@ -86,24 +86,33 @@ export const join = async (req: any, res: any) => {
 
 export const login = async (req: any, res: any) => {
   const { username, password } = req.body;
-  console.log(username, password);
   const user = await User.findOne({ username });
 
-  console.log("user=", user);
-
   if (!user) {
-    return res.status(400).end("/");
+    return res
+      .status(400)
+      .json({ message: "아이디가 존재하지 않습니다." })
+      .end();
   }
 
   const ok = await bcrypt.compare(password, user.password);
 
-  console.log("ok=", ok);
-
   if (!ok) {
-    return res.status(400).redirect("/");
+    return res
+      .status(400)
+      .json({ message: "비밀번호가 일치하지 않습니다." })
+      .end();
   }
 
   req.session.loggedIn = true;
   req.session.user = user;
-  return res.status(200).redirect("/");
+  // 로그인 처리
+
+  return res.status(200).json({ message: "로그인 성공", user }).end();
+  // json 으로 user 데이터 보내주기
+};
+
+export const logOut = (req: any, res: any) => {
+  req.session.destroy();
+  return res.status(200).end();
 };

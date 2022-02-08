@@ -9,6 +9,7 @@ import {
   update,
   join,
   login,
+  logOut,
 } from "../controllers/Controllers";
 
 const apiRouter = express.Router();
@@ -46,5 +47,11 @@ apiRouter.get("/search", searchTitle);
 //user
 apiRouter.post("/user/join", join);
 apiRouter.post("/user/login", login);
+
+apiRouter.get("/user/info", (req: any, res: any, next) => {
+  res.json({ loggedIn: req.session.loggedIn, user: req.session.user });
+});
+
+apiRouter.get("/user/logout", logOut);
 
 export default apiRouter;

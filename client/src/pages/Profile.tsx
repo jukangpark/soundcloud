@@ -1,5 +1,9 @@
+import { useRecoilValue } from "recoil";
+import { userState } from "../atoms";
+
 const MyProfile = () => {
-  return <div>My Profile</div>;
+  const user = useRecoilValue(userState);
+  return <div>{user.username ? user.username : "Profile"}</div>;
 };
 
 export default MyProfile;
