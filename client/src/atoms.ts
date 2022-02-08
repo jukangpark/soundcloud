@@ -9,3 +9,8 @@ export const userState = atom({
     username: "",
   }, // does not exist on type `{}`
 });
+
+export const isDarkState = atom({
+  key: "isDark",
+  default: true,
+});

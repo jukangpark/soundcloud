@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atoms";
 import Header from "../components/Header";
 import MainTitle from "../components/MainTitle";
 import { IPost } from "./Home";
@@ -11,6 +13,7 @@ export interface IParams {
 const Post = () => {
   const { id } = useParams<IParams>();
   const [post, setPost] = useState<IPost>();
+  const user = useRecoilValue(userState);
 
   function DeleteButton() {
     let history = useHistory();
@@ -46,6 +49,12 @@ const Post = () => {
       </button>
 
       <DeleteButton />
+      <div>
+        <h1>댓글</h1>
+        <p>댓글1</p>
+        <p>댓글2</p>
+        <p>댓글3</p>
+      </div>
     </div>
   );
 };

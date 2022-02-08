@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import MainTitle from "../components/MainTitle";
 import { Form, Input, Label } from "./Write";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
@@ -23,7 +23,7 @@ interface IUser {
 
 const Join = () => {
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [message, setMessage] = useState("");
 
   const {
     register,
@@ -64,8 +64,9 @@ const Join = () => {
         username,
         location,
       }),
-    }); // fetchApi 를 통해 서버로 post 요청 날린다.
-    setSuccess("회원가입이 완료되었습니다.");
+    })
+      .then((response) => response.json())
+      .then((data) => setMessage(data?.message)); // fetchApi 를 통해 서버로 post 요청 날린다.
   };
 
   return (
@@ -137,7 +138,7 @@ const Join = () => {
         <button onClick={handleSubmit(onValid)}>Join</button>
         <p>If you already have account?</p>
         <Link to="/login">Login</Link>
-        <p>{success}</p>
+        <p>{message}</p>
       </Form>
     </div>
   );

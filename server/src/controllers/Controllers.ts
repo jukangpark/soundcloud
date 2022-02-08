@@ -73,15 +73,18 @@ export const join = async (req: any, res: any) => {
   const exists = await User.findOne({ email });
 
   if (exists) {
-    return res.status(400).end();
+    return res
+      .status(400)
+      .json({ message: "해당 이메일을 가지고 있는 계정이 존재합니다." })
+      .end();
   }
   try {
     await User.create({ password, username, email, location });
   } catch (error) {
-    return res.status(400).end();
+    return res.status(400).json({ message: "에러가 발생했습니다." }).end();
   }
 
-  return res.status(200).end();
+  return res.status(200).json({ message: "회원가입 완료" }).end();
 };
 
 export const login = async (req: any, res: any) => {
@@ -107,12 +110,18 @@ export const login = async (req: any, res: any) => {
   req.session.loggedIn = true;
   req.session.user = user;
   // 로그인 처리
+  // 이 두 줄이 우리가 실제로 세션을 initialize(초기화) 하는 부분.
+  // 세션에 정보를 추가하는 것임.
+  // session 에 saveUninitialized: false 를 설정하면 세션을 수정할 때만
+  // session을 db에 저장하고 쿠키를 넘겨줌.
+  // req.session.loggedIn에 true 라는 값을 주었기 때문에 우리는 현재 이 두 줄로
+  // 세션을 수정하고 있는 중.
 
   return res.status(200).json({ message: "로그인 성공", user }).end();
   // json 으로 user 데이터 보내주기
 };
 
 export const logOut = (req: any, res: any) => {
-  req.session.destroy();
+  req.session.destroy(); // 로그 아웃.
   return res.status(200).end();
 };

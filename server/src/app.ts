@@ -36,8 +36,8 @@ app.use(express.json()); // body-parser 는 내장되어 있기 때문에, json 
 app.use(
   session({
     secret: "hello", // 환경 변수를 사용하여 암호를 저장하고 암호 자체가 저장소에 저장되지 않도록 해야함.
-    resave: true, // 수정되지 않은 경우 세션을 저장하지 않음.
-    saveUninitialized: true, // 무언가가 저장될 때까지 세션을 생성하지 않음.
+    resave: false, // 수정되지 않은 경우 세션을 저장하지 않음.
+    saveUninitialized: false, // 무언가가 저장될 때까지 세션을 생성하지 않음.
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
     // The session store instance, defaults to a new MemoryStore instance.
     // express가 세션을 메모리에 저장하기 때문에 서버를 재 시작할 때마다 세션이 사라지는 것임.

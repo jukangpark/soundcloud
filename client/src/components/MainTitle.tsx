@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-const MainTitle = styled.h1`
-  font-size: 24px;
+const Title = styled.h1`
   text-align: center;
-  margin-top: 50px;
+  margin-bottom: 8px;
+  font-size: 36px;
+  font-weight: bold;
 `;
 
-export default MainTitle;
+export default Title;

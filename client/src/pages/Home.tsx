@@ -3,19 +3,37 @@ import Header from "../components/Header";
 import Write from "./Write";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import Wrapper from "../components/Wrapper";
+import Title from "../components/MainTitle";
+import SignUpBtn from "../components/SignUpBtn";
 
-const MainTitle = styled.h1`
-  font-size: 24px;
-  text-align: center;
-  margin-top: 50px;
+const Banner = styled.div`
+  background-image: url("https://a-v2.sndcdn.com/assets/images/sc_landing_header_web_featured_artists@2x-00444712.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 450px;
 `;
 
-// interface list {
-//   title: string;
-//   content: string;
-//   meta: object;
-//   comments: object;
-// }
+const TitleContainer = styled.div`
+  position: relative;
+  height: 100%;
+`;
+
+const TitleBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+`;
+
+const Description = styled.p`
+  text-align: center;
+  font-size: 18px;
+  max-width: 530px;
+  line-height: 25px;
+`;
 
 export interface IPost {
   title: string;
@@ -43,9 +61,22 @@ const Home = () => {
   }, []);
   console.log(list);
   return (
-    <div>
-      <Header />
-      <MainTitle>Board App</MainTitle>
+    <Wrapper>
+      <Banner>
+        <Header />
+        <TitleContainer>
+          <TitleBox>
+            <Title>Connect on SoundCloud</Title>
+            <Description>
+              Discover, stream, and share a constantly expanding mix of music
+              from emerging and major artists around the world.
+            </Description>
+            <SignUpBtn>
+              <Link to="/join">Create account</Link>
+            </SignUpBtn>
+          </TitleBox>
+        </TitleContainer>
+      </Banner>
 
       {isLoading
         ? "laoding..."
@@ -59,7 +90,7 @@ const Home = () => {
               <hr></hr>
             </li>
           ))}
-    </div>
+    </Wrapper>
   );
 };
 

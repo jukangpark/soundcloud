@@ -3,6 +3,9 @@ import { Link, useHistory } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "../atoms";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSoundcloud } from "@fortawesome/free-brands-svg-icons";
+import ThemeBtn from "./ThemeBtn";
 
 const MenuContainer = styled.ul`
   display: flex;
@@ -41,17 +44,29 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header
+      style={{
+        color: "white",
+        position: "absolute",
+        top: 0,
+        width: "100%",
+        zIndex: "99999",
+      }}
+    >
       <MenuContainer>
         <li>
-          <a href="/">Home</a>
+          <a href="/" style={{ fontWeight: "bold" }}>
+            <FontAwesomeIcon
+              icon={faSoundcloud}
+              color="white"
+              fontSize="25px"
+              style={{ marginRight: "10px" }}
+            />
+            SOUNDCLOUD
+          </a>
         </li>
         <li>
           <Link to="/search">Search</Link>
-        </li>
-
-        <li>
-          <Link to="/join">Join</Link>
         </li>
 
         {loggedIn ? (
@@ -71,10 +86,16 @@ const Header = () => {
             </li>
           </>
         ) : (
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          <>
+            <li>
+              <Link to="/join">Create account</Link>
+            </li>
+            <li>
+              <Link to="/login">Sign in</Link>
+            </li>
+          </>
         )}
+        <ThemeBtn />
       </MenuContainer>
     </header>
   );
