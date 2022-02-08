@@ -33,7 +33,7 @@ const Login = () => {
     <div>
       <Header />
       <MainTitle>Login</MainTitle>
-      <Form method="POST" onSubmit={handleSubmit(onValid)}>
+      <Form onSubmit={handleSubmit(onValid)}>
         <Label>username</Label>
         <Input
           {...register("username", {

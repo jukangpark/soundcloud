@@ -1,5 +1,6 @@
 import Post from "../models/POST";
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const registerView = (req: any, res: any) => {
   console.log("register view에 도착했습니다.");
@@ -86,6 +87,23 @@ export const join = async (req: any, res: any) => {
 export const login = async (req: any, res: any) => {
   const { username, password } = req.body;
   console.log(username, password);
+  const user = await User.findOne({ username });
 
+  console.log("user=", user);
+
+  if (!user) {
+    return res.status(400).end("/");
+  }
+
+  const ok = await bcrypt.compare(password, user.password);
+
+  console.log("ok=", ok);
+
+  if (!ok) {
+    return res.status(400).redirect("/");
+  }
+
+  req.session.loggedIn = true;
+  req.session.user = user;
   return res.status(200).redirect("/");
 };

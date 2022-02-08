@@ -1,6 +1,8 @@
 console.log(process.env.DB_URL); //undefined
 import dotenv from "dotenv";
 import path from "path";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 
 const isHeroku = process.env.NODE_ENV === "production";
 // 이 NODE_ENV 는 heroku에 정의되어 있다.
@@ -30,6 +32,23 @@ const logger = morgan("dev");
 app.use(logger);
 
 app.use(express.json()); // body-parser 는 내장되어 있기 때문에, json 파싱하기 위해 설정 추가.
+
+app.use(
+  session({
+    secret: "hello", // 환경 변수를 사용하여 암호를 저장하고 암호 자체가 저장소에 저장되지 않도록 해야함.
+    resave: true, // 수정되지 않은 경우 세션을 저장하지 않음.
+    saveUninitialized: true, // 무언가가 저장될 때까지 세션을 생성하지 않음.
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    // The session store instance, defaults to a new MemoryStore instance.
+    // express가 세션을 메모리에 저장하기 때문에 서버를 재 시작할 때마다 세션이 사라지는 것임.
+    // 그래서 백엔드가 잊지 않도록 mongoDB와 연결해야함.
+  })
+);
+
+// app.use((req, res, next) => {
+//   console.log(req.headers); // cookie 를 보면 쿠키의 이름이 나와있음.
+//   next();
+// });
 
 // express 에는 json 데이터를 파싱하는 모듈이 저장되어 있다.
 // 하지만 json만 되고 x-www-form-urlencoded 를 파싱하기위해 이런식으로 확장해야함.
