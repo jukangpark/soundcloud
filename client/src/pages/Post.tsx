@@ -12,7 +12,7 @@ import Header from "../components/Header";
 import Title from "../components/MainTitle";
 import MainTitle from "../components/MainTitle";
 import Wrapper from "../components/Wrapper";
-import { IPost } from "./Home";
+import { Music } from "./Home";
 
 export interface IParams {
   id: string;
@@ -20,7 +20,7 @@ export interface IParams {
 
 const Post = () => {
   const { id } = useParams<IParams>();
-  const [post, setPost] = useState<IPost>();
+  const [post, setPost] = useState<Music>();
   const user = useRecoilValue(userState);
 
   function DeleteButton() {

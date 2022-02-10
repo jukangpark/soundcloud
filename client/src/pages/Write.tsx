@@ -49,8 +49,33 @@ const Write = () => {
         </TitleContainer>
       </Banner>
       <Form method="POST" action="/api/write">
-        <Input placeholder="Title" id="title" name="title"></Input>
-        <Input id="content" name="content" placeholder="내용"></Input>
+        <label htmlFor="music" style={{ display: "block", marginTop: "20px" }}>
+          Music
+        </label>
+        <Input
+          type="file"
+          accept="audio/*"
+          id="music"
+          name="music"
+          style={{ marginTop: "5px" }}
+          required
+        />
+        <label
+          htmlFor="thumbnail"
+          style={{ display: "block", marginTop: "20px" }}
+        >
+          Thumbnail
+        </label>
+        <Input
+          type="file"
+          accept="image/*"
+          id="thumbnail"
+          name="thumbnail"
+          required
+          style={{ marginTop: "5px" }}
+        />
+        <Input placeholder="Title" id="title" name="title" />
+        <Input id="content" name="content" placeholder="내용" />
         <SignUpBtn>Submit</SignUpBtn>
       </Form>
     </Wrapper>

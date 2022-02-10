@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
-import { IPost } from "../pages/Home";
+import { Music } from "../pages/Home";
 import { Form } from "./Write";
 
 export interface IFormData {
@@ -11,7 +11,7 @@ export interface IFormData {
 
 const Search = () => {
   const { register, handleSubmit } = useForm<IFormData>();
-  const [list, setList] = useState<IPost[]>();
+  const [list, setList] = useState<Music[]>();
 
   const onValid = ({ keyword }: IFormData) => {
     fetch(`/api/search?keyword=${keyword}`)

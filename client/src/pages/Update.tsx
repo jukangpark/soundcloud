@@ -7,7 +7,7 @@ import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import { IFormData } from "./Search";
 import { Form, TextArea } from "./Write";
-import { IPost } from "./Home";
+import { Music } from "./Home";
 
 const Update = () => {
   const { id } = useParams<IParams>();

@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userState } from "../atoms";
+import styled from "styled-components";
+import { isDarkState, userState } from "../atoms";
 import {
   Banner,
   Description,
@@ -10,11 +12,24 @@ import {
 import Header from "../components/Header";
 import Title from "../components/MainTitle";
 import MainTitle from "../components/MainTitle";
+import MusicContainer from "../components/MusicContainer";
 import SignUpBtn from "../components/SignUpBtn";
 import Wrapper from "../components/Wrapper";
+import { Music } from "./Home";
 
 const MyProfile = () => {
   const user = useRecoilValue(userState);
+  const isDark = useRecoilValue(isDarkState);
+  const [list, setList] = useState<Music[]>();
+
+  useEffect(() => {
+    fetch("/api/view")
+      .then((response) => response.json())
+      .then((data) => setList(data.list));
+
+    // data는 배열을 담고 있는 객체 입니다.
+  }, []);
+
   return (
     <Wrapper>
       <Banner>
@@ -24,24 +39,39 @@ const MyProfile = () => {
             <div
               style={{
                 borderRadius: "90%",
-                backgroundColor: "gray",
-                height: "100px",
-                width: "100px",
+                backgroundColor: "white",
+                height: "150px",
+                width: "150px",
+                marginLeft: "30px",
+                marginBottom: "20px",
               }}
             ></div>
-            <Title>Profile</Title>
-            <Description>{`Hello ${user.username}`}</Description>
+            <Description>{`${user.username}`}</Description>
             <SignUpBtn>
               <Link to="/profile/update">Update Profile</Link>
             </SignUpBtn>
           </TitleBox>
         </TitleContainer>
       </Banner>
-      <h1>내가 작성한 글</h1>
-      <li>글1</li>
-      <li>글2</li>
-      <li>글3</li>
-      <button>회원 정보 수정하기</button>
+      <MusicContainer style={{ marginTop: "50px" }} isDark={isDark}>
+        {list?.map((x, index) => (
+          <li key={index} style={{ marginBottom: "40px" }}>
+            <Link to={`${x._id}`}>
+              <div
+                style={{
+                  backgroundColor: "gray",
+                  width: "180px",
+                  height: "180px",
+                }}
+              >
+                썸네일
+              </div>
+              <h1 style={{ fontSize: "18px" }}>{x.title}</h1>
+              <p>{`조회수 : ${x.meta.views}`}</p>
+            </Link>
+          </li>
+        ))}
+      </MusicContainer>
     </Wrapper>
   );
 };

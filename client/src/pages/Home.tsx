@@ -10,20 +10,16 @@ import SignUpBtn from "../components/SignUpBtn";
 import { useRecoilValue } from "recoil";
 import { isDarkState } from "../atoms";
 import Footer from "../components/Footer";
+import MusicContainer from "../components/MusicContainer";
+import { useQuery } from "react-query";
+import { fetchMusics } from "../api";
+import { HelmetProvider } from "react-helmet-async";
 
 const Trending = styled.div<{ isDark: boolean }>`
   font-size: 24px;
   text-align: center;
   padding-top: 20px;
   margin-bottom: 30px;
-  background-color: ${(props) =>
-    props.isDark ? props.theme.bgColor : "white"};
-`;
-
-const MusicContainer = styled.div<{ isDark: boolean }>`
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
   background-color: ${(props) =>
     props.isDark ? props.theme.bgColor : "white"};
 `;
@@ -139,38 +135,45 @@ const JoinContainer = styled.div`
     margin-left: 15px;
   }
 `;
-export interface IPost {
-  title: string;
-  content: string;
-  createdAt: number;
+
+export interface Music {
+  title: String;
+  content: String;
+  createdAt: Number;
   meta: {
-    views: number;
+    views: Number;
   };
-  _id: number;
+  _id: String;
 }
 
 // 해로쿠에서는 어디에 fetch 날릴거임?
 
 const Home = () => {
-  const [list, setList] = useState<IPost[]>();
-  const [isLoading, setLoading] = useState(true);
+  // const [list, setList] = useState<IPost[]>();
+  // const [isLoading, setLoading] = useState(true);
   const isDark = useRecoilValue(isDarkState);
 
-  useEffect(() => {
-    fetch("/api/view")
-      .then((response) => response.json())
-      .then((data) => setList(data.list));
+  // useEffect(() => {
+  //   fetch("/api/view")
+  //     .then((response) => response.json())
+  //     .then((data) => setList(data.list));
 
-    // data는 배열을 담고 있는 객체 입니다.
-    setLoading(false);
-  }, []);
-  console.log(list);
+  //   // data는 배열을 담고 있는 객체 입니다.
+  //   setLoading(false);
+  // }, []);
+
+  const { isLoading, data } = useQuery<Music[]>("music", () => fetchMusics());
+
+  console.log(data);
+
   return (
     <Wrapper>
-      <Helmet>
-        <title>soundcloud</title>
-        <link rel="canonical" href="http://mysite.com/example" />
-      </Helmet>
+      {/* <HelmetProvider>
+        <Helmet>
+          <title>soundcloud</title>
+          <link rel="canonical" href="http://mysite.com/example" />
+        </Helmet>
+      </HelmetProvider> */}
       <BannerContainer />
 
       {isLoading ? (
@@ -182,8 +185,8 @@ const Home = () => {
             Hear what’s trending for free in the SoundCloud community
           </Trending>
           <MusicContainer isDark={isDark}>
-            {list?.map((x, index) => (
-              <li key={x.createdAt} style={{ marginBottom: "40px" }}>
+            {data?.map((x, index) => (
+              <li key={index} style={{ marginBottom: "40px" }}>
                 <Link to={`${x._id}`}>
                   <div
                     style={{
