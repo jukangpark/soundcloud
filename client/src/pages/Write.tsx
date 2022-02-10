@@ -51,7 +51,7 @@ const Write = () => {
       <Form method="POST" action="/api/write">
         <Input placeholder="Title" id="title" name="title"></Input>
         <Input id="content" name="content" placeholder="내용"></Input>
-        <button>Submit</button>
+        <SignUpBtn>Submit</SignUpBtn>
       </Form>
     </Wrapper>
   );

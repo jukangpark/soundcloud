@@ -1,18 +1,144 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Wrapper from "../components/Wrapper";
+import { Helmet } from "react-helmet";
 
 import Search from "./Search";
 import BannerContainer from "../components/Banner";
 import styled from "styled-components";
+import SignUpBtn from "../components/SignUpBtn";
+import { useRecoilValue } from "recoil";
+import { isDarkState } from "../atoms";
+import Footer from "../components/Footer";
 
-const Trending = styled.div`
+const Trending = styled.div<{ isDark: boolean }>`
   font-size: 24px;
   text-align: center;
   padding-top: 20px;
   margin-bottom: 30px;
+  background-color: ${(props) =>
+    props.isDark ? props.theme.bgColor : "white"};
 `;
 
+const MusicContainer = styled.div<{ isDark: boolean }>`
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  background-color: ${(props) =>
+    props.isDark ? props.theme.bgColor : "white"};
+`;
+
+const AppContainer = styled.div`
+  margin-top: 70px;
+  display: flex;
+  height: 450px;
+
+  div:nth-child(2) {
+    width: 325px;
+    margin-left: 50px;
+    h1 {
+      font-size: 36px;
+      margin-bottom: 17px;
+      font-weight: 600;
+    }
+    h1:after {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 3px;
+      background-image: linear-gradient(90deg, #7d01a1, #f30 50%, #f50);
+      margin-top: 15px;
+    }
+    p {
+      font-size: 24px;
+      font-weight: 100;
+      line-height: 30px;
+      letter-spacing: 2px;
+    }
+    a {
+      display: block;
+      background-image: url("https://a-v2.sndcdn.com/assets/images/appstore_badge@en_2x-5a6e21e0.png");
+      width: 120px;
+      height: 40px;
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+`;
+
+const AppImg = styled.div`
+  width: 730px;
+  height: 450px;
+  background-image: url("https://a-v2.sndcdn.com/assets/images/never_stop_listening@2x-ae7903ca.jpg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+`;
+
+const CreatorContainer = styled.div`
+  background-image: url("https://a-v2.sndcdn.com/assets/images/hp_creator_image_featured_artists@2x-3007d170.jpg");
+  height: 350px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  div {
+    color: white;
+    width: 520px;
+    margin-left: 70px;
+    h1 {
+      font-size: 36px;
+    }
+    p {
+      font-size: 24px;
+      margin-top: 11px;
+      margin-bottom: 26px;
+      line-height: 30px;
+    }
+    a {
+      font-size: 16px;
+      line-height: 18px;
+      padding: 10px 15px;
+      height: 40px;
+      border: 1px solid #e5e5e5;
+      border-radius: 3px;
+    }
+  }
+`;
+
+const JoinContainer = styled.div`
+  height: 375px;
+  position: relative;
+  div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  div > h1 {
+    font-size: 36px;
+  }
+  div > p {
+    font-size: 24px;
+    margin-top: 7px;
+    font-weight: 100;
+  }
+  div > span {
+    display: block;
+    font-size: 12px;
+    margin-top: 20px;
+  }
+  div > span > a {
+    font-size: 16px;
+    line-height: 18px;
+    padding: 10px 15px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    margin-left: 15px;
+  }
+`;
 export interface IPost {
   title: string;
   content: string;
@@ -28,6 +154,7 @@ export interface IPost {
 const Home = () => {
   const [list, setList] = useState<IPost[]>();
   const [isLoading, setLoading] = useState(true);
+  const isDark = useRecoilValue(isDarkState);
 
   useEffect(() => {
     fetch("/api/view")
@@ -40,6 +167,10 @@ const Home = () => {
   console.log(list);
   return (
     <Wrapper>
+      <Helmet>
+        <title>soundcloud</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <BannerContainer />
 
       {isLoading ? (
@@ -47,28 +178,76 @@ const Home = () => {
       ) : (
         <>
           <Search />
-          <Trending>
+          <Trending isDark={isDark}>
             Hear what’s trending for free in the SoundCloud community
           </Trending>
-          {list?.map((x, index) => (
-            <li key={x.createdAt}>
-              <Link to={`${x._id}`}>
-                <div
+          <MusicContainer isDark={isDark}>
+            {list?.map((x, index) => (
+              <li key={x.createdAt} style={{ marginBottom: "40px" }}>
+                <Link to={`${x._id}`}>
+                  <div
+                    style={{
+                      backgroundColor: "gray",
+                      width: "180px",
+                      height: "180px",
+                    }}
+                  >
+                    썸네일
+                  </div>
+                  <h1 style={{ fontSize: "18px" }}>{x.title}</h1>
+                  <p>{`조회수 : ${x.meta.views}`}</p>
+                </Link>
+              </li>
+            ))}
+          </MusicContainer>
+          <SignUpBtn style={{ width: "240px" }}>
+            Explore trending playlists
+          </SignUpBtn>
+          <AppContainer>
+            <AppImg></AppImg>
+            <div>
+              <h1>Never stop listening</h1>
+              <p>
+                SoundCloud is available on Web, iOS, Android, Sonos, Chromecast,
+                and Xbox One.
+              </p>
+              <div style={{ display: "flex", marginTop: "40px" }}>
+                <Link to="#" />
+                <Link
+                  to="#"
                   style={{
-                    backgroundColor: "gray",
-                    width: "200px",
-                    height: "200px",
+                    width: "135px",
+                    marginLeft: "10px",
+                    backgroundImage:
+                      "url(https://a-v2.sndcdn.com/assets/images/google_play_badge@en-51d52194.png)",
                   }}
-                >
-                  썸네일
-                </div>
-                <h1>{`제목 : ${x.title}`}</h1>
-                <span>{`작성한 날짜 : ${x.createdAt}`}</span>
-                <p>{`조회수 : ${x.meta.views}`}</p>
-              </Link>
-              <hr></hr>
-            </li>
-          ))}
+                />
+              </div>
+            </div>
+          </AppContainer>
+          <CreatorContainer>
+            <div>
+              <h1>Calling all creators</h1>
+              <p>
+                Get on SoundCloud to connect with fans, share your sounds, and
+                grow your audience. What are you waiting for?
+              </p>
+              <Link to="#">Find out more</Link>
+            </div>
+          </CreatorContainer>
+          <JoinContainer>
+            <div>
+              <h1>Thanks for listening. Now join in.</h1>
+              <p>
+                Save tracks, follow artists and build playlists. All for free.
+              </p>
+              <SignUpBtn>Create account</SignUpBtn>
+              <span>
+                Already have an account? <Link to="/join">Sign in</Link>
+              </span>
+            </div>
+          </JoinContainer>
+          <Footer />
         </>
       )}
     </Wrapper>
