@@ -7,7 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 // useHistory hook gives you access to the history instance that you may use to navigate.
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { userState } from "../atoms";
+import { cookieState, userState } from "../atoms";
 import Wrapper from "../components/Wrapper";
 import {
   Banner,
@@ -30,6 +30,7 @@ interface IData {
 }
 const Login = () => {
   const [user, setUser] = useRecoilState(userState);
+  const [hasCookie, setHasCookie] = useRecoilState(cookieState);
   const [data, setData] = useState<IData>();
   const history = useHistory();
 
@@ -51,6 +52,12 @@ const Login = () => {
       }),
     });
     const data = await response.json();
+    if (data.result === "ok") {
+      console.log("ok");
+      setHasCookie(true);
+    } else {
+      throw new Error(data.error);
+    }
     setData(data);
     setUser(data.user);
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { fetchLoggedinUser } from "../api";
 import { isDarkState, userState } from "../atoms";
 import {
   Banner,
@@ -17,10 +19,19 @@ import SignUpBtn from "../components/SignUpBtn";
 import Wrapper from "../components/Wrapper";
 import { Music } from "./Home";
 
+interface IUser {
+  username: "string";
+}
+
 const MyProfile = () => {
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
+
   const isDark = useRecoilValue(isDarkState);
   const [list, setList] = useState<Music[]>();
+
+  const { isLoading, data: user } = useQuery<IUser>("user", () =>
+    fetchLoggedinUser()
+  );
 
   useEffect(() => {
     fetch("/api/view")
@@ -46,7 +57,7 @@ const MyProfile = () => {
                 marginBottom: "20px",
               }}
             ></div>
-            <Description>{`${user.username}`}</Description>
+            <Description>{`${user?.username}`}</Description>
             <SignUpBtn>
               <Link to="/profile/update">Update Profile</Link>
             </SignUpBtn>

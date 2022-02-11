@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { RecoilRoot } from "recoil";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { CookiesProvider } from "react-cookie";
 
 const queryClient = new QueryClient();
 
@@ -10,7 +11,9 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
-        <App />
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
       </RecoilRoot>
     </QueryClientProvider>
   </React.StrictMode>,

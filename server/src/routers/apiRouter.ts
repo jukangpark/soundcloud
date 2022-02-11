@@ -11,6 +11,8 @@ import {
   login,
   logOut,
 } from "../controllers/Controllers";
+import { verifyToken } from "../middlewares/authorization";
+import User from "../models/User";
 
 const apiRouter = express.Router();
 
@@ -48,8 +50,15 @@ apiRouter.get("/search", searchTitle);
 apiRouter.post("/user/join", join);
 apiRouter.post("/user/login", login);
 
-apiRouter.get("/user/info", (req: any, res: any, next) => {
-  res.json({ loggedIn: req.session.loggedIn, user: req.session.user });
+// apiRouter.get("/user/info", (req: any, res: any, next) => {
+//   res.json({ loggedIn: req.session.loggedIn, user: req.session.user });
+// });
+
+apiRouter.get("/user/info", verifyToken, async (req: any, res: any, next) => {
+  const user = res.locals.user;
+  const findedUser = await User.findById(user.user_id);
+  console.log(findedUser);
+  res.send(findedUser);
 });
 
 apiRouter.get("/user/logout", logOut);

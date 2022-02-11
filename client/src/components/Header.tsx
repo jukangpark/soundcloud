@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { isDarkState, userState } from "../atoms";
+import { cookieState, isDarkState, userState } from "../atoms";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSoundcloud } from "@fortawesome/free-brands-svg-icons";
 import ThemeBtn from "./ThemeBtn";
+import { useQuery } from "react-query";
+import { fetchLoggedinUser } from "../api";
+import { useCookies } from "react-cookie";
 
 const MenuContainer = styled.ul`
   display: flex;
@@ -27,25 +30,43 @@ const MenuContainer = styled.ul`
   }
 `;
 
+interface IData {
+  user: object;
+  loggedIn: boolean;
+}
+
+interface IUser {
+  email: string;
+  location: string;
+  password: string;
+  username: string;
+  _id: string;
+}
+
 const Header = () => {
   const history = useHistory();
-  const [user, setUser] = useRecoilState(userState);
-  const [loggedIn, setLoggedIn] = useState(false);
   const isDark = useRecoilValue(isDarkState);
+  const [hasCookie, setHasCookie] = useRecoilState(cookieState);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
-  useEffect(() => {
-    fetch("/api/user/info")
-      .then((response) => response.json())
-      .then((data) => {
-        setLoggedIn(data.loggedIn);
-        setUser(data.user);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/user/info")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setLoggedIn(data.loggedIn);
+  //       setUser(data.user);
+  //     });
+  // }, []);
+
+  // const { isLoading, data } = useQuery<IData>("user", () =>
+  //   fetchLoggedinUser()
+  // );
+
+  // setUser(data.user)  이거 하면 undefined 일 수도 있다고 뜸.
 
   const onClick = () => {
-    fetch("/api/user/logout");
-    setUser({ email: "", location: "", password: "", username: "" });
-    setLoggedIn(false);
+    removeCookie("user");
+    setHasCookie(false);
     history.push("/");
   };
 
@@ -82,7 +103,7 @@ const Header = () => {
           </Link>
         </li>
 
-        {loggedIn ? (
+        {hasCookie ? (
           <>
             <li>
               <Link to="/write">Upload</Link>
