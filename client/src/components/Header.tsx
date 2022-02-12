@@ -2,12 +2,9 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cookieState, isDarkState, userState } from "../atoms";
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSoundcloud } from "@fortawesome/free-brands-svg-icons";
 import ThemeBtn from "./ThemeBtn";
-import { useQuery } from "react-query";
-import { fetchLoggedinUser } from "../api";
 import { useCookies } from "react-cookie";
 
 const MenuContainer = styled.ul`

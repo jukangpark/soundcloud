@@ -1,4 +1,4 @@
-import Post from "../models/POST";
+import Post from "../models/Music";
 import express from "express";
 import {
   registerView,
@@ -10,9 +10,13 @@ import {
   join,
   login,
   logOut,
+  getUpdateProfile,
+  postUpdateProfile,
+  postUpdateProfileImage,
 } from "../controllers/Controllers";
 import { verifyToken } from "../middlewares/authorization";
 import User from "../models/User";
+import { uploadFiles } from "../middlewares/middlewares";
 
 const apiRouter = express.Router();
 
@@ -24,7 +28,6 @@ apiRouter.post("/delete/:id", deletePost);
 
 apiRouter.post("/write", async (req, res) => {
   const { title, content } = req.body;
-  console.log(title, content);
   try {
     const newPost = await Post.create({
       title,
@@ -54,13 +57,25 @@ apiRouter.post("/user/login", login);
 //   res.json({ loggedIn: req.session.loggedIn, user: req.session.user });
 // });
 
-apiRouter.get("/user/info", verifyToken, async (req: any, res: any, next) => {
+apiRouter.get("/user/info", verifyToken, async (req, res, next) => {
   const user = res.locals.user;
   const findedUser = await User.findById(user.user_id);
-  console.log(findedUser);
   res.send(findedUser);
 });
 
 apiRouter.get("/user/logout", logOut);
+
+apiRouter
+  .route("/profile/:id/update")
+  .get(getUpdateProfile)
+  .post(postUpdateProfile);
+
+apiRouter
+  .route("/profile/:id/postUpdateProfileImage")
+  .post(
+    uploadFiles.single("profileImage"),
+    verifyToken,
+    postUpdateProfileImage
+  );
 
 export default apiRouter;

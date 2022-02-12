@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -18,9 +19,12 @@ import MusicContainer from "../components/MusicContainer";
 import SignUpBtn from "../components/SignUpBtn";
 import Wrapper from "../components/Wrapper";
 import { Music } from "./Home";
+import { Form } from "./Upload";
 
 interface IUser {
-  username: "string";
+  username: string;
+  _id: string;
+  profileImageUrl: string;
 }
 
 const MyProfile = () => {
@@ -41,6 +45,29 @@ const MyProfile = () => {
     // data는 배열을 담고 있는 객체 입니다.
   }, []);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
+  const onValid = async (data: any) => {
+    const formData = new FormData();
+    console.log(data);
+    console.log(data.profileImage[0]);
+    formData.append("profileImage", data.profileImage[0]);
+
+    const res = await fetch(
+      `/api/profile/${user?._id}/postUpdateProfileImage`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    ).then((res) => res.json());
+    alert(res.message);
+  };
+
   return (
     <Wrapper>
       <Banner>
@@ -56,11 +83,34 @@ const MyProfile = () => {
                 marginLeft: "30px",
                 marginBottom: "20px",
               }}
-            ></div>
+            >
+              <img src={`/upload/${user?.profileImageUrl}`} />
+              <Form
+                onSubmit={handleSubmit(onValid)}
+                style={{ display: "block", height: "100%" }}
+              >
+                <label
+                  htmlFor="profileImage"
+                  style={{
+                    display: "block",
+                    height: "100%",
+                    cursor: "pointer",
+                  }}
+                ></label>
+                <input
+                  {...register("profileImage", {
+                    required: "이미지 파일이 존재하지 않습니다.",
+                  })}
+                  id="profileImage"
+                  name="profileImage"
+                  type="file"
+                  style={{ display: "none" }}
+                ></input>
+                <button>Update Profile Image</button>
+                <span>{errors.profileImage?.message}</span>
+              </Form>
+            </div>
             <Description>{`${user?.username}`}</Description>
-            <SignUpBtn>
-              <Link to="/profile/update">Update Profile</Link>
-            </SignUpBtn>
           </TitleBox>
         </TitleContainer>
       </Banner>
@@ -83,6 +133,12 @@ const MyProfile = () => {
           </li>
         ))}
       </MusicContainer>
+      <p>내가 올린 음악들</p>
+      <SignUpBtn>
+        <Link to={`/profile/${user?._id}/update`} style={{ display: "block" }}>
+          Update Profile
+        </Link>
+      </SignUpBtn>
     </Wrapper>
   );
 };

@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
 import Search from "./pages/Search";
-import Write from "./pages/Write";
+import Upload from "./pages/Upload";
 import Post from "./pages/Post";
 import Update from "./pages/Update";
 import Login from "./pages/Login";
@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { cookieState } from "./atoms";
+import UpdateProfile from "./pages/UpdateProfile";
 
 const Router = () => {
   const [cookies, removeCookie] = useCookies(["user"]);
@@ -33,7 +34,7 @@ const Router = () => {
 
       <Switch>
         <Route path="/write">
-          <Write />
+          <Upload />
         </Route>
         <Route path="/join">{hasCookie ? <Redirect to="/" /> : <Join />}</Route>
         <Route path="/login">
@@ -41,6 +42,9 @@ const Router = () => {
         </Route>
         <Route path="/search">
           <Search />
+        </Route>
+        <Route path="/profile/:id/update">
+          <UpdateProfile />
         </Route>
         <Route path="/profile">
           <Profile />

@@ -161,7 +161,6 @@ const Home = () => {
   //   // data는 배열을 담고 있는 객체 입니다.
   //   setLoading(false);
   // }, []);
-
   const { isLoading, data } = useQuery<Music[]>("music", () => fetchMusics());
 
   console.log(data);
@@ -177,7 +176,7 @@ const Home = () => {
       <BannerContainer />
 
       {isLoading ? (
-        "laoding..."
+        <h1 style={{ fontSize: "36px", textAlign: "center" }}>Loading...</h1>
       ) : (
         <>
           <Search />
@@ -195,6 +194,7 @@ const Home = () => {
                       height: "180px",
                     }}
                   >
+                    <img src="" alt="thumbnail" />
                     썸네일
                   </div>
                   <h1 style={{ fontSize: "18px" }}>{x.title}</h1>

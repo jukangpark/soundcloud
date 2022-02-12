@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import MainTitle from "../components/MainTitle";
-import { Form } from "./Write";
+import { Form } from "./Upload";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 // useHistory hook gives you access to the history instance that you may use to navigate.
@@ -53,12 +53,12 @@ const Login = () => {
     });
     const data = await response.json();
     if (data.result === "ok") {
-      console.log("ok");
       setHasCookie(true);
     } else {
+      alert(data?.message);
       throw new Error(data.error);
     }
-    setData(data);
+    alert("로그인 성공");
     setUser(data.user);
 
     if (data.user) {

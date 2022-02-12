@@ -6,7 +6,7 @@ import { IParams } from "./Post";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import { IFormData } from "./Search";
-import { Form, TextArea } from "./Write";
+import { Form, TextArea } from "./Upload";
 import { Music } from "./Home";
 
 const Update = () => {

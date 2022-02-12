@@ -48,7 +48,7 @@ const Write = () => {
           </TitleBox>
         </TitleContainer>
       </Banner>
-      <Form method="POST" action="/api/write">
+      <Form method="POST" action="/api/write" encType="multipart/form-data">
         <label htmlFor="music" style={{ display: "block", marginTop: "20px" }}>
           Music
         </label>

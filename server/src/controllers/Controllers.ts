@@ -1,15 +1,15 @@
-import Post from "../models/POST";
+import Music from "../models/Music";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const registerView = (req: any, res: any) => {
+export const registerView = (req, res) => {
   console.log("register view에 도착했습니다.");
   res.json({ hello: "노디몬" });
 };
 
-export const view = async (req: any, res: any) => {
-  const list = await Post.find();
+export const view = async (req, res) => {
+  const list = await Music.find();
   // 배열을 리턴해준다.
 
   // 선회하는 구조를 JSON으로 바꾸려고 해서 나는 에러이다. 배열을 json 형태로 바꿔줬기 때문에 그런듯..
@@ -29,40 +29,39 @@ export const view = async (req: any, res: any) => {
 // res.json  과 res.send의 차이 때문에 잘 되지 않는건가?
 // 아님 둘다 거의 같은 거임.
 
-export const searchTitle = async (req: any, res: any) => {
+export const searchTitle = async (req, res) => {
   const { keyword } = req.query;
   console.log(keyword);
-  let posts = [];
+  let posts;
   if (keyword) {
-    posts = await Post.find({
+    posts = await Music.find({
       title: {
         $regex: new RegExp(`${keyword}`, "i"),
       },
     });
   }
-  console.log(posts);
   res.json({ list: posts });
 };
 
-export const viewPost = async (req: any, res: any) => {
+export const viewPost = async (req, res) => {
   const { id } = req.params;
-  const post = await Post.findById(id);
+  const post = await Music.findById(id);
   return res.json({ post });
 };
 
-export const deletePost = async (req: any, res: any) => {
+export const deletePost = async (req, res) => {
   const { id } = req.params;
-  await Post.findByIdAndDelete(id);
+  await Music.findByIdAndDelete(id);
   return res.end();
   // api 로 요청한 것들은 모두 proxy localhost:9000 으로 가기 때문에
   // localhost:9000 으로 redirect "/" 하고 있어서 에러가 발생하는 거 같은데? 아닐 수도 있음.
 };
 
-export const update = async (req: any, res: any) => {
+export const update = async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
-  await Post.findByIdAndUpdate(id, {
+  await Music.findByIdAndUpdate(id, {
     title,
     content,
   });
@@ -72,7 +71,7 @@ export const update = async (req: any, res: any) => {
 
 //user
 
-export const join = async (req: any, res: any) => {
+export const join = async (req, res) => {
   const { password, username, email, location } = req.body;
   const exists = await User.findOne({ email });
 
@@ -91,7 +90,7 @@ export const join = async (req: any, res: any) => {
   return res.status(200).json({ message: "회원가입 완료" }).end();
 };
 
-export const login = async (req: any, res: any) => {
+export const login = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
 
@@ -110,7 +109,6 @@ export const login = async (req: any, res: any) => {
       .json({ message: "비밀번호가 일치하지 않습니다." })
       .end();
   }
-  console.log(user._id); //new ObjectId("asdfasdfas");
   const token = jwt.sign(
     {
       user_id: user._id,
@@ -143,8 +141,51 @@ export const login = async (req: any, res: any) => {
   // return res.status(200).json({ message: "로그인 성공", user }).end();
   // json 으로 user 데이터 보내주기
 };
+export const getUpdateProfile = async (req, res) => {
+  const { id } = req.params;
 
-export const logOut = (req: any, res: any) => {
+  const user = await User.findById(id);
+  // console.log(user);
+  res.send(user);
+};
+
+export const postUpdateProfile = async (req, res) => {
+  const { id } = req.params;
+  const { email, username, location } = req.body;
+
+  const exists = await User.exists({
+    $or: [{ username }, { email }],
+  });
+
+  if (exists) {
+    return res
+      .status(400)
+      .json({ errorMessage: "이미 사용하고 있는 username 또는 email 입니다." });
+  }
+  const user = await User.findByIdAndUpdate(id, {
+    email,
+    username,
+    location,
+  });
+  return res.status(200).json({ errorMessage: "업데이트 완료" });
+};
+
+export const logOut = (req, res) => {
   // req.session.destroy(); // 로그 아웃.
   return res.status(200).end();
+};
+
+export const postUpdateProfileImage = async (req, res) => {
+  const { file } = req;
+
+  const {
+    locals: {
+      user: { user_id: _id },
+    },
+  } = res;
+  console.log("내가 필요한거", _id);
+  await User.findByIdAndUpdate(_id, {
+    profileImageUrl: file ? file.path : "default",
+  });
+  return res.json({ message: "프로필 이미지가 업데이트 되었습니다." });
 };

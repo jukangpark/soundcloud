@@ -10,7 +10,6 @@ import {
 } from "../components/Banner";
 import Header from "../components/Header";
 import Title from "../components/MainTitle";
-import MainTitle from "../components/MainTitle";
 import Wrapper from "../components/Wrapper";
 import { Music } from "./Home";
 

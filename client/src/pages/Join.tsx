@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import MainTitle from "../components/MainTitle";
-import { Form } from "./Write";
+import { Form } from "./Upload";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -36,7 +36,6 @@ interface IUser {
 
 const Join = () => {
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
 
   const {
     register,
@@ -79,7 +78,9 @@ const Join = () => {
       }),
     })
       .then((response) => response.json())
-      .then((data) => setMessage(data?.message)); // fetchApi 를 통해 서버로 post 요청 날린다.
+      .then((data) => {
+        alert(data?.message);
+      }); // fetchApi 를 통해 서버로 post 요청 날린다.
   };
 
   return (
@@ -168,7 +169,6 @@ const Join = () => {
         <Link to="/login" style={{ textDecoration: "underline" }}>
           Login
         </Link>
-        <p>{message}</p>
       </Form>
     </Wrapper>
   );

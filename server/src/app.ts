@@ -27,6 +27,8 @@ const app = express();
 const PORT = process.env.PORT || 9000;
 
 app.use(express.static("build")); // 이렇게 작성해주면 정상적으로 build 폴더 안에 있는 파일들을 서버에서 가져올 수 있습니다.
+app.use("/uploads", express.static("uploads"));
+// static () 에는 너가 노출시키고 싶은 폴더의 이름을 적으면 돼.
 
 const logger = morgan("dev");
 
