@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import MainTitle from "../components/MainTitle";
 import { Form } from "./Upload";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Wrapper from "../components/Wrapper";
@@ -35,6 +35,7 @@ interface IUser {
 // location: String,
 
 const Join = () => {
+  const history = useHistory();
   const [error, setError] = useState("");
 
   const {
@@ -80,6 +81,7 @@ const Join = () => {
       .then((response) => response.json())
       .then((data) => {
         alert(data?.message);
+        history.push("/login"); // redirect 로그인 성공.
       }); // fetchApi 를 통해 서버로 post 요청 날린다.
   };
 
