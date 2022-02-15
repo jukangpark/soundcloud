@@ -32,15 +32,15 @@ export const view = async (req, res) => {
 export const searchTitle = async (req, res) => {
   const { keyword } = req.query;
   console.log(keyword);
-  let posts;
+  let musics;
   if (keyword) {
-    posts = await Music.find({
+    musics = await Music.find({
       title: {
         $regex: new RegExp(`${keyword}`, "i"),
       },
     });
   }
-  res.json({ list: posts });
+  res.json({ list: musics });
 };
 
 export const viewPost = async (req, res) => {

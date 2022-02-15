@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import Input from "../components/Input";
 import { IMusic } from "../pages/Home";
 import { Form } from "./Upload";
@@ -9,11 +10,34 @@ export interface IFormData {
   keyword: string;
 }
 
+const SearchedMusic = styled.li`
+  line-height: 20px;
+  transition-duration: 400ms;
+  &:hover {
+    background-color: ${(props) => props.theme.accentColor};
+  }
+  a {
+    padding: 30px;
+    display: block;
+  }
+  border-bottom: 0.5px solid ${(props) => props.theme.textColor};
+`;
+
 const Search = () => {
-  const { register, handleSubmit } = useForm<IFormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormData>();
   const [list, setList] = useState<IMusic[]>();
+  const [keyword, setKeyword] = useState<string>();
 
   const onValid = ({ keyword }: IFormData) => {
+    setKeyword(keyword);
+    if (keyword === "") {
+      setList(undefined);
+      return;
+    }
     fetch(`/api/search?keyword=${keyword}`)
       .then((response) => response.json())
       .then((data) => setList(data.list));
@@ -32,16 +56,30 @@ const Search = () => {
           placeholder="Search Title"
           name="keyword"
         />
+        <p style={{ marginTop: "5px" }}>{errors.keyword?.message}</p>
       </Form>
       <ul>
         {list === undefined ? (
           "nothing is found"
         ) : (
           <>
+            <h1 style={{ fontSize: "36px", marginBottom: "30px" }}>
+              {`${keyword} `}
+              <span style={{ fontSize: "18px" }}>으로 검색한 결과</span>
+            </h1>
             {list?.map((x, index) => (
-              <li key={index}>
-                <Link to={`/${x._id}`}>{x.title}</Link>
-              </li>
+              <>
+                <SearchedMusic key={index}>
+                  <Link to={`${x._id}`}>
+                    <h1 style={{ fontSize: "18px" }}>
+                      {x.title}
+                      <span
+                        style={{ marginLeft: "15px" }}
+                      >{`아티스트 : ${x.meta.views}`}</span>
+                    </h1>
+                  </Link>
+                </SearchedMusic>
+              </>
             ))}
           </>
         )}
