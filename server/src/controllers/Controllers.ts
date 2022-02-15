@@ -183,7 +183,6 @@ export const postUpdateProfileImage = async (req, res) => {
       user: { user_id: _id },
     },
   } = res;
-  console.log("내가 필요한거", _id);
   await User.findByIdAndUpdate(_id, {
     profileImageUrl: file ? file.path : "default",
   });

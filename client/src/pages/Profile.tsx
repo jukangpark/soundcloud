@@ -41,6 +41,7 @@ const MyProfile = () => {
     fetch("/api/view")
       .then((response) => response.json())
       .then((data) => setList(data.list));
+    console.log(user?.profileImageUrl);
 
     // data는 배열을 담고 있는 객체 입니다.
   }, []);
@@ -80,14 +81,21 @@ const MyProfile = () => {
                 backgroundColor: "white",
                 height: "150px",
                 width: "150px",
-                marginLeft: "30px",
                 marginBottom: "20px",
+                position: "relative",
               }}
             >
-              <img src={`/upload/${user?.profileImageUrl}`} />
+              <img src={`${user?.profileImageUrl}.png`} />
               <Form
-                onSubmit={handleSubmit(onValid)}
-                style={{ display: "block", height: "100%" }}
+                onChange={handleSubmit(onValid)}
+                style={{
+                  display: "block",
+                  width: "150px",
+                  height: "150px",
+                  marginTop: 0,
+                  position: "absolute",
+                  top: 0,
+                }}
               >
                 <label
                   htmlFor="profileImage"
@@ -106,8 +114,6 @@ const MyProfile = () => {
                   type="file"
                   style={{ display: "none" }}
                 ></input>
-                <button>Update Profile Image</button>
-                <span>{errors.profileImage?.message}</span>
               </Form>
             </div>
             <Description>{`${user?.username}`}</Description>
