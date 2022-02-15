@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 import Search from "./Search";
 import BannerContainer from "../components/Banner";
 import styled from "styled-components";
-import SignUpBtn from "../components/SignUpBtn";
+import { Btn } from "../components/Btn";
 import { useRecoilValue } from "recoil";
 import { isDarkState } from "../atoms";
 import Footer from "../components/Footer";
@@ -14,6 +14,7 @@ import MusicContainer from "../components/MusicContainer";
 import { useQuery } from "react-query";
 import { fetchMusics } from "../api";
 import { HelmetProvider } from "react-helmet-async";
+import { Music } from "../components/Music";
 
 const Trending = styled.div<{ isDark: boolean }>`
   font-size: 24px;
@@ -190,25 +191,18 @@ const Home = () => {
             {data?.map((x, index) => (
               <li key={index} style={{ marginBottom: "40px" }}>
                 <Link to={`${x._id}`}>
-                  <div
+                  <Music
                     style={{
-                      backgroundColor: "gray",
-                      width: "180px",
-                      height: "180px",
                       backgroundImage: `url(${x.thumbUrl})`,
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
                     }}
-                  ></div>
+                  ></Music>
                   <h1 style={{ fontSize: "18px" }}>{x.title}</h1>
                   <p>{`조회수 : ${x.meta.views}`}</p>
                 </Link>
               </li>
             ))}
           </MusicContainer>
-          <SignUpBtn style={{ width: "240px" }}>
-            Explore trending playlists
-          </SignUpBtn>
+          <Btn style={{ width: "240px" }}>Explore trending playlists</Btn>
           <AppContainer>
             <AppImg></AppImg>
             <div>
@@ -247,7 +241,7 @@ const Home = () => {
               <p>
                 Save tracks, follow artists and build playlists. All for free.
               </p>
-              <SignUpBtn>Create account</SignUpBtn>
+              <Btn>Create account</Btn>
               <span>
                 Already have an account? <Link to="/join">Sign in</Link>
               </span>

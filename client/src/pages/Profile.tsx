@@ -16,7 +16,7 @@ import Header from "../components/Header";
 import Title from "../components/MainTitle";
 import MainTitle from "../components/MainTitle";
 import MusicContainer from "../components/MusicContainer";
-import SignUpBtn from "../components/SignUpBtn";
+import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
 import { Form } from "./Upload";
@@ -143,11 +143,11 @@ const MyProfile = () => {
         ))}
       </MusicContainer>
       <p>내가 올린 음악들</p>
-      <SignUpBtn>
+      <Btn>
         <Link to={`/profile/${user?._id}/update`} style={{ display: "block" }}>
           Update Profile
         </Link>
-      </SignUpBtn>
+      </Btn>
     </Wrapper>
   );
 };

@@ -67,20 +67,20 @@ const Search = () => {
               {`${keyword} `}
               <span style={{ fontSize: "18px" }}>으로 검색한 결과</span>
             </h1>
-            {list?.map((x, index) => (
-              <>
-                <SearchedMusic key={index}>
-                  <Link to={`${x._id}`}>
-                    <h1 style={{ fontSize: "18px" }}>
-                      {x.title}
-                      <span
-                        style={{ marginLeft: "15px" }}
-                      >{`아티스트 : ${x.meta.views}`}</span>
-                    </h1>
-                  </Link>
-                </SearchedMusic>
-              </>
-            ))}
+            {list.length === 0
+              ? "nothing is found."
+              : list?.map((x, index) => (
+                  <SearchedMusic key={index}>
+                    <Link to={`${x._id}`}>
+                      <h1 style={{ fontSize: "18px" }}>
+                        {x.title}
+                        <span
+                          style={{ marginLeft: "15px" }}
+                        >{`아티스트 : ${x.meta.views}`}</span>
+                      </h1>
+                    </Link>
+                  </SearchedMusic>
+                ))}
           </>
         )}
       </ul>

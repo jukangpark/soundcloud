@@ -15,7 +15,8 @@ import Title from "../components/MainTitle";
 import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
 import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
+import "react-h5-audio-player/src/styles.scss";
+import "./audioPlayer.scss";
 
 interface IProps {
   thumbUrl: any;
@@ -42,12 +43,14 @@ const BlurWrapper = styled.div<IProps>`
   &::after {
     background-image: url(${(props) => props.thumbUrl});
     background-size: cover;
+    background-position: right;
     position: absolute;
+    background-repeat: no-repeat;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    filter: blur(100px);
+    filter: blur(20px);
     z-index: -1;
     content: "";
   }
@@ -66,12 +69,20 @@ const MusicTitle = styled.h1`
 
   span {
     font-size: 24px;
-    background-color: ${(props) => props.theme.bgColor};
+    background-color: #222222;
     padding: 5px;
+    color: white;
   }
 `;
 
-const MusicCreator = styled.p``;
+const MusicCreator = styled.p`
+  margin-top: 17px;
+  span {
+    background-color: #222222;
+    padding: 4px;
+    color: white;
+  }
+`;
 
 const ThumbNail = styled.div`
   width: 340px;
@@ -80,6 +91,47 @@ const ThumbNail = styled.div`
   background-size: cover;
   margin-right: 30px;
   background-repeat: none;
+  position: relative;
+`;
+
+const Btn = styled.div`
+  cursor: pointer;
+  background-color: #222222;
+  color: white;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  transition-duration: 400ms;
+  border-radius: 5px;
+  &:hover {
+    background-color: #f50;
+  }
+  &:nth-child(1) {
+    right: 90px;
+  }
+`;
+
+const MusicButton = styled(Btn)`
+  position: static;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.btnColor};
+  font-size: 16px;
+  line-height: 18px;
+  padding: 10px 15px;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  margin-left: 15px;
+  &:hover {
+    color: white;
+  }
 `;
 
 export interface IParams {
@@ -91,18 +143,14 @@ const Music = () => {
   const [music, setMusic] = useState<IMusic>();
   const user = useRecoilValue(userState);
 
-  function DeleteButton() {
-    let history = useHistory();
+  let history = useHistory();
 
-    const handleClick = () => {
-      fetch(`/api/delete/${id}`, {
-        method: "POST",
-      });
-      history.push("/");
-    };
-
-    return <button onClick={handleClick}>delete</button>;
-  }
+  const handleClick = () => {
+    fetch(`/api/delete/${id}`, {
+      method: "POST",
+    });
+    history.push("/");
+  };
 
   console.log(id);
   useEffect(() => {
@@ -120,31 +168,33 @@ const Music = () => {
               <MusicTitle>
                 <span>{music?.title}</span>
               </MusicTitle>
-              <MusicCreator>작성한 사람 이름</MusicCreator>
+              <MusicCreator>
+                <span>작성한 사람 이름</span>
+              </MusicCreator>
             </MusicTextWrapper>
             <div>
               <AudioPlayer
-                autoPlay
+                autoPlay={true}
                 src={`${music?.fileUrl}`}
                 onPlay={(e) => console.log("onPlay")}
               />
             </div>
           </div>
-          <ThumbNail
-            style={{ backgroundImage: `url(${music?.thumbUrl})` }}
-          ></ThumbNail>
+          <ThumbNail style={{ backgroundImage: `url(${music?.thumbUrl})` }}>
+            <Btn>
+              <Link to={`/${id}/update`}>Update</Link>
+            </Btn>
+
+            <Btn onClick={handleClick}>Delete</Btn>
+          </ThumbNail>
         </BlurWrapper>
       </Banner>
-      <div>
-        <p>{music?.title}</p>
-        <p>{music?.content}</p>
-        <p>{music?.createdAt}</p>
-      </div>
-      <button>
-        <Link to={`/${id}/update`}>update</Link>
-      </button>
-
-      <DeleteButton />
+      <form>
+        <input placeholder="Write a comment"></input>
+      </form>
+      <MusicButton>Like</MusicButton>
+      <MusicButton>Repost</MusicButton>
+      <MusicButton>Share</MusicButton>
       <div>
         <h1>댓글</h1>
         <p>댓글1</p>

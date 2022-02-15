@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import Title from "./MainTitle";
-import SignUpBtn from "./SignUpBtn";
+import { Btn } from "./Btn";
 
 export const Banner = styled.div`
   background-image: url("https://a-v2.sndcdn.com/assets/images/sc_landing_header_web_featured_artists@2x-00444712.jpg");
@@ -43,9 +43,9 @@ const BannerContainer = () => {
             Discover, stream, and share a constantly expanding mix of music from
             emerging and major artists around the world.
           </Description>
-          <SignUpBtn>
+          <Btn>
             <Link to="/join">Create account</Link>
-          </SignUpBtn>
+          </Btn>
         </TitleBox>
       </TitleContainer>
     </Banner>

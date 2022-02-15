@@ -9,7 +9,7 @@ import {
 import Header from "../components/Header";
 import Input from "../components/Input";
 import Title from "../components/MainTitle";
-import SignUpBtn from "../components/SignUpBtn";
+import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 
 export const Form = styled.form`
@@ -42,9 +42,9 @@ const Write = () => {
               Share your tracks and access the tools you need to break through
               and build your legacy.
             </Description>
-            <SignUpBtn>
+            <Btn>
               <Link to="/join">Upload your first track</Link>
-            </SignUpBtn>
+            </Btn>
           </TitleBox>
         </TitleContainer>
       </Banner>
@@ -57,7 +57,7 @@ const Write = () => {
           accept="audio/*"
           id="music"
           name="music"
-          style={{ marginTop: "5px" }}
+          style={{ marginTop: "5px", cursor: "pointer" }}
           required
         />
         <label
@@ -72,11 +72,11 @@ const Write = () => {
           id="thumbnail"
           name="thumbnail"
           required
-          style={{ marginTop: "5px" }}
+          style={{ marginTop: "5px", cursor: "pointer" }}
         />
         <Input placeholder="Title" id="title" name="title" />
         <Input id="content" name="content" placeholder="description" />
-        <SignUpBtn>Submit</SignUpBtn>
+        <Btn>Submit</Btn>
       </Form>
     </Wrapper>
   );

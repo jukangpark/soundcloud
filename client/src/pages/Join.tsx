@@ -13,9 +13,8 @@ import BannerContainer, {
   Banner,
 } from "../components/Banner";
 import Title from "../components/MainTitle";
-import SignUpBtn from "../components/SignUpBtn";
+import { Btn } from "../components/Btn";
 import Input from "../components/Input";
-import Btn from "../components/SignUpBtn";
 
 interface IUser {
   email: string;

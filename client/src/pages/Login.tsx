@@ -16,7 +16,7 @@ import {
   TitleContainer,
 } from "../components/Banner";
 import Title from "../components/MainTitle";
-import SignUpBtn from "../components/SignUpBtn";
+import { Btn } from "../components/Btn";
 import Input from "../components/Input";
 
 interface IForm {
@@ -103,12 +103,9 @@ const Login = () => {
         />
         {errors.password?.message}
 
-        <SignUpBtn
-          style={{ marginTop: "20px" }}
-          onClick={handleSubmit(onValid)}
-        >
+        <Btn style={{ marginTop: "20px" }} onClick={handleSubmit(onValid)}>
           Log In
-        </SignUpBtn>
+        </Btn>
         <p style={{ marginTop: "10px" }}>If you have no account?</p>
         <Link to="/join" style={{ textDecoration: "underline" }}>
           Create account

@@ -8,7 +8,7 @@ import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import SignUpBtn from "../components/SignUpBtn";
+import { Btn } from "../components/Btn";
 
 interface IUser {
   email: string;
@@ -117,7 +117,7 @@ const UpdateProfile = () => {
         />
         {errors.location?.message}
 
-        <SignUpBtn>Update</SignUpBtn>
+        <Btn>Update</Btn>
       </Form>
     </Wrapper>
   );
