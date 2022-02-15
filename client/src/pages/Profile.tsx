@@ -83,9 +83,11 @@ const MyProfile = () => {
                 width: "150px",
                 marginBottom: "20px",
                 position: "relative",
+                backgroundImage: `url(${user?.profileImageUrl})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             >
-              <img src={`/${user?.profileImageUrl}`} alt="profileImage" />
               <Form
                 onChange={handleSubmit(onValid)}
                 style={{

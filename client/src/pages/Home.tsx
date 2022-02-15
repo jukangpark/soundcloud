@@ -144,6 +144,7 @@ export interface Music {
     views: Number;
   };
   _id: String;
+  thumbUrl: String;
 }
 
 // 해로쿠에서는 어디에 fetch 날릴거임?
@@ -192,9 +193,11 @@ const Home = () => {
                       backgroundColor: "gray",
                       width: "180px",
                       height: "180px",
+                      backgroundImage: `url(${x.thumbUrl})`,
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
                     }}
                   >
-                    <img src="" alt="thumbnail" />
                     썸네일
                   </div>
                   <h1 style={{ fontSize: "18px" }}>{x.title}</h1>

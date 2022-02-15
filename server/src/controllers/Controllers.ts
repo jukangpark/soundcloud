@@ -188,3 +188,27 @@ export const postUpdateProfileImage = async (req, res) => {
   });
   return res.json({ message: "프로필 이미지가 업데이트 되었습니다." });
 };
+
+export const postUpload = async (req, res) => {
+  const { title, content } = req.body;
+  const { music, thumbnail } = req.files;
+  try {
+    const newMusic = await Music.create({
+      title,
+      content,
+      fileUrl: music[0].path,
+      thumbUrl: thumbnail[0].path,
+    });
+
+    // const _id = req.body._id;
+    // const board = await Board.find({writer: _id})
+    // res.json({list: board});
+
+    // const board = await Board.find({_id});
+    // res.json({board});
+    // 뭐 이런식으로 몽구스 조회해서 보내버리네잉.. json 형태로.
+  } catch (error) {
+    return res.status(400).redirect("/");
+  }
+  res.redirect("/");
+};
