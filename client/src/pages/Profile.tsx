@@ -85,7 +85,7 @@ const MyProfile = () => {
                 position: "relative",
               }}
             >
-              <img src={`${user?.profileImageUrl}.png`} />
+              <img src={`${user?.profileImageUrl}`} alt="profileImage" />
               <Form
                 onChange={handleSubmit(onValid)}
                 style={{
@@ -112,6 +112,7 @@ const MyProfile = () => {
                   id="profileImage"
                   name="profileImage"
                   type="file"
+                  accept="image/*"
                   style={{ display: "none" }}
                 ></input>
               </Form>
