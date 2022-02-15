@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import MainTitle from "../components/MainTitle";
-import { IParams } from "./Post";
+import { IParams } from "./Music";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import { IFormData } from "./Search";
 import { Form, TextArea } from "./Upload";
-import { Music } from "./Home";
+import { IMusic } from "./Home";
 
 const Update = () => {
   const { id } = useParams<IParams>();

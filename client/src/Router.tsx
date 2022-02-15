@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Join from "./pages/Join";
 import Search from "./pages/Search";
 import Upload from "./pages/Upload";
-import Post from "./pages/Post";
+import Music from "./pages/Music";
 import Update from "./pages/Update";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -53,7 +53,7 @@ const Router = () => {
           <Update />
         </Route>
         <Route path="/:id">
-          <Post />
+          <Music />
         </Route>
         <Route path="/">
           <Home />

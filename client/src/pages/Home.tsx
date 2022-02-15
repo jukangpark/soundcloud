@@ -136,7 +136,7 @@ const JoinContainer = styled.div`
   }
 `;
 
-export interface Music {
+export interface IMusic {
   title: String;
   content: String;
   createdAt: Number;
@@ -145,6 +145,7 @@ export interface Music {
   };
   _id: String;
   thumbUrl: String;
+  fileUrl: String;
 }
 
 // 해로쿠에서는 어디에 fetch 날릴거임?
@@ -162,7 +163,7 @@ const Home = () => {
   //   // data는 배열을 담고 있는 객체 입니다.
   //   setLoading(false);
   // }, []);
-  const { isLoading, data } = useQuery<Music[]>("music", () => fetchMusics());
+  const { isLoading, data } = useQuery<IMusic[]>("music", () => fetchMusics());
 
   console.log(data);
 
@@ -197,9 +198,7 @@ const Home = () => {
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                     }}
-                  >
-                    썸네일
-                  </div>
+                  ></div>
                   <h1 style={{ fontSize: "18px" }}>{x.title}</h1>
                   <p>{`조회수 : ${x.meta.views}`}</p>
                 </Link>

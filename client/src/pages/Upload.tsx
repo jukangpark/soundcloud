@@ -75,7 +75,7 @@ const Write = () => {
           style={{ marginTop: "5px" }}
         />
         <Input placeholder="Title" id="title" name="title" />
-        <Input id="content" name="content" placeholder="내용" />
+        <Input id="content" name="content" placeholder="description" />
         <SignUpBtn>Submit</SignUpBtn>
       </Form>
     </Wrapper>

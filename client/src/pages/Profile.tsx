@@ -18,7 +18,7 @@ import MainTitle from "../components/MainTitle";
 import MusicContainer from "../components/MusicContainer";
 import SignUpBtn from "../components/SignUpBtn";
 import Wrapper from "../components/Wrapper";
-import { Music } from "./Home";
+import { IMusic } from "./Home";
 import { Form } from "./Upload";
 
 interface IUser {
@@ -31,7 +31,7 @@ const MyProfile = () => {
   // const user = useRecoilValue(userState);
 
   const isDark = useRecoilValue(isDarkState);
-  const [list, setList] = useState<Music[]>();
+  const [list, setList] = useState<IMusic[]>();
 
   const { isLoading, data: user } = useQuery<IUser>("user", () =>
     fetchLoggedinUser()
