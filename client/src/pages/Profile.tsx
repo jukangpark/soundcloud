@@ -85,7 +85,7 @@ const MyProfile = () => {
                 position: "relative",
               }}
             >
-              <img src={`${user?.profileImageUrl}`} alt="profileImage" />
+              <img src={`/${user?.profileImageUrl}`} alt="profileImage" />
               <Form
                 onChange={handleSubmit(onValid)}
                 style={{
