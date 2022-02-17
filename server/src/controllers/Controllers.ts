@@ -163,7 +163,7 @@ export const postUpdateProfileImage = async (req, res) => {
     },
   } = res;
   await User.findByIdAndUpdate(_id, {
-    profileImageUrl: file ? file.path : "default",
+    profileImageUrl: file ? file.location : "파일 없음",
   });
   return res.json({ message: "프로필 이미지가 업데이트 되었습니다." });
 };
@@ -178,8 +178,8 @@ export const postUpload = async (req, res) => {
     const newMusic = await Music.create({
       title,
       content,
-      fileUrl: music[0].path,
-      thumbUrl: thumbnail[0].path,
+      fileUrl: music[0].location,
+      thumbUrl: thumbnail[0].location,
       owner: _id,
     });
     const user = await User.findById(_id);
