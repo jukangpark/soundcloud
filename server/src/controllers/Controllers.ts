@@ -1,4 +1,5 @@
 import Music from "../models/Music";
+import Comment from "../models/Comment";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -8,26 +9,17 @@ export const registerView = (req, res) => {
   res.json({ hello: "노디몬" });
 };
 
-export const view = async (req, res) => {
-  const list = await Music.find();
+export const getMusicList = async (req, res) => {
+  const list = await Music.find({})
+    .populate("owner")
+    .populate({
+      path: "comments",
+      populate: { path: "owner" },
+    });
   // 배열을 리턴해준다.
 
-  // 선회하는 구조를 JSON으로 바꾸려고 해서 나는 에러이다. 배열을 json 형태로 바꿔줬기 때문에 그런듯..
-  // JSON 객체의 직렬화에 대상은 ownProperty 이면서, enumerable 한것만 직렬화 대상이된다.
-  // 배열이 리턴되었음. 그리고 그 배열안에는 객체가 있다.
-  res.send(list);
-
-  // res.send 로 전달해주면 배열 형태로 전해주고
-  // res.json 형태로 전달해주면 {} 객체 형태가 됨.
-  // list 를 키 값으로 하는 객체를 json 형태로 stringify 해서 보내주는 거였음....
-  // 왜 이런식으로 json 으로 넘겨줬는데 map 함수로 돌릴 수 없다고 하지?
-  // data 타입이 객체여서 그런건가? oo
-  // data 타입이 객체이고 그 객체안에 배열이 있기 때문에
-  // 그 배열을 map 함수로 돌려줘야함...
+  res.send(list); // res.send 로 배열을 보내줌.
 };
-
-// res.json  과 res.send의 차이 때문에 잘 되지 않는건가?
-// 아님 둘다 거의 같은 거임.
 
 export const searchTitle = async (req, res) => {
   const { keyword } = req.query;
@@ -43,10 +35,12 @@ export const searchTitle = async (req, res) => {
   res.json({ list: musics });
 };
 
-export const viewPost = async (req, res) => {
+export const viewMusic = async (req, res) => {
   const { id } = req.params;
-  const post = await Music.findById(id);
-  return res.json({ post });
+  const music = await Music.findById(id)
+    .populate("owner")
+    .populate({ path: "comments", populate: { path: "owner" } });
+  return res.json({ music });
 };
 
 export const deletePost = async (req, res) => {
@@ -57,7 +51,7 @@ export const deletePost = async (req, res) => {
   // localhost:9000 으로 redirect "/" 하고 있어서 에러가 발생하는 거 같은데? 아닐 수도 있음.
 };
 
-export const update = async (req, res) => {
+export const postUpdateMusic = async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
@@ -66,7 +60,7 @@ export const update = async (req, res) => {
     content,
   });
 
-  return res.redirect("/");
+  return res.json({ message: "업데이트 완료" });
 };
 
 //user
@@ -127,25 +121,11 @@ export const login = async (req, res) => {
     result: "ok",
     token,
   });
-
-  // req.session.loggedIn = true;
-  // req.session.user = user;
-  // 로그인 처리
-  // 이 두 줄이 우리가 실제로 세션을 initialize(초기화) 하는 부분.
-  // 세션에 정보를 추가하는 것임.
-  // session 에 saveUninitialized: false 를 설정하면 세션을 수정할 때만
-  // session을 db에 저장하고 쿠키를 넘겨줌.
-  // req.session.loggedIn에 true 라는 값을 주었기 때문에 우리는 현재 이 두 줄로
-  // 세션을 수정하고 있는 중.
-
-  // return res.status(200).json({ message: "로그인 성공", user }).end();
-  // json 으로 user 데이터 보내주기
 };
 export const getUpdateProfile = async (req, res) => {
   const { id } = req.params;
 
   const user = await User.findById(id);
-  // console.log(user);
   res.send(user);
 };
 
@@ -171,7 +151,6 @@ export const postUpdateProfile = async (req, res) => {
 };
 
 export const logOut = (req, res) => {
-  // req.session.destroy(); // 로그 아웃.
   return res.status(200).end();
 };
 
@@ -190,6 +169,9 @@ export const postUpdateProfileImage = async (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
+  const {
+    user: { user_id: _id },
+  } = res.locals;
   const { title, content } = req.body;
   const { music, thumbnail } = req.files;
   try {
@@ -198,17 +180,76 @@ export const postUpload = async (req, res) => {
       content,
       fileUrl: music[0].path,
       thumbUrl: thumbnail[0].path,
+      owner: _id,
     });
-
-    // const _id = req.body._id;
-    // const board = await Board.find({writer: _id})
-    // res.json({list: board});
-
-    // const board = await Board.find({_id});
-    // res.json({board});
-    // 뭐 이런식으로 몽구스 조회해서 보내버리네잉.. json 형태로.
+    const user = await User.findById(_id);
+    user.musics.push(newMusic._id);
+    await user.save();
   } catch (error) {
     return res.status(400).redirect("/");
   }
   res.redirect("/");
+};
+
+export const getUserInfo = async (req, res, next) => {
+  const user = res.locals.user;
+  const findedUser = await User.findById(user.user_id).populate("musics");
+  res.send(findedUser);
+};
+
+export const getComment = async (req, res) => {
+  const { id } = req.params;
+  const music = await Music.findById(id).populate({
+    path: "comments",
+    populate: {
+      path: "owner",
+    },
+  });
+  const comments = music.comments.sort((a, b) => b.createdAt - a.createdAt);
+  res.status(201).send(comments);
+};
+
+export const postComment = async (req, res) => {
+  const user = res.locals.user;
+  const {
+    params: { id },
+    body: { comment },
+  } = req;
+
+  const music = await Music.findById(id);
+  const searchedUser = await User.findById(user.user_id);
+
+  if (!music) {
+    return res.status(404).end();
+  }
+
+  const newComment = await Comment.create({
+    text: comment,
+    owner: searchedUser._id,
+    music: music._id,
+  });
+
+  music.comments.push(newComment);
+  music.save();
+
+  searchedUser.comments.push(newComment);
+  searchedUser.save();
+
+  return res.status(201).json({
+    newCommentId: newComment._id,
+    owner: searchedUser.username,
+    profileImageUrl: searchedUser.profileImageUrl,
+  });
+};
+
+export const deleteComment = (req, res) => {};
+
+export const getUserProfile = async (req, res) => {
+  const { id } = req.params;
+
+  const { username, musics, profileImageUrl, _id } = await User.findById(
+    id
+  ).populate("musics");
+
+  res.json({ username, musics, profileImageUrl, _id });
 };

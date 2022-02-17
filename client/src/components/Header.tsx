@@ -106,7 +106,7 @@ const Header = () => {
               <Link to="/write">Upload</Link>
             </li>
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/myprofile">MyProfile</Link>
             </li>
             <li>
               <div style={{ cursor: "pointer" }} onClick={onClick}>

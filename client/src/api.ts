@@ -1,5 +1,5 @@
 export const fetchMusics = () => {
-  return fetch("/api/view").then((response) => response.json());
+  return fetch("/api/musics").then((response) => response.json());
 };
 
 export const fetchLoggedinUser = () => {

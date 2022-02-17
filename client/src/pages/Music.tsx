@@ -13,10 +13,14 @@ import {
 import Header from "../components/Header";
 import Title from "../components/MainTitle";
 import Wrapper from "../components/Wrapper";
-import { IMusic } from "./Home";
+import { IMusic, ProfileWrapper } from "./Home";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/src/styles.scss";
 import "./audioPlayer.scss";
+import Input from "../components/Input";
+import { Form } from "./Upload";
+import { useForm } from "react-hook-form";
+import { IOwner } from "./Home";
 
 interface IProps {
   thumbUrl: any;
@@ -110,6 +114,10 @@ const Btn = styled.div`
   right: 0;
   transition-duration: 400ms;
   border-radius: 5px;
+
+  a {
+    display: block;
+  }
   &:hover {
     background-color: #f50;
   }
@@ -118,17 +126,10 @@ const Btn = styled.div`
   }
 `;
 
-const MusicButton = styled(Btn)`
+const LikeBtn = styled(Btn)`
   position: static;
-  color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.btnColor};
-  font-size: 16px;
-  line-height: 18px;
-  padding: 10px 15px;
-  height: 40px;
-  border: 1px solid #e5e5e5;
-  border-radius: 3px;
-  margin-left: 15px;
+  background-color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.bgColor};
   &:hover {
     color: white;
   }
@@ -138,10 +139,56 @@ export interface IParams {
   id: string;
 }
 
+export interface IFormData {
+  comment: string;
+}
+
+interface IComment {
+  _id: string;
+  text: string;
+  owner: IOwner;
+  music: string;
+  createdAt: string;
+}
+
+// interface ICommentState {
+//   [key: string]: IComment[];
+// }
+
+const Comment = styled.li`
+  line-height: 14px;
+  font-size: 14px;
+  width: 420px;
+  margin: 0 auto;
+`;
+
 const Music = () => {
   const { id } = useParams<IParams>();
   const [music, setMusic] = useState<IMusic>();
   const user = useRecoilValue(userState);
+  const [comments, setComments] = useState<IComment[]>();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IFormData>();
+
+  const onValid = async ({ comment }: IFormData) => {
+    setValue("comment", "");
+    await fetch(`/api/musics/${id}/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ comment }),
+    });
+
+    await fetch(`/api/musics/${id}/comment`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
+  };
 
   let history = useHistory();
 
@@ -152,12 +199,18 @@ const Music = () => {
     history.push("/");
   };
 
-  console.log(id);
   useEffect(() => {
-    fetch(`/api/view/${id}`)
+    fetch(`/api/musics/${id}`)
       .then((response) => response.json())
-      .then((data) => setMusic(data.post));
+      .then((data) => {
+        setMusic(data.music);
+      });
+
+    fetch(`/api/musics/${id}/comment`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
   }, []);
+
   return (
     <Wrapper>
       <Banner style={{ backgroundImage: "none" }}>
@@ -169,7 +222,7 @@ const Music = () => {
                 <span>{music?.title}</span>
               </MusicTitle>
               <MusicCreator>
-                <span>작성한 사람 이름</span>
+                <span>{music?.owner.username}</span>
               </MusicCreator>
             </MusicTextWrapper>
             <div>
@@ -189,18 +242,43 @@ const Music = () => {
           </ThumbNail>
         </BlurWrapper>
       </Banner>
-      <form>
-        <input placeholder="Write a comment"></input>
-      </form>
-      <MusicButton>Like</MusicButton>
-      <MusicButton>Repost</MusicButton>
-      <MusicButton>Share</MusicButton>
-      <div>
-        <h1>댓글</h1>
-        <p>댓글1</p>
-        <p>댓글2</p>
-        <p>댓글3</p>
-      </div>
+      <Form onSubmit={handleSubmit(onValid)}>
+        <Input
+          {...register("comment", { required: "댓글을 작성해주세요" })}
+          placeholder="Write a comment"
+        ></Input>
+        <span>{errors.comment?.message}</span>
+      </Form>
+      <LikeBtn>Like</LikeBtn>
+      <ul>
+        {comments?.map((comment, index) => (
+          <Comment key={index}>
+            <ProfileWrapper
+              style={{ padding: "20px", borderBottom: "1px solid gray" }}
+            >
+              <Link
+                to={`/profile/${comment.owner._id}`}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    backgroundImage: `url(${comment.owner.profileImageUrl})`,
+                    display: "inline-block",
+                  }}
+                ></div>
+                <span style={{ marginRight: "20px" }}>
+                  {comment.owner.username}
+                </span>
+              </Link>
+              <span>{comment.text}</span>
+              <span style={{ color: "gray" }}>{`${comment.createdAt.slice(
+                11,
+                16
+              )}`}</span>
+            </ProfileWrapper>
+          </Comment>
+        ))}
+      </ul>
     </Wrapper>
   );
 };

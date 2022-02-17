@@ -2,11 +2,10 @@ import Post from "../models/Music";
 import express from "express";
 import {
   registerView,
-  view,
   searchTitle,
-  viewPost,
+  viewMusic,
   deletePost,
-  update,
+  postUpdateMusic,
   join,
   login,
   logOut,
@@ -14,6 +13,12 @@ import {
   postUpdateProfile,
   postUpdateProfileImage,
   postUpload,
+  getUserInfo,
+  getMusicList,
+  postComment,
+  deleteComment,
+  getUserProfile,
+  getComment,
 } from "../controllers/Controllers";
 import { verifyToken } from "../middlewares/authorization";
 import User from "../models/User";
@@ -21,10 +26,10 @@ import { uploadFiles, uploadMusic } from "../middlewares/middlewares";
 
 const apiRouter = express.Router();
 
-apiRouter.post("/:id/update", update);
-apiRouter.get("/view/:id", viewPost);
+apiRouter.post("/:id/update", postUpdateMusic);
+apiRouter.get("/musics/:id", viewMusic);
 apiRouter.get("/data", registerView);
-apiRouter.get("/view", view);
+apiRouter.get("/musics", getMusicList);
 apiRouter.post("/delete/:id", deletePost);
 
 apiRouter.post(
@@ -33,6 +38,7 @@ apiRouter.post(
     { name: "music", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
   ]),
+  verifyToken,
   postUpload
 );
 
@@ -46,11 +52,7 @@ apiRouter.post("/user/login", login);
 //   res.json({ loggedIn: req.session.loggedIn, user: req.session.user });
 // });
 
-apiRouter.get("/user/info", verifyToken, async (req, res, next) => {
-  const user = res.locals.user;
-  const findedUser = await User.findById(user.user_id);
-  res.send(findedUser);
-});
+apiRouter.get("/user/info", verifyToken, getUserInfo);
 
 apiRouter.get("/user/logout", logOut);
 
@@ -66,5 +68,12 @@ apiRouter
     verifyToken,
     postUpdateProfileImage
   );
+
+apiRouter
+  .route("/musics/:id/comment")
+  .get(getComment)
+  .post(verifyToken, postComment);
+apiRouter.post("/musics/:id/comment/delete", deleteComment);
+apiRouter.route("/profile/:id").get(getUserProfile);
 
 export default apiRouter;

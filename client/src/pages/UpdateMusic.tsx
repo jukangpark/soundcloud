@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import MainTitle from "../components/MainTitle";
 import { IParams } from "./Music";
@@ -15,30 +15,37 @@ import BannerContainer, {
   TitleContainer,
 } from "../components/Banner";
 import Title from "../components/MainTitle";
+import { Btn } from "../components/Btn";
 
 const Update = () => {
+  const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IMusic>();
   const { id } = useParams<IParams>();
-  const [title, setTitle] = useState<string>();
-  const [content, setContent] = useState<string>();
+  const [music, setMusic] = useState<IMusic>();
 
-  console.log(id);
   useEffect(() => {
-    fetch(`/api/view/${id}`)
+    fetch(`/api/musics/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setTitle(data.post.title);
-        setContent(data.post.content);
+        setMusic(data.music);
       });
   }, []);
 
-  const onChangeTitle = (event: React.FormEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    setTitle(value);
-  };
-
-  const onChangeContent = (event: React.FormEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    setContent(value);
+  const onValid = async ({ title, content }: IMusic) => {
+    const response = await fetch(`/api/${id}/update`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, content }),
+    });
+    const { message } = await response.json();
+    alert(message);
+    history.push(`/${id}`);
   };
 
   return (
@@ -60,23 +67,22 @@ const Update = () => {
         </TitleContainer>
       </Banner>
 
-      <MainTitle>Update</MainTitle>
-      <Form method="POST" action={`/api/${id}/update`}>
+      <Form onSubmit={handleSubmit(onValid)}>
         <Input
-          placeholder="제목"
+          {...register("title", { required: "title 을 입력해주세요." })}
           id="title"
           name="title"
-          value={title || ""} // value 에는 undefined 가 들어올 수 없기 때문에 이렇게.
-          onChange={onChangeTitle}
+          placeholder={music?.title}
         ></Input>
+        <span>{errors?.title?.message}</span>
         <Input
-          onChange={onChangeContent}
+          {...register("content", { required: "description 을 입력해주세요." })}
           id="content"
           name="content"
-          placeholder="내용"
-          value={content || ""} // value 에는 undefined 가 들어올 수 없기 때문에 이렇게.
+          placeholder={music?.content}
         ></Input>
-        <button>Update</button>
+        <span>{errors?.content?.message}</span>
+        <Btn>Update</Btn>
       </Form>
     </div>
   );

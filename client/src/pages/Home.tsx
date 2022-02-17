@@ -16,7 +16,7 @@ import { fetchMusics } from "../api";
 import { HelmetProvider } from "react-helmet-async";
 import { Music } from "../components/Music";
 
-const Trending = styled.div<{ isDark: boolean }>`
+export const Trending = styled.div<{ isDark: boolean }>`
   font-size: 24px;
   text-align: center;
   padding-top: 20px;
@@ -138,37 +138,63 @@ const JoinContainer = styled.div`
   }
 `;
 
+export const ProfileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  div {
+    background-position: center;
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 90%;
+  }
+  span {
+    margin-left: 10px;
+    font-size: 13px;
+  }
+`;
+
+// const Span = styled.span`
+//   &:hover {
+//     color: ${(props) => props.theme.acc};
+//   }
+// `;
+export interface IOwner {
+  comments: object;
+  email: string;
+  username: string;
+  profileImageUrl: string;
+  _id: string;
+}
+
+interface IComment {
+  _id: string;
+  text: string;
+  createdAt: string;
+  owner: IOwner;
+  music: string;
+}
+
 export interface IMusic {
-  title: String;
-  content: String;
-  createdAt: Number;
+  title: string;
+  content: string;
+  createdAt: number;
   meta: {
-    views: Number;
+    views: number;
   };
-  _id: String;
-  thumbUrl: String;
-  fileUrl: String;
+  _id: string;
+  thumbUrl: string;
+  fileUrl: string;
+  owner: { username: string; _id: string; profileImageUrl: string };
+  comments: Array<IComment>;
 }
 
 // 해로쿠에서는 어디에 fetch 날릴거임?
 
 const Home = () => {
-  // const [list, setList] = useState<IPost[]>();
-  // const [isLoading, setLoading] = useState(true);
   const isDark = useRecoilValue(isDarkState);
-
-  // useEffect(() => {
-  //   fetch("/api/view")
-  //     .then((response) => response.json())
-  //     .then((data) => setList(data.list));
-
-  //   // data는 배열을 담고 있는 객체 입니다.
-  //   setLoading(false);
-  // }, []);
   const { isLoading, data } = useQuery<IMusic[]>("music", () => fetchMusics());
-
   console.log(data);
-
   return (
     <Wrapper>
       {/* <HelmetProvider>
@@ -188,16 +214,25 @@ const Home = () => {
             Hear what’s trending for free in the SoundCloud community
           </Trending>
           <MusicContainer isDark={isDark}>
-            {data?.map((x, index) => (
+            {data?.map((music, index) => (
               <li key={index} style={{ marginBottom: "40px" }}>
-                <Link to={`${x._id}`}>
+                <Link to={`${music._id}`}>
+                  <h1 style={{ fontSize: "18px" }}>{music.title}</h1>
                   <Music
                     style={{
-                      backgroundImage: `url(${x.thumbUrl})`,
+                      backgroundImage: `url(${music.thumbUrl})`,
                     }}
                   ></Music>
-                  <h1 style={{ fontSize: "18px" }}>{x.title}</h1>
-                  <p>{`조회수 : ${x.meta.views}`}</p>
+                </Link>
+                <Link to={`/profile/${music.owner._id}`}>
+                  <ProfileWrapper>
+                    <div
+                      style={{
+                        backgroundImage: `url(${music.owner.profileImageUrl})`,
+                      }}
+                    ></div>
+                    <span>{music.owner.username}</span>
+                  </ProfileWrapper>
                 </Link>
               </li>
             ))}

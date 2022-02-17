@@ -74,7 +74,7 @@ const Write = () => {
           required
           style={{ marginTop: "5px", cursor: "pointer" }}
         />
-        <Input placeholder="Title" id="title" name="title" />
+        <Input placeholder="Title" id="title" name="title" maxLength={17} />
         <Input id="content" name="content" placeholder="description" />
         <Btn>Submit</Btn>
       </Form>

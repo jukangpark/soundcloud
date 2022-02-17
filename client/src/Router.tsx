@@ -4,7 +4,7 @@ import Join from "./pages/Join";
 import Search from "./pages/Search";
 import Upload from "./pages/Upload";
 import Music from "./pages/Music";
-import Update from "./pages/Update";
+import UpdateMusic from "./pages/UpdateMusic";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import { useCookies } from "react-cookie";
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { cookieState } from "./atoms";
 import UpdateProfile from "./pages/UpdateProfile";
+import MyProfile from "./pages/MyProfile";
 
 const Router = () => {
   const [cookies, removeCookie] = useCookies(["user"]);
@@ -46,11 +47,14 @@ const Router = () => {
         <Route path="/profile/:id/update">
           <UpdateProfile />
         </Route>
-        <Route path="/profile">
+        <Route path="/profile/:id">
           <Profile />
         </Route>
+        <Route path="/myprofile">
+          <MyProfile />
+        </Route>
         <Route path="/:id/update">
-          <Update />
+          <UpdateMusic />
         </Route>
         <Route path="/:id">
           <Music />

@@ -27,6 +27,7 @@ const Search = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IFormData>();
   const [list, setList] = useState<IMusic[]>();
@@ -34,10 +35,12 @@ const Search = () => {
 
   const onValid = ({ keyword }: IFormData) => {
     setKeyword(keyword);
+    setValue("keyword", "");
     if (keyword === "") {
       setList(undefined);
       return;
     }
+
     fetch(`/api/search?keyword=${keyword}`)
       .then((response) => response.json())
       .then((data) => setList(data.list));
@@ -65,7 +68,9 @@ const Search = () => {
           <>
             <h1 style={{ fontSize: "36px", marginBottom: "30px" }}>
               {`${keyword} `}
-              <span style={{ fontSize: "18px" }}>으로 검색한 결과</span>
+              <span style={{ fontSize: "18px", color: "gray" }}>
+                으로 검색한 결과
+              </span>
             </h1>
             {list.length === 0
               ? "nothing is found."
