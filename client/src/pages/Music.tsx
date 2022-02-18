@@ -16,11 +16,16 @@ import Wrapper from "../components/Wrapper";
 import { IMusic, ProfileWrapper } from "./Home";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/src/styles.scss";
-import "./audioPlayer.scss";
+// import "./audioPlayer.scss";
 import Input from "../components/Input";
 import { Form } from "./Upload";
 import { useForm } from "react-hook-form";
 import { IOwner } from "./Home";
+// import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// library.add(fas);
 
 interface IProps {
   thumbUrl: any;
@@ -96,6 +101,10 @@ const ThumbNail = styled.div`
   margin-right: 30px;
   background-repeat: none;
   position: relative;
+  a:hover {
+    color: #f50;
+    transition-duration: 400ms;
+  }
 `;
 
 const Btn = styled.div`
@@ -121,7 +130,7 @@ const Btn = styled.div`
   &:hover {
     background-color: #f50;
   }
-  &:nth-child(1) {
+  &:nth-child(2) {
     right: 90px;
   }
 `;
@@ -188,6 +197,7 @@ const Music = () => {
     await fetch(`/api/musics/${id}/comment`)
       .then((res) => res.json())
       .then((data) => setComments(data));
+    // 여기 부분 로직 수정할 필요 있음 너무 느림..
   };
 
   let history = useHistory();
@@ -234,6 +244,18 @@ const Music = () => {
             </div>
           </div>
           <ThumbNail style={{ backgroundImage: `url(${music?.thumbUrl})` }}>
+            <Link
+              to="#"
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                fontSize: "20px",
+              }}
+            >
+              <FontAwesomeIcon icon={faHeart} />
+            </Link>
+
             <Btn>
               <Link to={`/${id}/update`}>Update</Link>
             </Btn>
@@ -249,7 +271,7 @@ const Music = () => {
         ></Input>
         <span>{errors.comment?.message}</span>
       </Form>
-      <LikeBtn>Like</LikeBtn>
+
       <ul>
         {comments?.map((comment, index) => (
           <Comment key={index}>

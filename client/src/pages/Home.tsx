@@ -194,7 +194,6 @@ export interface IMusic {
 const Home = () => {
   const isDark = useRecoilValue(isDarkState);
   const { isLoading, data } = useQuery<IMusic[]>("music", () => fetchMusics());
-  console.log(data);
   return (
     <Wrapper>
       {/* <HelmetProvider>
