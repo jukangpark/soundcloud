@@ -286,7 +286,7 @@ export const deleteComment = async (req, res) => {
 };
 
 export const getUserProfile = async (req, res) => {
-  const { id } = res.params;
+  const { id } = req.params;
 
   const { username, musics, profileImageUrl, _id } = await User.findById(
     id
