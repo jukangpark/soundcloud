@@ -235,6 +235,7 @@ const Home = () => {
                       }}
                     ></div>
                     <span>{music.owner.username}</span>
+                    <span>{`Played:  ${music.meta.views}`}</span>
                   </ProfileWrapper>
                 </Link>
               </li>

@@ -255,9 +255,11 @@ const Music = () => {
             </MusicTextWrapper>
             <div>
               <AudioPlayer
-                autoPlay={true}
+                autoPlay={false}
                 src={`${music?.fileUrl}`}
-                onPlay={(e) => console.log("onPlay")}
+                onPlay={(e) =>
+                  fetch(`/api/musics/${id}/play`, { method: "POST" })
+                }
               />
             </div>
           </div>

@@ -130,7 +130,7 @@ const MyProfile = () => {
                 }}
               ></Music>
             </Link>
-            <span>{`재생수:  ${music.meta.views}`}</span>
+            <span>{`Played:  ${music.meta.views}`}</span>
           </li>
         ))}
       </MusicContainer>

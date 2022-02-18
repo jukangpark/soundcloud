@@ -23,11 +23,13 @@ import {
 import { verifyToken } from "../middlewares/authorization";
 import User from "../models/User";
 import { uploadFiles, uploadMusic } from "../middlewares/middlewares";
+import Music from "../models/Music";
 
 const apiRouter = express.Router();
 
 apiRouter.post("/:id/update", postUpdateMusic);
 apiRouter.get("/musics/:id", viewMusic);
+
 apiRouter.get("/data", registerView);
 apiRouter.get("/musics", getMusicList);
 apiRouter.post("/delete/:id", deletePost);
@@ -75,5 +77,14 @@ apiRouter
   .post(verifyToken, postComment);
 apiRouter.post("/:id/comment/delete", verifyToken, deleteComment);
 apiRouter.route("/profile/:id").get(getUserProfile);
+
+apiRouter.post("/musics/:id/play", async (req, res) => {
+  // /musics/${id}/play`
+  const { id } = req.params;
+  const music = await Music.findById(id);
+  music.meta.views = music.meta.views + 1;
+  await music.save();
+  return res.end();
+});
 
 export default apiRouter;
