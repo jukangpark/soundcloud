@@ -241,11 +241,7 @@ export const postComment = async (req, res) => {
   searchedUser.comments.push(newComment);
   searchedUser.save();
 
-  return res.status(201).json({
-    newCommentId: newComment._id,
-    owner: searchedUser.username,
-    profileImageUrl: searchedUser.profileImageUrl,
-  });
+  return res.status(201).end();
 };
 
 export const deleteComment = (req, res) => {};
