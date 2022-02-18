@@ -15,6 +15,8 @@ import { useQuery } from "react-query";
 import { fetchMusics } from "../api";
 import { HelmetProvider } from "react-helmet-async";
 import { Music } from "../components/Music";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export const Trending = styled.div<{ isDark: boolean }>`
   font-size: 24px;
@@ -220,8 +222,21 @@ const Home = () => {
                   <Music
                     style={{
                       backgroundImage: `url(${music.thumbUrl})`,
+                      position: "relative",
                     }}
-                  ></Music>
+                  >
+                    <Link
+                      to="#"
+                      style={{
+                        position: "absolute",
+                        top: "5px",
+                        right: "5px",
+                        fontSize: "15px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faHeart} />
+                    </Link>
+                  </Music>
                 </Link>
                 <Link to={`/profile/${music.owner._id}`}>
                   <ProfileWrapper>

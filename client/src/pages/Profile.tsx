@@ -23,6 +23,8 @@ import { Form } from "./Upload";
 import IUser from "./Home";
 import { useParams } from "react-router-dom";
 import { Music } from "../components/Music";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 interface IData {
   username: string;
@@ -86,8 +88,21 @@ const Profile = () => {
               <Music
                 style={{
                   backgroundImage: `url(${music.thumbUrl})`,
+                  position: "relative",
                 }}
-              ></Music>
+              >
+                <Link
+                  to="#"
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    fontSize: "15px",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faHeart} />
+                </Link>
+              </Music>
             </Link>
             <span>{`재생수:  ${music.meta.views}`}</span>
           </li>

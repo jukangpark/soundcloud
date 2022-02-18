@@ -21,6 +21,8 @@ import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
 import { Form } from "./Upload";
 import { Music } from "../components/Music";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   username: string;
@@ -124,13 +126,27 @@ const MyProfile = () => {
               <Music
                 style={{
                   backgroundImage: `url(${music.thumbUrl})`,
+                  position: "relative",
                 }}
-              ></Music>
+              >
+                <Link
+                  to="#"
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    fontSize: "15px",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faHeart} />
+                </Link>
+              </Music>
             </Link>
             <span>{`재생수:  ${music.meta.views}`}</span>
           </li>
         ))}
       </MusicContainer>
+      <h1>{`내가 좋아요 누른 음악들`}</h1>
       <Btn>
         <Link to={`/profile/${user?._id}/update`} style={{ display: "block" }}>
           Update Profile

@@ -135,15 +135,6 @@ const Btn = styled.div`
   }
 `;
 
-const LikeBtn = styled(Btn)`
-  position: static;
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.bgColor};
-  &:hover {
-    color: white;
-  }
-`;
-
 export interface IParams {
   id: string;
 }
