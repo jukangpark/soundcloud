@@ -156,14 +156,18 @@ export const logOut = (req, res) => {
 
 export const postUpdateProfileImage = async (req, res) => {
   const { file } = req;
-
+  const isHeroku = process.env.NODE_ENV === "production";
   const {
     locals: {
       user: { user_id: _id },
     },
   } = res;
   await User.findByIdAndUpdate(_id, {
-    profileImageUrl: file ? file.location : "파일 없음",
+    profileImageUrl: file
+      ? isHeroku
+        ? file.location
+        : file.path
+      : "파일 없음",
   });
   return res.json({ message: "프로필 이미지가 업데이트 되었습니다." });
 };
@@ -172,14 +176,16 @@ export const postUpload = async (req, res) => {
   const {
     user: { user_id: _id },
   } = res.locals;
+
+  const isHeroku = process.env.NODE_ENV === "production";
   const { title, content } = req.body;
   const { music, thumbnail } = req.files;
   try {
     const newMusic = await Music.create({
       title,
       content,
-      fileUrl: music[0].location,
-      thumbUrl: thumbnail[0].location,
+      fileUrl: isHeroku ? music[0].location : music[0].path,
+      thumbUrl: isHeroku ? thumbnail[0].location : thumbnail[0].path,
       owner: _id,
     });
     const user = await User.findById(_id);
