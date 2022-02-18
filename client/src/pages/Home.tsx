@@ -196,6 +196,7 @@ export interface IMusic {
 const Home = () => {
   const isDark = useRecoilValue(isDarkState);
   const { isLoading, data } = useQuery<IMusic[]>("music", () => fetchMusics());
+
   return (
     <Wrapper>
       {/* <HelmetProvider>
@@ -224,19 +225,7 @@ const Home = () => {
                       backgroundImage: `url(${music.thumbUrl})`,
                       position: "relative",
                     }}
-                  >
-                    <Link
-                      to="#"
-                      style={{
-                        position: "absolute",
-                        top: "5px",
-                        right: "5px",
-                        fontSize: "15px",
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faHeart} />
-                    </Link>
-                  </Music>
+                  ></Music>
                 </Link>
                 <Link to={`/profile/${music.owner._id}`}>
                   <ProfileWrapper>

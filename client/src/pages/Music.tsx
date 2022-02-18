@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { userState } from "../atoms";
+import { cookieState, userState } from "../atoms";
 import {
   Banner,
   Description,
@@ -22,7 +22,7 @@ import { Form } from "./Upload";
 import { useForm } from "react-hook-form";
 import { IOwner } from "./Home";
 // import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // library.add(fas);
@@ -126,6 +126,7 @@ const Btn = styled.div`
 
   a {
     display: block;
+    color: white;
   }
   &:hover {
     background-color: #f50;
@@ -167,6 +168,32 @@ const Music = () => {
   const [music, setMusic] = useState<IMusic>();
   const user = useRecoilValue(userState);
   const [comments, setComments] = useState<IComment[]>();
+  const hasCookie = useRecoilValue(cookieState);
+
+  const deleteComment = async (event: React.MouseEvent<HTMLElement>) => {
+    const { commentid, ownerid } = event.currentTarget.dataset;
+    const data = await fetch(`/api/${id}/comment/delete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        commentid,
+        ownerid,
+      }),
+    });
+
+    const { message } = await data.json();
+    alert(message);
+
+    await fetch(`/api/musics/${id}/comment`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
+    // 여기 부분 로직 수정할 필요 있음 너무 느림..
+    // comment._id 와 owner._id 와 music._id 가 있으니까
+    // comment 삭제 하고 owner 안에 있는 comments 배열 안에 있는 comment 찾아서 삭제.
+    // music 안에 comments 배열 안에 있는 comment 삭제.
+  };
 
   const {
     register,
@@ -248,20 +275,36 @@ const Music = () => {
             </Link>
 
             <Btn>
-              <Link to={`/${id}/update`}>Update</Link>
+              <Link to={`/${id}/update`} style={{ color: "white" }}>
+                Update
+              </Link>
             </Btn>
 
             <Btn onClick={handleClick}>Delete</Btn>
           </ThumbNail>
         </BlurWrapper>
       </Banner>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <Input
-          {...register("comment", { required: "댓글을 작성해주세요" })}
-          placeholder="Write a comment"
-        ></Input>
-        <span>{errors.comment?.message}</span>
-      </Form>
+      {hasCookie ? (
+        <Form onSubmit={handleSubmit(onValid)}>
+          <Input
+            {...register("comment", { required: "댓글을 작성해주세요" })}
+            placeholder="Write a comment"
+          ></Input>
+          <span>{errors.comment?.message}</span>
+        </Form>
+      ) : (
+        <h1
+          style={{ textAlign: "center", marginTop: "20px", fontSize: "20px" }}
+        >
+          If you want to leave comments, please
+          <Link
+            to="/login"
+            style={{ textDecoration: "underline", marginLeft: "10px" }}
+          >
+            Sign In
+          </Link>
+        </h1>
+      )}
 
       <ul>
         {comments?.map((comment, index) => (
@@ -288,6 +331,17 @@ const Music = () => {
                 11,
                 16
               )}`}</span>
+              <span
+                data-commentid={comment._id}
+                data-ownerid={comment.owner._id}
+                onClick={deleteComment}
+                style={{ cursor: "pointer" }}
+              >
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  style={{ marginLeft: "10px" }}
+                />
+              </span>
             </ProfileWrapper>
           </Comment>
         ))}

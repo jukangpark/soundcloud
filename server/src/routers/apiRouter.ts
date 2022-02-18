@@ -33,7 +33,7 @@ apiRouter.get("/musics", getMusicList);
 apiRouter.post("/delete/:id", deletePost);
 
 apiRouter.post(
-  "/write",
+  "/upload",
   uploadMusic.fields([
     { name: "music", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
@@ -73,7 +73,7 @@ apiRouter
   .route("/musics/:id/comment")
   .get(getComment)
   .post(verifyToken, postComment);
-apiRouter.post("/musics/:id/comment/delete", deleteComment);
+apiRouter.post("/:id/comment/delete", verifyToken, deleteComment);
 apiRouter.route("/profile/:id").get(getUserProfile);
 
 export default apiRouter;

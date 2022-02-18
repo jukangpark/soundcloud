@@ -128,19 +128,7 @@ const MyProfile = () => {
                   backgroundImage: `url(${music.thumbUrl})`,
                   position: "relative",
                 }}
-              >
-                <Link
-                  to="#"
-                  style={{
-                    position: "absolute",
-                    top: "5px",
-                    right: "5px",
-                    fontSize: "15px",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faHeart} />
-                </Link>
-              </Music>
+              ></Music>
             </Link>
             <span>{`재생수:  ${music.meta.views}`}</span>
           </li>

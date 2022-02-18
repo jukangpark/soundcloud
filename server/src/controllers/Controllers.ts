@@ -45,6 +45,7 @@ export const viewMusic = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   const { id } = req.params;
+
   await Music.findByIdAndDelete(id);
   return res.end();
   // api 로 요청한 것들은 모두 proxy localhost:9000 으로 가기 때문에
@@ -244,10 +245,48 @@ export const postComment = async (req, res) => {
   return res.status(201).end();
 };
 
-export const deleteComment = (req, res) => {};
+export const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  const { commentid, ownerid } = req.body;
+
+  const music = await Music.findById(id);
+  const comment = await Comment.findById(commentid);
+  const { user_id } = res.locals.user;
+
+  const foundUser = await User.findById(user_id);
+
+  if (user_id !== String(comment.owner)) {
+    return res
+      .status(401)
+      .json({ message: "댓글 작성자만 삭제할 수 있습니다." });
+  }
+
+  if (!comment) {
+    return res.status(400).json({ message: "댓글이 존재하지 않습니다." });
+  }
+
+  await Comment.findByIdAndDelete(commentid);
+
+  if (!music) {
+    return res.status(400).json({ message: "음악이 존재하지 않습니다." });
+  }
+
+  music.comments = music.comments.filter(
+    (comment) => String(comment) !== commentid
+  );
+
+  foundUser.comments = foundUser.comments.filter(
+    (comment) => String(comment) !== commentid
+  );
+
+  await music.save();
+  await foundUser.save();
+
+  res.status(200).json({ message: "댓글 삭제 완료" });
+};
 
 export const getUserProfile = async (req, res) => {
-  const { id } = req.params;
+  const { id } = res.params;
 
   const { username, musics, profileImageUrl, _id } = await User.findById(
     id

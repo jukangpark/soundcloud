@@ -34,7 +34,7 @@ const Router = () => {
       저장되어 있다면 ToDo 컴포넌트를 띄운다. */}
 
       <Switch>
-        <Route path="/write">
+        <Route path="/upload">
           <Upload />
         </Route>
         <Route path="/join">{hasCookie ? <Redirect to="/" /> : <Join />}</Route>
