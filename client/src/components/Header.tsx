@@ -103,7 +103,7 @@ const Header = () => {
         {hasCookie ? (
           <>
             <li>
-              <Link to="/write">Upload</Link>
+              <Link to="/upload">Upload</Link>
             </li>
             <li>
               <Link to="/myprofile">MyProfile</Link>

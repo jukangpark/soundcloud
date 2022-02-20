@@ -25,7 +25,7 @@ export const TextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
-const Write = () => {
+const Upload = () => {
   return (
     <Wrapper>
       <Banner
@@ -82,6 +82,6 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default Upload;
 
 // text area is often used in a form, to collect user inputs like comments or reviews.
