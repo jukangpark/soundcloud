@@ -68,7 +68,9 @@ const MyProfile = () => {
                 width: "150px",
                 marginBottom: "20px",
                 position: "relative",
-                backgroundImage: `url(${user?.profileImageUrl})`,
+                backgroundImage: `url(${
+                  isLoading ? "undefined" : user?.profileImageUrl
+                })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -104,7 +106,9 @@ const MyProfile = () => {
                 ></input>
               </Form>
             </div>
-            <Description>{`${user?.username}`}</Description>
+            <Description>{`${
+              isLoading ? "Loading.." : user?.username
+            }`}</Description>
           </TitleBox>
         </TitleContainer>
       </Banner>

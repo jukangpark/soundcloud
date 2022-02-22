@@ -253,7 +253,7 @@ const Music = () => {
     <Wrapper>
       <Banner style={{ backgroundImage: "none" }}>
         <Header />
-        <BlurWrapper thumbUrl={data?.music?.thumbUrl}>
+        <BlurWrapper thumbUrl={isLoading ? "undefined" : data?.music?.thumbUrl}>
           <div style={{ width: "870px", height: "100%" }}>
             <MusicTextWrapper>
               <MusicTitle>
@@ -274,7 +274,11 @@ const Music = () => {
             </div>
           </div>
           <ThumbNail
-            style={{ backgroundImage: `url(${data?.music.thumbUrl})` }}
+            style={{
+              backgroundImage: `url(${
+                isLoading ? "undefined" : data?.music.thumbUrl
+              })`,
+            }}
           >
             <Link
               to="#"
