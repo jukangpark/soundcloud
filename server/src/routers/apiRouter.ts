@@ -1,29 +1,35 @@
 import Post from "../models/Music";
 import express from "express";
 import {
-  registerView,
-  searchTitle,
+  postComment,
+  deleteComment,
+  getComment,
+} from "../controllers/commentController";
+
+import { verifyToken } from "../middlewares/authorization";
+import User from "../models/User";
+import { uploadFiles, uploadMusic } from "../middlewares/middlewares";
+import Music from "../models/Music";
+import {
+  getMusicList,
   viewMusic,
   deleteMusic,
   postUpdateMusic,
+  postUpload,
+  registerView,
+  searchTitle,
+} from "../controllers/musicController";
+
+import {
   join,
   login,
   logOut,
   getUpdateProfile,
   postUpdateProfile,
   postUpdateProfileImage,
-  postUpload,
   getUserInfo,
-  getMusicList,
-  postComment,
-  deleteComment,
   getUserProfile,
-  getComment,
-} from "../controllers/Controllers";
-import { verifyToken } from "../middlewares/authorization";
-import User from "../models/User";
-import { uploadFiles, uploadMusic } from "../middlewares/middlewares";
-import Music from "../models/Music";
+} from "../controllers/userController";
 
 const apiRouter = express.Router();
 
