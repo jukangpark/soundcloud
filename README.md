@@ -1,6 +1,5 @@
 https://board-app-jkp.herokuapp.com/
-
-## Stack
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/55b381c2-2516-4549-88cd-d573bca6f97f/Untitled.png)## Stack
 
 React, Express, MongoDB, Mongoose, typescript, jwt, bcrypt, react-query, recoil, multerS3,
 react-hook-form, react-router-dom, styled-components
