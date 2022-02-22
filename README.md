@@ -39,7 +39,7 @@ proxy 설정에서 좀 애를 먹었습니다.
 
 ## 기능
 
-Music CRUD
-Comment CRD
-User CRUD
-Dark mode / Light mode with Recoil
+Music CRUD<br>
+Comment CRD<br>
+User CRUD<br>
+Dark mode / Light mode with Recoil<br>
