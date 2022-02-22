@@ -36,3 +36,10 @@ cookie-session 방식의 로그인을 구현했었는데
 동시에 배포를 하기 위해서
 개발 환경을 구축하였는데
 proxy 설정에서 좀 애를 먹었습니다.
+
+## 기능
+
+Music CRUD
+Comment CRD
+User CRUD
+Dark mode / Light mode with Recoil
