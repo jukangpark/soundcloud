@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { fetchLoggedinUser } from "../api";
+import { fetchLoggedinUser, fetchUser } from "../api";
 import { isDarkState, userState } from "../atoms";
 import {
   Banner,
@@ -40,15 +40,18 @@ interface IParams {
 const Profile = () => {
   const isDark = useRecoilValue(isDarkState);
   const [list, setList] = useState<IMusic[]>();
-  const [user, setUser] = useState<IData>();
 
   const { id } = useParams<IParams>();
 
-  useEffect(() => {
-    fetch(`/api/profile/${id}`)
-      .then((res) => res.json())
-      .then((data) => setUser(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`/api/profile/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setUser(data));
+  // }, []);
+
+  const { isLoading, data: user } = useQuery<IData>("user", () =>
+    fetchUser(id)
+  );
 
   const {
     register,
@@ -79,7 +82,7 @@ const Profile = () => {
           </TitleBox>
         </TitleContainer>
       </Banner>
-      <h1>{`${user?.username}가 올린 음악들`}</h1>
+      <h1>{isLoading ? "Loading..." : `${user?.username}가 올린 음악들`}</h1>
       <MusicContainer style={{ marginTop: "50px" }} isDark={isDark}>
         {user?.musics?.map((music, index) => (
           <li key={index} style={{ marginBottom: "40px" }}>

@@ -37,7 +37,7 @@ const MyProfile = () => {
   const isDark = useRecoilValue(isDarkState);
   const [list, setList] = useState<IMusic[]>();
 
-  const { isLoading, data: user } = useQuery<IUser>("user", () =>
+  const { isLoading, data: user } = useQuery<IUser>("loggedInUser", () =>
     fetchLoggedinUser()
   );
 

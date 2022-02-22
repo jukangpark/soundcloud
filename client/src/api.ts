@@ -13,3 +13,7 @@ export const fetchMusic = (id: string) => {
 export const fetchComments = (id: string) => {
   return fetch(`/api/musics/${id}/comment`).then((response) => response.json());
 };
+
+export const fetchUser = (id: string) => {
+  return fetch(`/api/profile/${id}`).then((response) => response.json());
+};
