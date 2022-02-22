@@ -81,7 +81,7 @@ const Search = () => {
                         {x.title}
                         <span
                           style={{ marginLeft: "15px" }}
-                        >{`아티스트 : ${x.meta.views}`}</span>
+                        >{`Played : ${x.meta.views}`}</span>
                       </h1>
                     </Link>
                   </SearchedMusic>

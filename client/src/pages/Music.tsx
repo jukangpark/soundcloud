@@ -167,9 +167,7 @@ const Comment = styled.li`
 
 const Music = () => {
   const { id } = useParams<IParams>();
-  const [music, setMusic] = useState<IMusic>();
   const [commentState, setComment] = useState<IComment[]>();
-  const user = useRecoilValue(userState);
   const hasCookie = useRecoilValue(cookieState);
 
   const { isLoading: commentsLoading, data: comments } = useQuery<IComment[]>(
@@ -243,8 +241,17 @@ const Music = () => {
   const handleClick = () => {
     fetch(`/api/delete/${id}`, {
       method: "POST",
-    });
-    history.push("/");
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        if (data.message === "음악 삭제 완료") {
+          history.push("/");
+        }
+        // if (data.message === "업데이트 완료") {
+        //   history.push("/");
+        // }
+      });
   };
 
   const { isLoading, data } = useQuery("music", () => fetchMusic(id));
@@ -292,13 +299,14 @@ const Music = () => {
               <FontAwesomeIcon icon={faHeart} />
             </Link>
 
-            <Btn>
-              <Link to={`/${id}/update`} style={{ color: "white" }}>
-                Update
-              </Link>
-            </Btn>
-
-            <Btn onClick={handleClick}>Delete</Btn>
+            {hasCookie ? (
+              <Btn>
+                <Link to={`/${id}/update`} style={{ color: "white" }}>
+                  Update
+                </Link>
+              </Btn>
+            ) : null}
+            {hasCookie ? <Btn onClick={handleClick}>Delete</Btn> : null}
           </ThumbNail>
         </BlurWrapper>
       </Banner>
@@ -311,13 +319,15 @@ const Music = () => {
           <span>{errors.comment?.message}</span>
         </Form>
       ) : (
-        <h1
-          style={{ textAlign: "center", marginTop: "20px", fontSize: "20px" }}
-        >
+        <h1 style={{ textAlign: "center", margin: "50px", fontSize: "20px" }}>
           If you want to leave comments, please
           <Link
             to="/login"
-            style={{ textDecoration: "underline", marginLeft: "10px" }}
+            style={{
+              textDecoration: "underline",
+              marginLeft: "10px",
+              marginTop: "100px",
+            }}
           >
             Sign In
           </Link>

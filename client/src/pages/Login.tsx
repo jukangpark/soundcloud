@@ -18,6 +18,7 @@ import {
 import Title from "../components/MainTitle";
 import { Btn } from "../components/Btn";
 import Input from "../components/Input";
+import Footer from "../components/Footer";
 
 interface IForm {
   username: string;
@@ -112,6 +113,7 @@ const Login = () => {
         </Link>
         <span>{data?.message}</span>
       </Form>
+      <Footer />
     </Wrapper>
   );
 };

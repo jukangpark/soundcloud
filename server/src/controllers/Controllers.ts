@@ -43,25 +43,36 @@ export const viewMusic = async (req, res) => {
   return res.json({ music });
 };
 
-export const deletePost = async (req, res) => {
+export const deleteMusic = async (req, res) => {
+  const { user_id } = res.locals.user;
   const { id } = req.params;
 
-  await Music.findByIdAndDelete(id);
-  return res.end();
+  const music = await Music.findById(id);
+  if (user_id === String(music.owner)) {
+    await music.delete();
+    return res.json({ message: "음악 삭제 완료" });
+  }
+  return res.json({ message: "음악 작성자만 삭제할 수 있습니다." });
   // api 로 요청한 것들은 모두 proxy localhost:9000 으로 가기 때문에
   // localhost:9000 으로 redirect "/" 하고 있어서 에러가 발생하는 거 같은데? 아닐 수도 있음.
 };
 
 export const postUpdateMusic = async (req, res) => {
+  const { user_id } = res.locals.user;
   const { id } = req.params;
   const { title, content } = req.body;
 
-  await Music.findByIdAndUpdate(id, {
-    title,
-    content,
-  });
+  const music = await Music.findById(id);
+  if (user_id === String(music.owner)) {
+    music.title = title;
+    music.content = content;
+    await music.save();
+    return res.json({ message: "업데이트 완료" });
+  }
 
-  return res.json({ message: "업데이트 완료" });
+  return res
+    .status(401)
+    .json({ message: "음악 소유자만 업데이트 할 수 있습니다." });
 };
 
 //user

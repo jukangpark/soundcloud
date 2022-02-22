@@ -11,6 +11,7 @@ import Input from "../components/Input";
 import Title from "../components/MainTitle";
 import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
+import Footer from "../components/Footer";
 
 export const Form = styled.form`
   display: block;
@@ -78,6 +79,7 @@ const Upload = () => {
         <Input id="content" name="content" placeholder="description" />
         <Btn>Submit</Btn>
       </Form>
+      <Footer />
     </Wrapper>
   );
 };

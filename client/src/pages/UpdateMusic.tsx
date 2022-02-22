@@ -16,6 +16,9 @@ import BannerContainer, {
 } from "../components/Banner";
 import Title from "../components/MainTitle";
 import { Btn } from "../components/Btn";
+import { useQuery } from "react-query";
+import { fetchMusic } from "../api";
+import Wrapper from "../components/Wrapper";
 
 const Update = () => {
   const history = useHistory();
@@ -25,15 +28,8 @@ const Update = () => {
     formState: { errors },
   } = useForm<IMusic>();
   const { id } = useParams<IParams>();
-  const [music, setMusic] = useState<IMusic>();
 
-  useEffect(() => {
-    fetch(`/api/musics/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setMusic(data.music);
-      });
-  }, []);
+  const { isLoading, data } = useQuery("music", () => fetchMusic(id));
 
   const onValid = async ({ title, content }: IMusic) => {
     const response = await fetch(`/api/${id}/update`, {
@@ -49,7 +45,7 @@ const Update = () => {
   };
 
   return (
-    <div>
+    <Wrapper>
       <Banner
         style={{
           backgroundImage:
@@ -72,19 +68,19 @@ const Update = () => {
           {...register("title", { required: "title 을 입력해주세요." })}
           id="title"
           name="title"
-          placeholder={music?.title}
+          placeholder={data?.music.title}
         ></Input>
         <span>{errors?.title?.message}</span>
         <Input
           {...register("content", { required: "description 을 입력해주세요." })}
           id="content"
           name="content"
-          placeholder={music?.content}
+          placeholder={data?.music.content}
         ></Input>
         <span>{errors?.content?.message}</span>
         <Btn>Update</Btn>
       </Form>
-    </div>
+    </Wrapper>
   );
 };
 

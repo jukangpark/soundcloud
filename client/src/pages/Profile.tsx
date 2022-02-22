@@ -15,6 +15,7 @@ import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
 import { useParams } from "react-router-dom";
 import { Music } from "../components/Music";
+import Footer from "../components/Footer";
 
 interface IData {
   username: string;
@@ -78,6 +79,7 @@ const Profile = () => {
           </li>
         ))}
       </MusicContainer>
+      <Footer />
     </Wrapper>
   );
 };

@@ -4,7 +4,7 @@ import {
   registerView,
   searchTitle,
   viewMusic,
-  deletePost,
+  deleteMusic,
   postUpdateMusic,
   join,
   login,
@@ -27,12 +27,12 @@ import Music from "../models/Music";
 
 const apiRouter = express.Router();
 
-apiRouter.post("/:id/update", postUpdateMusic);
+apiRouter.post("/:id/update", verifyToken, postUpdateMusic);
 apiRouter.get("/musics/:id", viewMusic);
 
 apiRouter.get("/data", registerView);
 apiRouter.get("/musics", getMusicList);
-apiRouter.post("/delete/:id", deletePost);
+apiRouter.post("/delete/:id", verifyToken, deleteMusic);
 
 apiRouter.post(
   "/upload",

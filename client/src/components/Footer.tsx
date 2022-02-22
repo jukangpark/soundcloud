@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const FooterComponent = styled.footer`
+  padding-top: 100px;
   height: 170px;
 `;
 

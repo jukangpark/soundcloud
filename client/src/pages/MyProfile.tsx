@@ -17,6 +17,7 @@ import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
 import { Form } from "./Upload";
 import { Music } from "../components/Music";
+import Footer from "../components/Footer";
 
 interface IUser {
   username: string;
@@ -31,8 +32,6 @@ const MyProfile = () => {
   const { isLoading, data: user } = useQuery<IUser>("loggedInUser", () =>
     fetchLoggedinUser()
   );
-
-  console.log(user);
 
   const {
     register,
@@ -135,6 +134,7 @@ const MyProfile = () => {
           Update Profile
         </Link>
       </Btn>
+      <Footer />
     </Wrapper>
   );
 };
