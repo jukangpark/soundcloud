@@ -347,17 +347,19 @@ const Music = () => {
                     11,
                     16
                   )}`}</span>
-                  <span
-                    data-commentid={comment._id}
-                    data-ownerid={comment.owner._id}
-                    onClick={deleteComment}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faTrashCan}
-                      style={{ marginLeft: "10px" }}
-                    />
-                  </span>
+                  {hasCookie ? (
+                    <span
+                      data-commentid={comment._id}
+                      data-ownerid={comment.owner._id}
+                      onClick={deleteComment}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        style={{ marginLeft: "10px" }}
+                      />
+                    </span>
+                  ) : null}
                 </ProfileWrapper>
               </Comment>
             ))}

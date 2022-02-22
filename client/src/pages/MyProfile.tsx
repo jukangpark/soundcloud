@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
 import { fetchLoggedinUser } from "../api";
-import { isDarkState, userState } from "../atoms";
+import { isDarkState } from "../atoms";
 import {
   Banner,
   Description,
@@ -13,16 +11,12 @@ import {
   TitleContainer,
 } from "../components/Banner";
 import Header from "../components/Header";
-import Title from "../components/MainTitle";
-import MainTitle from "../components/MainTitle";
 import MusicContainer from "../components/MusicContainer";
 import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
 import { Form } from "./Upload";
 import { Music } from "../components/Music";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   username: string;
@@ -32,10 +26,7 @@ interface IUser {
 }
 
 const MyProfile = () => {
-  // const user = useRecoilValue(userState);
-
   const isDark = useRecoilValue(isDarkState);
-  const [list, setList] = useState<IMusic[]>();
 
   const { isLoading, data: user } = useQuery<IUser>("loggedInUser", () =>
     fetchLoggedinUser()

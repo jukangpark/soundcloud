@@ -42,7 +42,6 @@ interface IUser {
 
 const Header = () => {
   const history = useHistory();
-  const isDark = useRecoilValue(isDarkState);
   const [hasCookie, setHasCookie] = useRecoilState(cookieState);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
