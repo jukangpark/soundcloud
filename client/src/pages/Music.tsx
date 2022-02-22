@@ -24,6 +24,8 @@ import { IOwner } from "./Home";
 // import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "react-query";
+import { fetchComments, fetchMusic } from "../api";
 
 // library.add(fas);
 
@@ -166,9 +168,24 @@ const Comment = styled.li`
 const Music = () => {
   const { id } = useParams<IParams>();
   const [music, setMusic] = useState<IMusic>();
+  const [commentState, setComment] = useState<IComment[]>();
   const user = useRecoilValue(userState);
-  const [comments, setComments] = useState<IComment[]>();
   const hasCookie = useRecoilValue(cookieState);
+
+  const { isLoading: commentsLoading, data: comments } = useQuery<IComment[]>(
+    "comments",
+    () => fetchComments(id)
+  );
+  // db 에서 전체 comments 가져오는 쿼리
+  // 리액트 쿼리는 response 를 caching 한다.
+  // React query 는 우리가 원하는 데이터가 이미 캐시에 있다는 걸 알고 있다.
+  // 따라서 API 에 접근하지 않고 data 를 가져옴.
+  // deleteComment 를 하면 자동으로 useQuery 가 호출되서 comments 안의 데이터가 바뀐다.
+  // 이유는?
+
+  useEffect(() => {
+    setComment(comments);
+  }, [comments]);
 
   const deleteComment = async (event: React.MouseEvent<HTMLElement>) => {
     const { commentid, ownerid } = event.currentTarget.dataset;
@@ -185,14 +202,6 @@ const Music = () => {
 
     const { message } = await data.json();
     alert(message);
-
-    await fetch(`/api/musics/${id}/comment`)
-      .then((res) => res.json())
-      .then((data) => setComments(data));
-    // 여기 부분 로직 수정할 필요 있음 너무 느림..
-    // comment._id 와 owner._id 와 music._id 가 있으니까
-    // comment 삭제 하고 owner 안에 있는 comments 배열 안에 있는 comment 찾아서 삭제.
-    // music 안에 comments 배열 안에 있는 comment 삭제.
   };
 
   const {
@@ -201,6 +210,18 @@ const Music = () => {
     setValue,
     formState: { errors },
   } = useForm<IFormData>();
+
+  // setComment(comments); 를 했을 경우.
+  // erros: too many re-renders.
+  // 리액트의 렌더링 조건
+  // 1. state 변경이 되었을 때
+  // 2. 부모 컴포넌트가 렌더링 될 때
+  // 3. 새로운 props 가 들어올 때
+  // 4. shouldComponentUpdate 에서 true 가 반환될 때
+  // 5. forceUpdate 가 실행될 때
+
+  // 리액트의 useState 렌더링은 비동기로 이루어진다.
+  // 때문에 개발자의 예측대로 렌더링이 되지 않고 꼬여버린다.
 
   const onValid = async ({ comment }: IFormData) => {
     setValue("comment", "");
@@ -214,8 +235,7 @@ const Music = () => {
 
     await fetch(`/api/musics/${id}/comment`)
       .then((res) => res.json())
-      .then((data) => setComments(data));
-    // 여기 부분 로직 수정할 필요 있음 너무 느림..
+      .then((data) => setComment(data));
   };
 
   let history = useHistory();
@@ -227,43 +247,35 @@ const Music = () => {
     history.push("/");
   };
 
-  useEffect(() => {
-    fetch(`/api/musics/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setMusic(data.music);
-      });
-
-    fetch(`/api/musics/${id}/comment`)
-      .then((res) => res.json())
-      .then((data) => setComments(data));
-  }, []);
+  const { isLoading, data } = useQuery("music", () => fetchMusic(id));
 
   return (
     <Wrapper>
       <Banner style={{ backgroundImage: "none" }}>
         <Header />
-        <BlurWrapper thumbUrl={music?.thumbUrl}>
+        <BlurWrapper thumbUrl={data?.music?.thumbUrl}>
           <div style={{ width: "870px", height: "100%" }}>
             <MusicTextWrapper>
               <MusicTitle>
-                <span>{music?.title}</span>
+                <span>{data?.music?.title}</span>
               </MusicTitle>
               <MusicCreator>
-                <span>{music?.owner.username}</span>
+                <span>{data?.music?.owner.username}</span>
               </MusicCreator>
             </MusicTextWrapper>
             <div>
               <AudioPlayer
                 autoPlay={false}
-                src={`${music?.fileUrl}`}
+                src={`${data?.music?.fileUrl}`}
                 onPlay={(e) =>
                   fetch(`/api/musics/${id}/play`, { method: "POST" })
                 }
               />
             </div>
           </div>
-          <ThumbNail style={{ backgroundImage: `url(${music?.thumbUrl})` }}>
+          <ThumbNail
+            style={{ backgroundImage: `url(${data?.music.thumbUrl})` }}
+          >
             <Link
               to="#"
               style={{
@@ -309,44 +321,46 @@ const Music = () => {
       )}
 
       <ul>
-        {comments?.map((comment, index) => (
-          <Comment key={index}>
-            <ProfileWrapper
-              style={{ padding: "20px", borderBottom: "1px solid gray" }}
-            >
-              <Link
-                to={`/profile/${comment.owner._id}`}
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <div
-                  style={{
-                    backgroundImage: `url(${comment.owner.profileImageUrl})`,
-                    display: "inline-block",
-                  }}
-                ></div>
-                <span style={{ marginRight: "20px" }}>
-                  {comment.owner.username}
-                </span>
-              </Link>
-              <span>{comment.text}</span>
-              <span style={{ color: "gray" }}>{`${comment.createdAt.slice(
-                11,
-                16
-              )}`}</span>
-              <span
-                data-commentid={comment._id}
-                data-ownerid={comment.owner._id}
-                onClick={deleteComment}
-                style={{ cursor: "pointer" }}
-              >
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  style={{ marginLeft: "10px" }}
-                />
-              </span>
-            </ProfileWrapper>
-          </Comment>
-        ))}
+        {commentsLoading
+          ? "Loading ..."
+          : commentState?.map((comment, index) => (
+              <Comment key={index}>
+                <ProfileWrapper
+                  style={{ padding: "20px", borderBottom: "1px solid gray" }}
+                >
+                  <Link
+                    to={`/profile/${comment.owner._id}`}
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <div
+                      style={{
+                        backgroundImage: `url(${comment.owner.profileImageUrl})`,
+                        display: "inline-block",
+                      }}
+                    ></div>
+                    <span style={{ marginRight: "20px" }}>
+                      {comment.owner.username}
+                    </span>
+                  </Link>
+                  <span>{comment.text}</span>
+                  <span style={{ color: "gray" }}>{`${comment.createdAt.slice(
+                    11,
+                    16
+                  )}`}</span>
+                  <span
+                    data-commentid={comment._id}
+                    data-ownerid={comment.owner._id}
+                    onClick={deleteComment}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      style={{ marginLeft: "10px" }}
+                    />
+                  </span>
+                </ProfileWrapper>
+              </Comment>
+            ))}
       </ul>
     </Wrapper>
   );

@@ -195,7 +195,7 @@ export interface IMusic {
 
 const Home = () => {
   const isDark = useRecoilValue(isDarkState);
-  const { isLoading, data } = useQuery<IMusic[]>("music", () => fetchMusics());
+  const { isLoading, data } = useQuery<IMusic[]>("musics", () => fetchMusics());
 
   return (
     <Wrapper>
