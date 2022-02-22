@@ -1,4 +1,3 @@
-import Post from "../models/Music";
 import express from "express";
 import {
   postComment,
@@ -7,7 +6,6 @@ import {
 } from "../controllers/commentController";
 
 import { verifyToken } from "../middlewares/authorization";
-import User from "../models/User";
 import { uploadFiles, uploadMusic } from "../middlewares/middlewares";
 import Music from "../models/Music";
 import {
@@ -81,6 +79,7 @@ apiRouter
   .route("/musics/:id/comment")
   .get(getComment)
   .post(verifyToken, postComment);
+
 apiRouter.post("/:id/comment/delete", verifyToken, deleteComment);
 apiRouter.route("/profile/:id").get(getUserProfile);
 
