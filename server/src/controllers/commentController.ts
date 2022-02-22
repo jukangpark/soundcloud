@@ -11,6 +11,7 @@ export const getComment = async (req, res) => {
     },
   });
   const comments = music.comments.sort((a, b) => b.createdAt - a.createdAt);
+  // 최신 댓글이 맨 상단으로 올라올 수 있도록.
   res.status(201).send(comments);
 };
 
