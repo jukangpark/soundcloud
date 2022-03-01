@@ -1,7 +1,7 @@
 # Making Web App with React (Nomad Coder)
 
 <p align='center'>
-<img width="80%" alt="nweet_main" src="https://user-images.githubusercontent.com/79993356/153116224-d42205e7-6ba1-4c73-a1a9-90293ba73835.png">
+<img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/156220673-35cb0f26-4807-4a63-975d-c7ae4a9a8d82.png">
 
 </p>
 
