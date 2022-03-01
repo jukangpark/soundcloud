@@ -44,3 +44,55 @@ Music CRUD<br>
 Comment CRD<br>
 User CRUD<br>
 Dark mode / Light mode with Recoil<br>
+
+# Sound Cloud Clone
+
+> 2022 Practical Coding React-Node TS Web Project
+
+## 기능
+
+- Music 검색
+- 좋아요 / 좋아요 취소
+- Like한 Music들 확인하기
+
+## 실행 방법
+
+```
+$ git clone https://github.com/jukangpark/SoundCloud_Clone.git
+$ npm install
+$ cd server
+$ npm run dev
+```
+
+## 실행 방법 with Heroku
+
+```
+https://board-app-jkp.herokuapp.com/
+```
+
+## 주의사항
+
+```
+작성필요
+
+```
+
+## TroubleShooting
+
+1. Cookie-session 방식에서 JWT 토큰 방식으로 전환
+   - lorem
+2. 좋아요 / 좋아요 취소
+   - 좋아요를 한 뒤, 좋아요 탭을 갔다가 다시 돌아오면 초기화가 되있었던 문제
+3. 차트
+   - 차트 조회수에 따른 리스트 정렬
+
+## 더 고민한다면
+
+- key를 노출하는 보안 문제
+- Favorite 탭에서 좋아요한 앨범들을 최신 순으로 나열해보기
+- Favorite 탭에서도 infinite scroll 적용해보기
+- 태그에 대한 확장성있는 설계
+
+## Demo 👇
+
+- gif 파일을 첨부해서 미리보기 만들기.
