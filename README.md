@@ -1,4 +1,4 @@
-# Making Web App with React (Nomad Coder)
+# Making Web App with React
 
 <p align='center'>
 <img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/156220673-35cb0f26-4807-4a63-975d-c7ae4a9a8d82.png">
@@ -59,6 +59,11 @@ $ npm run dev
 - Social Login 구현하기 with Github & KakaoTalk
 - MyProfile 메뉴에서 좋아요한 음악들을 최신 순으로 정렬
 - infinite scroll 적용해보기
+- Follow 기능 구현하기
+- Home 화면 슬라이드 기능 구현하기
+- 음악 조회수에 따른 변화 그래프 with Apex Chart 활용
+- SSR? 적용?
+- Framer Motion 을 이용한 interaction 구현하기
 
 ## Demo 👇
 
