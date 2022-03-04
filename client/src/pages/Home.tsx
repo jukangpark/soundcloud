@@ -197,6 +197,19 @@ const Home = () => {
   const isDark = useRecoilValue(isDarkState);
   const { isLoading, data } = useQuery<IMusic[]>("musics", () => fetchMusics());
 
+  // const KEY =
+  //   "Db2WjUGNkkI1uep4Cdnf1NcQLLXLST05FgSCfSXVPC%2BYIPgFCxyGM9bxZ7EcS7XiKnomAmngmJE%2B5ETJJza1xQ%3D%3D";
+
+  // const proxy = "https://cors-anywhere.herokuapp.com/";
+  // const proxy2 = "https://app.cors.bridged.cc/";
+  // useEffect(() => {
+  //   fetch(
+  //     `${proxy2}http://apis.data.go.kr/1471000/CovidDagnsRgntProdExprtStusService/getCovidDagnsRgntProdExprtStusInq?serviceKey=${KEY}&type=json&numOfRows=3&pageNo=1`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  // }, []);
+
   return (
     <Wrapper>
       {/* <HelmetProvider>
