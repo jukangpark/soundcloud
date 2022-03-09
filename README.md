@@ -1,7 +1,7 @@
-# Making Web App with React
+# sound cloud clone
 
 <p align='center'>
-<img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/156220673-35cb0f26-4807-4a63-975d-c7ae4a9a8d82.png">
+<img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/157369193-3a3aab6a-e1e6-4fbd-83de-a73994a5034b.png">
 
 </p>
 
@@ -15,64 +15,64 @@
 
 ### client
 
-> "@fortawesome/fontawesome-svg-core": "^1.3.0"<br>
-> "@fortawesome/free-brands-svg-icons": "^6.0.0"<br>
-> "@fortawesome/free-regular-svg-icons": "^6.0.0"<br>
-> "@fortawesome/free-solid-svg-icons": "^6.0.0"<br>
-> "@fortawesome/react-fontawesome": "^0.1.17"<br>
-> "@testing-library/jest-dom": "^5.16.1"<br>
-> "@testing-library/react": "^12.1.2"<br>
-> "@testing-library/user-event": "^13.5.0"<br>
-> "@types/jest": "^27.4.0"<br>
-> "@types/node": "^16.11.21"<br>
-> "@types/react": "^17.0.38"<br>
-> "@types/react-dom": "^17.0.11"<br>
-> "@types/react-helmet": "^6.1.5"<br>
-> "@types/react-query": "^1.2.9"<br>
-> "@types/react-router-dom": "^5.3.3"<br>
-> "@types/styled-components": "^5.1.21"<br>
-> "concurrently": "^7.0.0"<br>
-> "node-sass": "^7.0.1"<br>
-> "react": "^17.0.2"<br>
-> "react-cookie": "^4.1.1"<br>
-> "react-dom": "^17.0.2"<br>
-> "react-h5-audio-player": "^3.8.2"<br>
-> "react-helmet": "^6.1.0"<br>
-> "react-helmet-async": "^1.2.2"<br>
-> "react-hook-form": "^7.25.3"<br>
-> "react-query": "^3.34.14"<br>
-> "react-router-dom": "^5.3.0"<br>
-> "react-scripts": "5.0.0"<br>
-> "recoil": "^0.6.1"<br>
-> "styled-components": "^5.3.3"<br>
-> "typescript": "^4.5.5"<br>
+> @fortawesome/fontawesome-svg-core: ^1.3.0<br>
+> @fortawesome/free-brands-svg-icons: ^6.0.0<br>
+> @fortawesome/free-regular-svg-icons: ^6.0.0<br>
+> @fortawesome/free-solid-svg-icons: ^6.0.0<br>
+> @fortawesome/react-fontawesome: ^0.1.17<br>
+> @testing-library/jest-dom: ^5.16.1<br>
+> @testing-library/react: ^12.1.2<br>
+> @testing-library/user-event: ^13.5.0<br>
+> @types/jest: ^27.4.0<br>
+> @types/node: ^16.11.21<br>
+> @types/react: ^17.0.38<br>
+> @types/react-dom: ^17.0.11<br>
+> @types/react-helmet: ^6.1.5<br>
+> @types/react-query: ^1.2.9<br>
+> @types/react-router-dom: ^5.3.3<br>
+> @types/styled-components: ^5.1.21<br>
+> concurrently: ^7.0.0<br>
+> node-sass: ^7.0.1<br>
+> react: ^17.0.2<br>
+> react-cookie: ^4.1.1<br>
+> react-dom: ^17.0.2<br>
+> react-h5-audio-player: ^3.8.2<br>
+> react-helmet: ^6.1.0<br>
+> react-helmet-async: ^1.2.2<br>
+> react-hook-form: ^7.25.3<br>
+> react-query: ^3.34.14<br>
+> react-router-dom: ^5.3.0<br>
+> react-scripts: 5.0.0<br>
+> recoil: ^0.6.1<br>
+> styled-components: ^5.3.3<br>
+> typescript: ^4.5.5<br>
 
 ### server
 
-> "@types/jsonwebtoken": "^8.5.8"<br>
-> "@types/multer": "^1.4.7"<br>
-> "@types/multer-s3": "^2.7.11"<br>
-> "aws-sdk": "^2.1075.0"<br>
-> "bcrypt": "^5.0.1"<br>
-> "concurrently": "^7.0.0"<br>
-> "connect-mongo": "^4.6.0"<br>
-> "cookie-parser": "^1.4.6"<br>
-> "dotenv": "^14.3.2"<br>
-> "express": "^4.17.2"<br>
-> "express-session": "^1.17.2"<br>
-> "jsonwebtoken": "^8.5.1"<br>
-> "mongoose": "^6.1.8"<br>
-> "morgan": "^1.10.0"<br>
-> "multer": "^1.4.4"<br>
-> "multer-s3": "^2.10.0"<br>
-> "ts-node": "^10.4.0"
-> "@types/bcrypt": "^5.0.0"<br>
-> "@types/dotenv": "^8.2.0"<br>
-> "@types/express": "^4.17.13"<br>
-> "@types/express-session": "^1.17.4"<br>
-> "@types/morgan": "^1.9.3"<br>
-> "nodemon": "^2.0.15"<br>
-> "typescript": "^4.5.5" <br>
+> @types/jsonwebtoken: ^8.5.8<br>
+> @types/multer: ^1.4.7<br>
+> @types/multer-s3: ^2.7.11<br>
+> aws-sdk: ^2.1075.0<br>
+> bcrypt: ^5.0.1<br>
+> concurrently: ^7.0.0<br>
+> connect-mongo: ^4.6.0<br>
+> cookie-parser: ^1.4.6<br>
+> dotenv: ^14.3.2<br>
+> express: ^4.17.2<br>
+> express-session: ^1.17.2<br>
+> jsonwebtoken: ^8.5.1<br>
+> mongoose: ^6.1.8<br>
+> morgan: ^1.10.0<br>
+> multer: ^1.4.4<br>
+> multer-s3: ^2.10.0<br>
+> ts-node: ^10.4.0
+> @types/bcrypt: ^5.0.0<br>
+> @types/dotenv: ^8.2.0<br>
+> @types/express: ^4.17.13<br>
+> @types/express-session: ^1.17.4<br>
+> @types/morgan: ^1.9.3<br>
+> nodemon: ^2.0.15<br>
+> typescript: ^4.5.5 <br>
 
 </p>
 Sound Cloud Clone
