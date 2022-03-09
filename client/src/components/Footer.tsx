@@ -6,13 +6,18 @@ const FooterComponent = styled.footer`
 `;
 
 const Ul = styled.ul`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
   font-size: 14px;
+
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 
   li {
     color: #666666;
     cursor: pointer;
-    margin-right: 10px;
+    text-align: center;
   }
   li:hover {
     color: ${(props) => props.theme.textColor};

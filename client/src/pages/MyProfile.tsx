@@ -15,7 +15,7 @@ import MusicContainer from "../components/MusicContainer";
 import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 import { IMusic } from "./Home";
-import { Form } from "./Upload";
+import Form from "../components/Form";
 import { Music } from "../components/Music";
 import Footer from "../components/Footer";
 

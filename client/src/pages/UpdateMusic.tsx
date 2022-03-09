@@ -6,7 +6,8 @@ import { IParams } from "./Music";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import { IFormData } from "./Search";
-import { Form, TextArea } from "./Upload";
+import Form from "../components/Form";
+import { TextArea } from "./Upload";
 import { IMusic } from "./Home";
 import BannerContainer, {
   Banner,

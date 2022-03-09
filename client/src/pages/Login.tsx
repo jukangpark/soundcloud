@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import MainTitle from "../components/MainTitle";
-import { Form } from "./Upload";
+import Form from "../components/Form";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 // useHistory hook gives you access to the history instance that you may use to navigate.

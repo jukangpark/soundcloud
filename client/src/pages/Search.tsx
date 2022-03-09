@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Input from "../components/Input";
 import { IMusic } from "../pages/Home";
-import { Form } from "./Upload";
+import Form from "../components/Form";
 
 export interface IFormData {
   keyword: string;

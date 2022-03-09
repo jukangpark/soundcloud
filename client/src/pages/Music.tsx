@@ -18,7 +18,7 @@ import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/src/styles.scss";
 // import "./audioPlayer.scss";
 import Input from "../components/Input";
-import { Form } from "./Upload";
+import Form from "../components/Form";
 import { useForm } from "react-hook-form";
 import { IOwner } from "./Home";
 // import { library } from "@fortawesome/fontawesome-svg-core";

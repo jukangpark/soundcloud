@@ -12,18 +12,7 @@ import Title from "../components/MainTitle";
 import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 import Footer from "../components/Footer";
-
-export const Form = styled.form`
-  display: block;
-  width: 420px;
-  margin: 50px auto;
-  @media ${(props) => props.theme.tablet} {
-    width: 350px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 200px;
-  }
-`;
+import Form from "../components/Form";
 
 export const TextArea = styled.textarea`
   width: 200px;

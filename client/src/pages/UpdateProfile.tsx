@@ -3,7 +3,7 @@ import Wrapper from "../components/Wrapper";
 import { Banner } from "../components/Banner";
 import { TitleContainer, TitleBox, Description } from "../components/Banner";
 import Title from "../components/MainTitle";
-import { Form } from "./Upload";
+import Form from "../components/Form";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
