@@ -112,5 +112,5 @@ $ npm run dev
 - light mode
 
 <p align='center'>
-<img width="80%" alt="mainPage" src=" https://user-images.githubusercontent.com/75718898/157373423-cb35be9f-e004-4ff8-8051-7ad58fa91575.png">
+<img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/157373423-cb35be9f-e004-4ff8-8051-7ad58fa91575.png">
 </p>
