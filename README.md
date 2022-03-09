@@ -1,12 +1,11 @@
 # sound cloud clone
 
-<p align='center'>
-<img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/157369193-3a3aab6a-e1e6-4fbd-83de-a73994a5034b.png">
-
-</p>
+## 서비스 소개
 
 <p align='center'>
-    <a href="https://board-app-jkp.herokuapp.com/">Published Webpage</a> 👈🏻
+  음악을 업로드 하고 공유 할 수 있는 사운드 클라우드 클론📀
+  <img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/157369193-3a3aab6a-e1e6-4fbd-83de-a73994a5034b.png">
+  <a href="https://board-app-jkp.herokuapp.com/">Published Webpage</a> 👈🏻
 </p>
 
 ## 🛠 Using Skill
