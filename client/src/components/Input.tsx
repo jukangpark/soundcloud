@@ -11,6 +11,12 @@ const Input = styled.input`
   border: none;
   outline: none;
   border: 0.5px solid #999999;
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
 `;
 
 export default Input;

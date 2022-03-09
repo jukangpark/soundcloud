@@ -6,5 +6,8 @@ declare module "styled-components" {
     textColor: string;
     btnColor: string;
     accentColor: string;
+    mobile: string;
+    tablet: string;
+    desktop: string;
   }
 }

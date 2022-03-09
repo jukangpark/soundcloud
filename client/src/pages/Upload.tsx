@@ -15,8 +15,14 @@ import Footer from "../components/Footer";
 
 export const Form = styled.form`
   display: block;
+  width: 420px;
   margin: 50px auto;
-  max-width: 420px;
+  @media ${(props) => props.theme.tablet} {
+    width: 350px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 200px;
+  }
 `;
 
 export const TextArea = styled.textarea`
