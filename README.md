@@ -12,15 +12,71 @@
 ## 🛠 Using Skill
 
 <p align='center'>
-    <img src="https://img.shields.io/badge/React-^17.0.3-blue?logo=React"/>
-    <img src="https://img.shields.io/badge/react_dom-^17.0.2-blueviolet?logo=ReactOS"/>
-    <img src="https://img.shields.io/badge/react_router_dom-^5.3.0-critical?logo=React Table"/>
-    <img src="https://img.shields.io/badge/node.js-v16.13.2-green?logo=Node.js"/>
-    <img src="https://img.shields.io/badge/firebase-^9.6.6-yellow?logo=firebase"/>
-    <img src="https://img.shields.io/badge/gh__pages-%5E3.2.3-%23222222?logo=github pages"/>
-    <img src="https://img.shields.io/badge/react-hook-form-^8.3.2-orange?logo=react-hook-form"/>
+
+client
+
+> "@fortawesome/fontawesome-svg-core": "^1.3.0",
+> "@fortawesome/free-brands-svg-icons": "^6.0.0",
+> "@fortawesome/free-regular-svg-icons": "^6.0.0",
+> "@fortawesome/free-solid-svg-icons": "^6.0.0",
+> "@fortawesome/react-fontawesome": "^0.1.17",
+> "@testing-library/jest-dom": "^5.16.1",
+> "@testing-library/react": "^12.1.2",
+> "@testing-library/user-event": "^13.5.0",
+> "@types/jest": "^27.4.0",
+> "@types/node": "^16.11.21",
+> "@types/react": "^17.0.38",
+> "@types/react-dom": "^17.0.11",
+> "@types/react-helmet": "^6.1.5",
+> "@types/react-query": "^1.2.9",
+> "@types/react-router-dom": "^5.3.3",
+> "@types/styled-components": "^5.1.21",
+> "concurrently": "^7.0.0",
+> "node-sass": "^7.0.1",
+> "react": "^17.0.2",
+> "react-cookie": "^4.1.1",
+> "react-dom": "^17.0.2",
+> "react-h5-audio-player": "^3.8.2",
+> "react-helmet": "^6.1.0",
+> "react-helmet-async": "^1.2.2",
+> "react-hook-form": "^7.25.3",
+> "react-query": "^3.34.14",
+> "react-router-dom": "^5.3.0",
+> "react-scripts": "5.0.0",
+> "recoil": "^0.6.1",
+> "styled-components": "^5.3.3",
+> "typescript": "^4.5.5",
+> "web-vitals": "^2.1.4"
+
+server
+
+> "@types/jsonwebtoken": "^8.5.8",
+> "@types/multer": "^1.4.7",
+> "@types/multer-s3": "^2.7.11",
+> "aws-sdk": "^2.1075.0",
+> "bcrypt": "^5.0.1",
+> "concurrently": "^7.0.0",
+> "connect-mongo": "^4.6.0",
+> "cookie-parser": "^1.4.6",
+> "dotenv": "^14.3.2",
+> "express": "^4.17.2",
+> "express-session": "^1.17.2",
+> "jsonwebtoken": "^8.5.1",
+> "mongoose": "^6.1.8",
+> "morgan": "^1.10.0",
+> "multer": "^1.4.4",
+> "multer-s3": "^2.10.0",
+> "ts-node": "^10.4.0"
+> "@types/bcrypt": "^5.0.0",
+> "@types/dotenv": "^8.2.0",
+> "@types/express": "^4.17.13",
+> "@types/express-session": "^1.17.4",
+> "@types/morgan": "^1.9.3",
+> "nodemon": "^2.0.15",
+> "typescript": "^4.5.5" -->
+
 </p>
-# Sound Cloud Clone
+Sound Cloud Clone
 
 > 2022 Practical Coding React-Node TS Web Project
 
