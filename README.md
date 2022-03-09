@@ -15,42 +15,42 @@
 
 client
 
-> "@fortawesome/fontawesome-svg-core": "^1.3.0",
-> "@fortawesome/free-brands-svg-icons": "^6.0.0",
-> "@fortawesome/free-regular-svg-icons": "^6.0.0",
-> "@fortawesome/free-solid-svg-icons": "^6.0.0",
-> "@fortawesome/react-fontawesome": "^0.1.17",
-> "@testing-library/jest-dom": "^5.16.1",
-> "@testing-library/react": "^12.1.2",
-> "@testing-library/user-event": "^13.5.0",
-> "@types/jest": "^27.4.0",
-> "@types/node": "^16.11.21",
-> "@types/react": "^17.0.38",
-> "@types/react-dom": "^17.0.11",
-> "@types/react-helmet": "^6.1.5",
-> "@types/react-query": "^1.2.9",
-> "@types/react-router-dom": "^5.3.3",
-> "@types/styled-components": "^5.1.21",
-> "concurrently": "^7.0.0",
-> "node-sass": "^7.0.1",
-> "react": "^17.0.2",
-> "react-cookie": "^4.1.1",
-> "react-dom": "^17.0.2",
-> "react-h5-audio-player": "^3.8.2",
-> "react-helmet": "^6.1.0",
-> "react-helmet-async": "^1.2.2",
-> "react-hook-form": "^7.25.3",
-> "react-query": "^3.34.14",
-> "react-router-dom": "^5.3.0",
-> "react-scripts": "5.0.0",
-> "recoil": "^0.6.1",
-> "styled-components": "^5.3.3",
-> "typescript": "^4.5.5",
+> "@fortawesome/fontawesome-svg-core": "^1.3.0",<br>
+> "@fortawesome/free-brands-svg-icons": "^6.0.0",<br>
+> "@fortawesome/free-regular-svg-icons": "^6.0.0",<br>
+> "@fortawesome/free-solid-svg-icons": "^6.0.0",<br>
+> "@fortawesome/react-fontawesome": "^0.1.17",<br>
+> "@testing-library/jest-dom": "^5.16.1",<br>
+> "@testing-library/react": "^12.1.2",<br>
+> "@testing-library/user-event": "^13.5.0",<br>
+> "@types/jest": "^27.4.0",<br>
+> "@types/node": "^16.11.21",<br>
+> "@types/react": "^17.0.38",<br>
+> "@types/react-dom": "^17.0.11",<br>
+> "@types/react-helmet": "^6.1.5",<br>
+> "@types/react-query": "^1.2.9",<br>
+> "@types/react-router-dom": "^5.3.3",<br>
+> "@types/styled-components": "^5.1.21",<br>
+> "concurrently": "^7.0.0",<br>
+> "node-sass": "^7.0.1",<br>
+> "react": "^17.0.2",<br>
+> "react-cookie": "^4.1.1",<br>
+> "react-dom": "^17.0.2",<br>
+> "react-h5-audio-player": "^3.8.2",<br>
+> "react-helmet": "^6.1.0",<br>
+> "react-helmet-async": "^1.2.2",<br>
+> "react-hook-form": "^7.25.3",<br>
+> "react-query": "^3.34.14",<br>
+> "react-router-dom": "^5.3.0",<br>
+> "react-scripts": "5.0.0",<br>
+> "recoil": "^0.6.1",<br>
+> "styled-components": "^5.3.3",<br>
+> "typescript": "^4.5.5",<br>
 > "web-vitals": "^2.1.4"
 
 server
 
-> "@types/jsonwebtoken": "^8.5.8",
+> "@types/jsonwebtoken": "^8.5.8",<br>
 > "@types/multer": "^1.4.7",
 > "@types/multer-s3": "^2.7.11",
 > "aws-sdk": "^2.1075.0",
