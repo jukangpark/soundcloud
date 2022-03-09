@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Input from "../components/Input";
-import { IMusic } from "../pages/Home";
+import { IMusic } from "../interface";
 import Form from "../components/Form";
 
 export interface IFormData {

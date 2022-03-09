@@ -12,21 +12,11 @@ import {
 import Header from "../components/Header";
 import MusicContainer from "../components/MusicContainer";
 import Wrapper from "../components/Wrapper";
-import { IMusic } from "./Home";
+import { IParams } from "../interface";
+import { IData } from "../interface";
 import { useParams } from "react-router-dom";
 import { Music } from "../components/Music";
 import Footer from "../components/Footer";
-
-interface IData {
-  username: string;
-  musics: Array<IMusic>;
-  profileImageUrl: string;
-  _id: string;
-}
-
-interface IParams {
-  id: string;
-}
 
 const Profile = () => {
   const isDark = useRecoilValue(isDarkState);

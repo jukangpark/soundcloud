@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -11,17 +10,14 @@ import {
   TitleContainer,
 } from "../components/Banner";
 import Header from "../components/Header";
-import Title from "../components/MainTitle";
 import Wrapper from "../components/Wrapper";
-import { IMusic, ProfileWrapper } from "./Home";
+import ProfileWrapper from "../components/ProfileWrapper";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/src/styles.scss";
-// import "./audioPlayer.scss";
 import Input from "../components/Input";
 import Form from "../components/Form";
 import { useForm } from "react-hook-form";
-import { IOwner } from "./Home";
-// import { library } from "@fortawesome/fontawesome-svg-core";
+import { IOwner } from "../interface";
 import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";

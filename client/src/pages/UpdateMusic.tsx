@@ -1,14 +1,11 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Header from "../components/Header";
-import MainTitle from "../components/MainTitle";
 import { IParams } from "./Music";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
-import { IFormData } from "./Search";
 import Form from "../components/Form";
-import { TextArea } from "./Upload";
-import { IMusic } from "./Home";
+import { IMusic } from "../interface";
 import BannerContainer, {
   Banner,
   Description,

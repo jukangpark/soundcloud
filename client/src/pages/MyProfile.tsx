@@ -14,7 +14,7 @@ import Header from "../components/Header";
 import MusicContainer from "../components/MusicContainer";
 import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
-import { IMusic } from "./Home";
+import { IMusic } from "../interface";
 import Form from "../components/Form";
 import { Music } from "../components/Music";
 import Footer from "../components/Footer";

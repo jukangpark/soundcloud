@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { cookieState, isDarkState, userState } from "../atoms";
+import { useRecoilState } from "recoil";
+import { cookieState } from "../atoms";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSoundcloud } from "@fortawesome/free-brands-svg-icons";
 import ThemeBtn from "./ThemeBtn";
@@ -12,12 +12,17 @@ const MenuContainer = styled.ul`
   li {
     font-size: 14px;
     width: 25%;
-    line-height: 50px;
     text-align: center;
+    line-height: 50px;
     a {
       display: block;
       height: 50px;
-      line-height: 50px;
+      white-space: nowrap;
+      span {
+        @media ${(props) => props.theme.mobile} {
+          display: none;
+        }
+      }
     }
     a:hover {
       background-color: ${(props) => props.theme.accentColor};
@@ -27,38 +32,10 @@ const MenuContainer = styled.ul`
   }
 `;
 
-interface IData {
-  user: object;
-  loggedIn: boolean;
-}
-
-interface IUser {
-  email: string;
-  location: string;
-  password: string;
-  username: string;
-  _id: string;
-}
-
 const Header = () => {
   const history = useHistory();
   const [hasCookie, setHasCookie] = useRecoilState(cookieState);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-
-  // useEffect(() => {
-  //   fetch("/api/user/info")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setLoggedIn(data.loggedIn);
-  //       setUser(data.user);
-  //     });
-  // }, []);
-
-  // const { isLoading, data } = useQuery<IData>("user", () =>
-  //   fetchLoggedinUser()
-  // );
-
-  // setUser(data.user)  이거 하면 undefined 일 수도 있다고 뜸.
 
   const onClick = () => {
     removeCookie("user");
@@ -95,7 +72,7 @@ const Header = () => {
               fontSize="40px"
               style={{ marginRight: "10px" }}
             />
-            SOUNDCLOUD
+            <span>SOUNDCLOUD</span>
           </Link>
         </li>
 

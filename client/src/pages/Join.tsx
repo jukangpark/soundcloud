@@ -1,6 +1,4 @@
 import Header from "../components/Header";
-import styled from "styled-components";
-import MainTitle from "../components/MainTitle";
 import Form from "../components/Form";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
