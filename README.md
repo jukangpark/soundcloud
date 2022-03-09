@@ -12,6 +12,9 @@
 <p align='center'>
     <a href="https://board-app-jkp.herokuapp.com/">Published Webpage</a> 👈🏻
 </p>
+<p align='center'>
+    <a href="https://github.com/jukangpark/soundcloud/wiki">Wiki</a> 👈🏻
+</p>
 
 ## 🛠 Using Skill
 
