@@ -22,6 +22,7 @@ import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { fetchComments, fetchMusic } from "../api";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 // library.add(fas);
 
@@ -254,6 +255,11 @@ const Music = () => {
 
   return (
     <Wrapper>
+      <HelmetProvider>
+        <Helmet>
+          <title>{data?.music?.title}</title>
+        </Helmet>
+      </HelmetProvider>
       <Banner style={{ backgroundImage: "none" }}>
         <Header />
         <BlurWrapper thumbUrl={isLoading ? "undefined" : data?.music?.thumbUrl}>

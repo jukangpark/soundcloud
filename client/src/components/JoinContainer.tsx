@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Btn } from "./Btn";
 
-const JoinContainer = styled.div`
+const Container = styled.div`
   height: 375px;
   position: relative;
   div {
@@ -43,5 +44,17 @@ const JoinContainer = styled.div`
     border-radius: 3px;
   }
 `;
+
+const JoinContainer = () => {
+  return (
+    <Container>
+      <div>
+        <h1>Thanks for listening. Now join in.</h1>
+        <p>Save tracks, follow artists and build playlists. All for free.</p>
+        <Btn>Create account</Btn>
+      </div>
+    </Container>
+  );
+};
 
 export default JoinContainer;

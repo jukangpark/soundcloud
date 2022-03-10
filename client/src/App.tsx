@@ -4,6 +4,7 @@ import { darkTheme, lightTheme } from "./theme";
 import { useRecoilValue } from "recoil";
 import { isDarkState } from "./atoms";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Helmet } from "react-helmet";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,

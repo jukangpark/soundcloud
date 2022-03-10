@@ -97,7 +97,7 @@ const Header = () => {
               <Link to="/join">Create account</Link>
             </li>
             <li>
-              <Link to="/login">Sign in</Link>
+              <Link to="/login">Log in</Link>
             </li>
           </>
         )}

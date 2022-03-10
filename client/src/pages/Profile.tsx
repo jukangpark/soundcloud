@@ -15,8 +15,8 @@ import Wrapper from "../components/Wrapper";
 import { IParams } from "../interface";
 import { IData } from "../interface";
 import { useParams } from "react-router-dom";
-import { Music } from "../components/Music";
 import Footer from "../components/Footer";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const isDark = useRecoilValue(isDarkState);
@@ -24,9 +24,14 @@ const Profile = () => {
   const { isLoading, data: user } = useQuery<IData>("user", () =>
     fetchUser(id)
   );
-
+  console.log(user);
   return (
     <Wrapper>
+      <HelmetProvider>
+        <Helmet>
+          <title>{user?.username}</title>
+        </Helmet>
+      </HelmetProvider>
       <Banner>
         <Header />
         <TitleContainer>
@@ -53,25 +58,25 @@ const Profile = () => {
         </TitleContainer>
       </Banner>
       <h1>{isLoading ? "Loading..." : `${user?.username}가 올린 음악들`}</h1>
-      <MusicContainer style={{ marginTop: "50px" }} isDark={isDark}>
-        {user?.musics?.map((music, index) => (
-          <li key={index} style={{ marginBottom: "40px" }}>
-            <Link to={`/${music._id}`}>
-              <h1 style={{ fontSize: "18px" }}>{music.title}</h1>
-              <Music
-                style={{
-                  backgroundImage: `url(${music.thumbUrl})`,
-                  position: "relative",
-                }}
-              ></Music>
-            </Link>
-            <span>{`재생수:  ${music.meta.views}`}</span>
-          </li>
-        ))}
-      </MusicContainer>
+      <MusicContainer isDark={isDark} data={user?.musics} />
       <Footer />
     </Wrapper>
   );
 };
 
 export default Profile;
+
+// {user?.musics?.map((music, index) => (
+//   <li key={index} style={{ marginBottom: "40px" }}>
+//     <Link to={`/${music._id}`}>
+//       <h1 style={{ fontSize: "18px" }}>{music.title}</h1>
+//       <Music
+//         style={{
+//           backgroundImage: `url(${music.thumbUrl})`,
+//           position: "relative",
+//         }}
+//       ></Music>
+//     </Link>
+//     <span>{`재생수:  ${music.meta.views}`}</span>
+//   </li>
+// ))}

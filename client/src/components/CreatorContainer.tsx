@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const CreatorContainer = styled.div`
+const Container = styled.div`
   background-image: url("https://a-v2.sndcdn.com/assets/images/hp_creator_image_featured_artists@2x-3007d170.jpg");
   height: 350px;
   background-repeat: no-repeat;
@@ -40,5 +41,20 @@ const CreatorContainer = styled.div`
     }
   }
 `;
+
+const CreatorContainer = () => {
+  return (
+    <Container>
+      <div>
+        <h1>Calling all creators</h1>
+        <p>
+          Get on SoundCloud to connect with fans, share your sounds, and grow
+          your audience. What are you waiting for?
+        </p>
+        <Link to="#">Find out more</Link>
+      </div>
+    </Container>
+  );
+};
 
 export default CreatorContainer;

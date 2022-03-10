@@ -16,8 +16,8 @@ import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 import { IMusic } from "../interface";
 import Form from "../components/Form";
-import { Music } from "../components/Music";
 import Footer from "../components/Footer";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 interface IUser {
   username: string;
@@ -32,6 +32,7 @@ const MyProfile = () => {
   const { isLoading, data: user } = useQuery<IUser>("loggedInUser", () =>
     fetchLoggedinUser()
   );
+  console.log(user?.musics[0].owner);
 
   const {
     register,
@@ -55,6 +56,11 @@ const MyProfile = () => {
 
   return (
     <Wrapper>
+      <HelmetProvider>
+        <Helmet>
+          <title>{user?.username}</title>
+        </Helmet>
+      </HelmetProvider>
       <Banner>
         <Header />
         <TitleContainer>
@@ -112,22 +118,7 @@ const MyProfile = () => {
         </TitleContainer>
       </Banner>
       <h1>{`내가 올린 음악들`}</h1>
-      <MusicContainer style={{ marginTop: "50px" }} isDark={isDark}>
-        {user?.musics?.map((music, index) => (
-          <li key={index} style={{ marginBottom: "40px" }}>
-            <Link to={`/${music._id}`}>
-              <h1 style={{ fontSize: "18px" }}>{music.title}</h1>
-              <Music
-                style={{
-                  backgroundImage: `url(${music.thumbUrl})`,
-                  position: "relative",
-                }}
-              ></Music>
-            </Link>
-            <span>{`Played:  ${music.meta.views}`}</span>
-          </li>
-        ))}
-      </MusicContainer>
+      <MusicContainer isDark={isDark} data={user?.musics} />
       <h1>{`내가 좋아요 누른 음악들`}</h1>
       <Btn>
         <Link to={`/profile/${user?._id}/update`} style={{ display: "block" }}>

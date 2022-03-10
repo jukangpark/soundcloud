@@ -19,6 +19,7 @@ import Title from "../components/MainTitle";
 import { Btn } from "../components/Btn";
 import Input from "../components/Input";
 import Footer from "../components/Footer";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 interface IForm {
   username: string;
@@ -69,11 +70,16 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <HelmetProvider>
+        <Helmet>
+          <title>Login</title>
+        </Helmet>
+      </HelmetProvider>
       <Banner>
         <Header />
         <TitleContainer>
           <TitleBox>
-            <Title>Sign in</Title>
+            <Title>Log in</Title>
             <Description>
               When registering, you agree that we may use your provided data for
               the registration and to send you notifications on our products and

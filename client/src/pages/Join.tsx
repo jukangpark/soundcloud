@@ -14,6 +14,7 @@ import Title from "../components/MainTitle";
 import { Btn } from "../components/Btn";
 import Input from "../components/Input";
 import Footer from "../components/Footer";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 interface IUser {
   email: string;
@@ -85,6 +86,11 @@ const Join = () => {
 
   return (
     <Wrapper>
+      <HelmetProvider>
+        <Helmet>
+          <title>Create Account</title>
+        </Helmet>
+      </HelmetProvider>
       <Banner
         style={{
           backgroundImage:

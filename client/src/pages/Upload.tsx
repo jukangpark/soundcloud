@@ -13,6 +13,7 @@ import { Btn } from "../components/Btn";
 import Wrapper from "../components/Wrapper";
 import Footer from "../components/Footer";
 import Form from "../components/Form";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export const TextArea = styled.textarea`
   width: 200px;
@@ -24,6 +25,11 @@ export const TextArea = styled.textarea`
 const Upload = () => {
   return (
     <Wrapper>
+      <HelmetProvider>
+        <Helmet>
+          <title>Upload</title>
+        </Helmet>
+      </HelmetProvider>
       <Banner
         style={{
           backgroundImage:

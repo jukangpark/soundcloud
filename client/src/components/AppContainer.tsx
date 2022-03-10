@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const AppContainer = styled.div`
+const Container = styled.div`
   margin-top: 70px;
   display: flex;
   height: 450px;
@@ -52,7 +53,7 @@ export const AppContainer = styled.div`
   }
 `;
 
-export const AppImg = styled.div`
+const AppImg = styled.div`
   width: 70%;
   height: 450px;
   background-image: url("https://a-v2.sndcdn.com/assets/images/never_stop_listening@2x-ae7903ca.jpg");
@@ -60,3 +61,32 @@ export const AppImg = styled.div`
   background-position: left;
   background-size: cover;
 `;
+
+const AppContainer = () => {
+  return (
+    <Container>
+      <AppImg></AppImg>
+      <div>
+        <h1>Never stop listening</h1>
+        <p>
+          SoundCloud is available on Web, iOS, Android, Sonos, Chromecast, and
+          Xbox One.
+        </p>
+        <div style={{ display: "flex", marginTop: "40px" }}>
+          <Link to="#" />
+          <Link
+            to="#"
+            style={{
+              width: "135px",
+              marginLeft: "10px",
+              backgroundImage:
+                "url(https://a-v2.sndcdn.com/assets/images/google_play_badge@en-51d52194.png)",
+            }}
+          />
+        </div>
+      </div>
+    </Container>
+  );
+};
+
+export default AppContainer;

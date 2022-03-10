@@ -3,7 +3,7 @@
 ## 서비스 소개
 
 <p align="center">
-    음악을 업로드 하고 공유 할 수 있는 사운드 클라우드 클론📀
+    음악을 업로드 하고 공유 할 수 있는 사운드 클라우드 클론 📀
 </p>
 <p align='center'>
 <img width="80%" alt="mainPage" src="https://user-images.githubusercontent.com/75718898/157369193-3a3aab6a-e1e6-4fbd-83de-a73994a5034b.png">
@@ -113,6 +113,7 @@ $ npm run dev
 - User Follow 기능 구현하기
 - 음악 조회수에 따른 변화 그래프 with Apex Chart 활용
 - 반응형 style 주기
+- 리액트 헬멧 사용하기
 
 ## Demo 👇
 

@@ -111,7 +111,9 @@ export const postUpdateProfileImage = async (req, res) => {
 
 export const getUserInfo = async (req, res, next) => {
   const user = res.locals.user;
-  const findedUser = await User.findById(user.user_id).populate("musics");
+  const findedUser = await User.findById(user.user_id)
+    .populate("musics")
+    .populate({ path: "musics", populate: { path: "owner" } });
   res.send(findedUser);
 };
 
