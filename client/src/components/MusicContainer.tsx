@@ -42,7 +42,7 @@ const MusicContainer = ({ isDark, data }: IProps) => {
             <h1>{music.title}</h1>
             <Music
               style={{
-                backgroundImage: `url(/${music.thumbUrl})`,
+                backgroundImage: `url(${music.thumbUrl})`,
                 position: "relative",
               }}
             />
@@ -51,7 +51,7 @@ const MusicContainer = ({ isDark, data }: IProps) => {
             <ProfileWrapper>
               <div
                 style={{
-                  backgroundImage: `url(/${music.owner.profileImageUrl})`,
+                  backgroundImage: `url(${music.owner.profileImageUrl})`,
                 }}
               ></div>
               <span>{music.owner.username}</span>
