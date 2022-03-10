@@ -46,7 +46,7 @@ export const login = async (req, res) => {
     },
     process.env.SECRET_KEY || "secret key",
     {
-      expiresIn: "1h",
+      expiresIn: "5h",
     }
   );
   // jwt 에 넣을 사용자 정보는 절대 비밀번호나 주민번호와 같은

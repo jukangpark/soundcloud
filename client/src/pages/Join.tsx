@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Wrapper from "../components/Wrapper";
-import BannerContainer, {
+import {
   Description,
   TitleBox,
   TitleContainer,
@@ -15,23 +15,7 @@ import { Btn } from "../components/Btn";
 import Input from "../components/Input";
 import Footer from "../components/Footer";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-
-interface IUser {
-  email: string;
-  id: string;
-  password: string;
-  password2: string;
-  username: string;
-  location: string;
-}
-
-// https://a-v2.sndcdn.com/assets/images/img-upload-hero@2x-464ed045.jpg
-
-// email: { type: String, required: true, unique: true },
-// avatarUrl: String,
-// username: { type: String, required: true, unique: true },
-// password: { type: String },
-// location: String,
+import { IUser } from "../interface";
 
 const Join = () => {
   const history = useHistory();
@@ -80,8 +64,8 @@ const Join = () => {
       .then((response) => response.json())
       .then((data) => {
         alert(data?.message);
-        history.push("/login"); // redirect 로그인 성공.
-      }); // fetchApi 를 통해 서버로 post 요청 날린다.
+        history.push("/login");
+      });
   };
 
   return (
@@ -181,10 +165,4 @@ const Join = () => {
   );
 };
 
-//   email: { type: String, required: true, unique: true },
-//   avatarUrl: String,
-//   username: { type: String, required: true, unique: true },
-//   password: { type: String },
-//   name: { type: String, required: true },
-//   location: String,
 export default Join;

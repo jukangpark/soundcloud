@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { fetchUser } from "../api";
 import { isDarkState } from "../atoms";
@@ -24,7 +23,7 @@ const Profile = () => {
   const { isLoading, data: user } = useQuery<IData>("user", () =>
     fetchUser(id)
   );
-  console.log(user);
+
   return (
     <Wrapper>
       <HelmetProvider>
@@ -65,18 +64,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-// {user?.musics?.map((music, index) => (
-//   <li key={index} style={{ marginBottom: "40px" }}>
-//     <Link to={`/${music._id}`}>
-//       <h1 style={{ fontSize: "18px" }}>{music.title}</h1>
-//       <Music
-//         style={{
-//           backgroundImage: `url(${music.thumbUrl})`,
-//           position: "relative",
-//         }}
-//       ></Music>
-//     </Link>
-//     <span>{`재생수:  ${music.meta.views}`}</span>
-//   </li>
-// ))}

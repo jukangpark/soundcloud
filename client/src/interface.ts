@@ -38,3 +38,12 @@ export interface IData {
 export interface IParams {
   id: string;
 }
+
+export interface IUser {
+  email: string;
+  id: string;
+  password: string;
+  password2: string;
+  username: string;
+  location: string;
+}

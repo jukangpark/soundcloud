@@ -1,13 +1,9 @@
 import Header from "../components/Header";
-import styled from "styled-components";
-import MainTitle from "../components/MainTitle";
 import Form from "../components/Form";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
-// useHistory hook gives you access to the history instance that you may use to navigate.
-import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { cookieState, userState } from "../atoms";
+import { cookieState } from "../atoms";
 import Wrapper from "../components/Wrapper";
 import {
   Banner,
@@ -26,14 +22,8 @@ interface IForm {
   password: string;
 }
 
-interface IData {
-  user: object;
-  message: string;
-}
 const Login = () => {
-  const [user, setUser] = useRecoilState(userState);
   const [hasCookie, setHasCookie] = useRecoilState(cookieState);
-  const [data, setData] = useState<IData>();
   const history = useHistory();
 
   const {
@@ -53,18 +43,20 @@ const Login = () => {
         password,
       }),
     });
+
     const data = await response.json();
+
     if (data.result === "ok") {
       setHasCookie(true);
     } else {
       alert(data?.message);
       throw new Error(data.error);
     }
+
     alert("로그인 성공");
-    setUser(data.user);
 
     if (data.user) {
-      history.push("/"); // redirect 로그인 성공.
+      history.push("/");
     }
   };
 
@@ -117,7 +109,6 @@ const Login = () => {
         <Link to="/join" style={{ textDecoration: "underline" }}>
           Create account
         </Link>
-        <span>{data?.message}</span>
       </Form>
       <Footer />
     </Wrapper>
@@ -125,6 +116,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// 어떻게 해야 username 과 password 데이터를 서버로 넘겨준다음에
-// redirect 홈 화면으로 넘어가지?

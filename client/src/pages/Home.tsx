@@ -8,7 +8,6 @@ import Footer from "../components/Footer";
 import MusicContainer from "../components/MusicContainer";
 import { useQuery } from "react-query";
 import { fetchMusics } from "../api";
-
 import { IMusic } from "../interface";
 import AppContainer from "../components/AppContainer";
 import JoinContainer from "../components/JoinContainer";
