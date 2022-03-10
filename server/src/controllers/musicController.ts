@@ -18,7 +18,7 @@ export const viewMusic = async (req, res) => {
   const music = await Music.findById(id)
     .populate("owner")
     .populate({ path: "comments", populate: { path: "owner" } });
-  return res.json({ music });
+  return res.send(music);
 };
 
 export const deleteMusic = async (req, res) => {

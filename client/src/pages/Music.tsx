@@ -15,7 +15,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { fetchComments, fetchMusic } from "../api";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import MusicPlayerContainer from "../components/MusicPlayerContainer";
+import { Banner } from "../components/Banner";
+import Header from "../components/Header";
+import { IMusic } from "../interface";
+import MusicPlayerContainer, {
+  IMusicProps,
+} from "../components/MusicPlayerContainer";
 
 export interface IParams {
   id: string;
@@ -42,7 +47,9 @@ const Comment = styled.li`
 
 const Music = () => {
   const { id } = useParams<IParams>();
+  const [isLoading, setLoading] = useState(true);
   const [commentState, setComment] = useState<IComment[]>();
+  const [music, setMusic] = useState<IMusic>();
   const hasCookie = useRecoilValue(cookieState);
 
   const { isLoading: commentsLoading, data: comments } = useQuery<IComment[]>(
@@ -52,6 +59,14 @@ const Music = () => {
 
   useEffect(() => {
     setComment(comments);
+    fetch(`/api/musics/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMusic(data);
+        setLoading(false);
+      });
+
+    console.log(Music);
   }, [comments]);
 
   const deleteComment = async (event: React.MouseEvent<HTMLElement>) => {
@@ -93,26 +108,30 @@ const Music = () => {
       .then((data) => setComment(data));
   };
 
-  const { isLoading, data } = useQuery("music", () => fetchMusic(id));
+  // const { isLoading, data } = useQuery("music", () => fetchMusic(id));
 
   return (
     <Wrapper>
       <HelmetProvider>
         <Helmet>
-          <title>{data?.music?.title}</title>
+          <title>{music?.title}</title>
         </Helmet>
       </HelmetProvider>
       {isLoading ? (
         <h1>loading...</h1>
       ) : (
         <>
-          <MusicPlayerContainer data={data} />
+          <Banner style={{ backgroundImage: "none" }}>
+            <Header />
+            <MusicPlayerContainer music={music} />
+          </Banner>
+
           {hasCookie ? (
             <Form onSubmit={handleSubmit(onValid)}>
               <Input
                 {...register("comment", { required: "댓글을 작성해주세요" })}
                 placeholder="Write a comment"
-              ></Input>
+              />
               <span>{errors.comment?.message}</span>
             </Form>
           ) : (

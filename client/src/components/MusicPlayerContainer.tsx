@@ -7,6 +7,8 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
 import { cookieState } from "../atoms";
 import AudioPlayer from "react-h5-audio-player";
+import { useEffect } from "react";
+import { IMusic } from "../interface";
 
 interface IProps {
   thumbUrl: any;
@@ -92,17 +94,6 @@ const ThumbNail = styled.div`
   }
 `;
 
-interface IData {
-  data: {
-    music: {
-      thumbUrl: string;
-      title: string;
-      owner: { username: string };
-      fileUrl: string;
-    };
-  };
-}
-
 const Btn = styled.div`
   cursor: pointer;
   background-color: #222222;
@@ -132,9 +123,14 @@ const Btn = styled.div`
   }
 `;
 
-const MusicPlayerContainer = ({ data }: IData) => {
+export interface IMusicProps {
+  music?: IMusic;
+}
+
+const MusicPlayerContainer = ({ music }: IMusicProps) => {
   const { id } = useParams<IParams>();
   let history = useHistory();
+
   const handleClick = () => {
     fetch(`/api/delete/${id}`, {
       method: "POST",
@@ -150,56 +146,51 @@ const MusicPlayerContainer = ({ data }: IData) => {
 
   const hasCookie = useRecoilValue(cookieState);
   return (
-    <Banner style={{ backgroundImage: "none" }}>
-      <Header />
-      <BlurWrapper thumbUrl={data?.music?.thumbUrl}>
-        <div style={{ width: "870px", height: "100%" }}>
-          <MusicTextWrapper>
-            <MusicTitle>
-              <span>{data?.music?.title}</span>
-            </MusicTitle>
-            <MusicCreator>
-              <span>{data?.music?.owner.username}</span>
-            </MusicCreator>
-          </MusicTextWrapper>
-          <div>
-            <AudioPlayer
-              autoPlay={false}
-              src={`${data?.music?.fileUrl}`}
-              onPlay={(e) =>
-                fetch(`/api/musics/${id}/play`, { method: "POST" })
-              }
-            />
-          </div>
+    <BlurWrapper thumbUrl={music?.thumbUrl}>
+      <div style={{ width: "870px", height: "100%" }}>
+        <MusicTextWrapper>
+          <MusicTitle>
+            <span>{music?.title}</span>
+          </MusicTitle>
+          <MusicCreator>
+            <span>{music?.owner?.username}</span>
+          </MusicCreator>
+        </MusicTextWrapper>
+        <div>
+          <AudioPlayer
+            autoPlay={false}
+            src={`${music?.fileUrl}`}
+            onPlay={(e) => fetch(`/api/musics/${id}/play`, { method: "POST" })}
+          />
         </div>
-        <ThumbNail
+      </div>
+      <ThumbNail
+        style={{
+          backgroundImage: `url(${music?.thumbUrl})`,
+        }}
+      >
+        <Link
+          to="#"
           style={{
-            backgroundImage: `url(${data?.music.thumbUrl})`,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            fontSize: "20px",
           }}
         >
-          <Link
-            to="#"
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              fontSize: "20px",
-            }}
-          >
-            <FontAwesomeIcon icon={faHeart} />
-          </Link>
+          <FontAwesomeIcon icon={faHeart} />
+        </Link>
 
-          {hasCookie ? (
-            <Btn>
-              <Link to={`/${id}/update`} style={{ color: "white" }}>
-                Update
-              </Link>
-            </Btn>
-          ) : null}
-          {hasCookie ? <Btn onClick={handleClick}>Delete</Btn> : null}
-        </ThumbNail>
-      </BlurWrapper>
-    </Banner>
+        {hasCookie ? (
+          <Btn>
+            <Link to={`/${id}/update`} style={{ color: "white" }}>
+              Update
+            </Link>
+          </Btn>
+        ) : null}
+        {hasCookie ? <Btn onClick={handleClick}>Delete</Btn> : null}
+      </ThumbNail>
+    </BlurWrapper>
   );
 };
 
