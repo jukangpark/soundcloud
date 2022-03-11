@@ -22,7 +22,6 @@ interface IUser {
 
 const MyProfile = () => {
   const isDark = useRecoilValue(isDarkState);
-
   const { isLoading, data: user } = useQuery<IUser>("loggedInUser", () =>
     fetchLoggedinUser()
   );

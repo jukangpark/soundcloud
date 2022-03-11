@@ -38,6 +38,13 @@ interface IComment {
   createdAt: string;
 }
 
+// const Comment = styled.li`
+//   line-height: 14px;
+//   font-size: 14px;
+//   width: 420px;
+//   margin: 0 auto;
+// `;
+
 const Comment = styled.li`
   line-height: 14px;
   font-size: 14px;
@@ -59,15 +66,17 @@ const Music = () => {
 
   useEffect(() => {
     setComment(comments);
+    console.log(commentState);
+  }, [comments]);
+
+  useEffect(() => {
     fetch(`/api/musics/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setMusic(data);
         setLoading(false);
       });
-
-    console.log(Music);
-  }, [comments]);
+  }, []);
 
   const deleteComment = async (event: React.MouseEvent<HTMLElement>) => {
     const { commentid, ownerid } = event.currentTarget.dataset;
@@ -107,8 +116,6 @@ const Music = () => {
       .then((res) => res.json())
       .then((data) => setComment(data));
   };
-
-  // const { isLoading, data } = useQuery("music", () => fetchMusic(id));
 
   return (
     <Wrapper>
