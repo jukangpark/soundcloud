@@ -54,29 +54,36 @@ const Comment = styled.li`
 
 const Music = () => {
   const { id } = useParams<IParams>();
-  const [isLoading, setLoading] = useState(true);
+  const [isMusicLoading, setMusicLoading] = useState(true);
+  const [isCommentsLoading, setCommentsLoading] = useState(true);
   const [commentState, setComment] = useState<IComment[]>();
   const [music, setMusic] = useState<IMusic>();
   const hasCookie = useRecoilValue(cookieState);
 
-  const { isLoading: commentsLoading, data: comments } = useQuery<IComment[]>(
-    "comments",
-    () => fetchComments(id)
-  );
+  // const { isLoading: commentsLoading, data: comments } = useQuery<IComment[]>(
+  //   "comments",
+  //   () => fetchComments(id)
+  // );
 
   useEffect(() => {
-    setComment(comments);
-    console.log(commentState);
-  }, [comments]);
+    fetch(`/api/musics/${id}/comment`)
+      .then((res) => res.json())
+      .then((data) => {
+        setComment(data);
+        setCommentsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     fetch(`/api/musics/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setMusic(data);
-        setLoading(false);
+        setMusicLoading(false);
       });
   }, []);
+
+  const isLoading = isMusicLoading || isCommentsLoading;
 
   const deleteComment = async (event: React.MouseEvent<HTMLElement>) => {
     const { commentid, ownerid } = event.currentTarget.dataset;
@@ -93,6 +100,9 @@ const Music = () => {
 
     const { message } = await data.json();
     alert(message);
+    fetch(`/api/musics/${id}/comment`)
+      .then((res) => res.json())
+      .then((data) => setComment(data));
   };
 
   const {
@@ -160,7 +170,7 @@ const Music = () => {
           )}
 
           <ul>
-            {commentsLoading
+            {isLoading
               ? "Loading ..."
               : commentState?.map((comment, index) => (
                   <Comment key={index}>
