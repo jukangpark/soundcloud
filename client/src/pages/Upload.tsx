@@ -86,5 +86,3 @@ const Upload = () => {
 };
 
 export default Upload;
-
-// text area is often used in a form, to collect user inputs like comments or reviews.

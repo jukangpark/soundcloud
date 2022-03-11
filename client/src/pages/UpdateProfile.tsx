@@ -6,7 +6,7 @@ import Title from "../components/MainTitle";
 import Form from "../components/Form";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Btn } from "../components/Btn";
 

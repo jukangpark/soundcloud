@@ -46,8 +46,6 @@ const Search = () => {
       .then((data) => setList(data.list));
   };
 
-  console.log(list);
-
   return (
     <div>
       <Form onSubmit={handleSubmit(onValid)}>

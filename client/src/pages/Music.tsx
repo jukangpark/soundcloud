@@ -12,15 +12,11 @@ import { useForm } from "react-hook-form";
 import { IOwner } from "../interface";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "react-query";
-import { fetchComments, fetchMusic } from "../api";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Banner } from "../components/Banner";
 import Header from "../components/Header";
 import { IMusic } from "../interface";
-import MusicPlayerContainer, {
-  IMusicProps,
-} from "../components/MusicPlayerContainer";
+import MusicPlayerContainer from "../components/MusicPlayerContainer";
 
 export interface IParams {
   id: string;
@@ -38,13 +34,6 @@ interface IComment {
   createdAt: string;
 }
 
-// const Comment = styled.li`
-//   line-height: 14px;
-//   font-size: 14px;
-//   width: 420px;
-//   margin: 0 auto;
-// `;
-
 const Comment = styled.li`
   line-height: 14px;
   font-size: 14px;
@@ -60,11 +49,6 @@ const Music = () => {
   const [music, setMusic] = useState<IMusic>();
   const hasCookie = useRecoilValue(cookieState);
 
-  // const { isLoading: commentsLoading, data: comments } = useQuery<IComment[]>(
-  //   "comments",
-  //   () => fetchComments(id)
-  // );
-
   useEffect(() => {
     fetch(`/api/musics/${id}/comment`)
       .then((res) => res.json())
@@ -72,9 +56,7 @@ const Music = () => {
         setComment(data);
         setCommentsLoading(false);
       });
-  }, []);
 
-  useEffect(() => {
     fetch(`/api/musics/${id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -189,7 +171,7 @@ const Music = () => {
                             backgroundImage: `url(${comment.owner.profileImageUrl})`,
                             display: "inline-block",
                           }}
-                        ></div>
+                        />
                         <span style={{ marginRight: "20px" }}>
                           {comment.owner.username}
                         </span>

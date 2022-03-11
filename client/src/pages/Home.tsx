@@ -48,5 +48,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// json() 을 빼주니까 에러가 안나오네? 그럼 왜 json() 을 사용하면 안되는거죠?
