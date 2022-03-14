@@ -114,6 +114,7 @@ $ npm run dev
 - 음악 조회수에 따른 변화 그래프 with Apex Chart 활용
 - 반응형 style 주기
 - 리액트 헬멧 사용하기
+- Virtual DOM 렌더링 리소스 최소화 하기
 
 ## Demo 👇
 
